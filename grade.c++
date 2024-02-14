@@ -78,6 +78,30 @@ int main()
             pazymiuSuma = 0;
             galutinis = 0;
         } 
+    }else if (vidurkioTipas == 2){
+        double mediana = 0;
+        cout<<"Pavarde"<<setw(16)<<"Vardas"<<setw(28)<<"Galutinis (Med.)\n";
+        cout<<"---------------------------------------------------\n";
+        for(int i=0; i<mokiniuSk; i++){
+//-----------------------------------------------------------------------
+            M[i].n++;
+                M[i].tarpiniaiRezultatai[M[i].n-1]=M[i].egzaminoRezultatas;
+                sort(M[i].tarpiniaiRezultatai, M[i].tarpiniaiRezultatai + M[i].n);
+            // for(int j=0; j<M[i].n; j++){
+            //     cout<<M[i].tarpiniaiRezultatai[j]<<" ";
+            // }
+//------------------------------------------------------------------------
+            if(M[i].n%2!=0){
+                int skaicius = M[i].n/2;
+                mediana = M[i].tarpiniaiRezultatai[skaicius];
+            }else if(M[i].n%2==0){
+                int pirmas = M[i].n/2-1;
+                int antras = M[i].n/2+1;
+                mediana = (M[i].tarpiniaiRezultatai[pirmas]+M[i].tarpiniaiRezultatai[antras])/2;
+            }
+            cout<<M[i].pavarde<<setw(16)<<M[i].vardas<<setw(28)<<fixed<<setprecision(2)<<mediana<<endl;
+            mediana = 0;
+        }
     }
 
 
