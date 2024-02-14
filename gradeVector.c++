@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <vector>
+#include <sstream>
 
 
 using namespace std;
@@ -18,31 +19,38 @@ struct mokinys{
 int main()
 {
     vector<mokinys> M;
+    string eilute;
     int indeksas = 0;
-    while(cin){
+    
+    cout<<"Iveskite mokinio varda, pavarde, gautus pazymius is namu darbu (paskutinis pazymys turi buti egzamino).Jei norite baigti sarasa paspauskite du kartus enter\n";
+
+    while (getline(cin, eilute)) {
         mokinys x;
         M.push_back(x);
-        //cout<<indeksas<<endl;
-        cout<<"Iveskite mokinio varda, pavarde, gautus pazymius is namu darbu (paskutinis pazymys turi buti egzamino)\n";
-        cin>>M[indeksas].vardas>>M[indeksas].pavarde;
 
-        int skaicius;
-        while(cin>>skaicius){
-            int indeksas1 = 0;
-            M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
-            while(M[indeksas].tarpiniaiRezultatai[indeksas1]<0 || M[indeksas].tarpiniaiRezultatai[indeksas1]>10){
-                cout<<"Pazymiai turi buti (0-10)\n";
-                cin>>M[indeksas].tarpiniaiRezultatai[indeksas1];
-            }
-            indeksas1++;
+        if (eilute.empty()) {
+            break;
         }
-        M[indeksas].egzaminoRezultatas = M[indeksas].tarpiniaiRezultatai[M[indeksas].tarpiniaiRezultatai.size()-1];
-        M[indeksas].tarpiniaiRezultatai.pop_back();
+
+        istringstream iss(eilute);
+        iss >> M[indeksas].vardas >> M[indeksas].pavarde;
+        //cout<<M[indeksas].vardas<<" ";
+        int skaicius;
+        while (iss >> skaicius) {
+            if (skaicius >= 0 && skaicius <= 10) {
+                M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
+            }
+
+        }
+
+        // Set egzaminoRezultatas to the last element of tarpiniaiRezultatai
+        if (!M[indeksas].tarpiniaiRezultatai.empty()) {
+            M[indeksas].egzaminoRezultatas = M[indeksas].tarpiniaiRezultatai.back();
+            M[indeksas].tarpiniaiRezultatai.pop_back();
+        }
         indeksas++;
     }
-        for(int i=0; i<M[0].tarpiniaiRezultatai.size(); i++){
-            cout<<indeksas<<endl;
-        }
+
     // for(int i=0; i<mokiniuSk; i++){
     //     cout<<"Iveskite mokinio varda, pavarde, gautus pazymius is namu darbu\n";
     //    cin>>M[i].vardas>>M[i].pavarde;
