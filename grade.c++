@@ -1,6 +1,8 @@
 #include <iostream>
 #include <random>
 #include <limits>
+#include <iomanip>
+#include <algorithm>
 
 
 using namespace std;
@@ -9,7 +11,7 @@ struct mokinys{
     string vardas;
     string pavarde;
     int n;
-    int tarpiniaiRezultatai[50];
+    double tarpiniaiRezultatai[51];
     int egzaminoRezultatas;
 };
 
@@ -63,17 +65,18 @@ int main()
     cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciutas jus vidurkis (1 = paprastai, 2 = mediana):\n";
     cin>>vidurkioTipas;
     if(vidurkioTipas == 1){
-        int vidurkis = 0, pazymiuSuma = 0;
+        double galutinis = 0, pazymiuSuma = 0;
+        cout<<"Pavarde"<<setw(16)<<"Vardas"<<setw(28)<<"Galutinis (Vid.)\n";
+        cout<<"---------------------------------------------------\n";
         for(int i=0; i<mokiniuSk; i++){
             for(int j=0; j<M[i].n; j++){
                 pazymiuSuma+=M[i].tarpiniaiRezultatai[j];
             }
-            vidurkis = (M[i].egzaminoRezultatas + pazymiuSuma)/M[i].n;
+            galutinis = 0.4 * (pazymiuSuma/M[i].n) + 0.6 * M[i].egzaminoRezultatas;
 
-            cout<<
-
+            cout<<M[i].pavarde<<setw(16)<<M[i].vardas<<setw(28)<<fixed<<setprecision(2)<<galutinis<<endl;
             pazymiuSuma = 0;
-            vidurkis = 0;
+            galutinis = 0;
         } 
     }
 
