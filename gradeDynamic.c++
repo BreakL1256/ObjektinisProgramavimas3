@@ -3,8 +3,9 @@
 #include <limits>
 #include <iomanip>
 #include <algorithm>
-#include <vector>
 #include <sstream>
+#include <cctype>
+
 
 
 using namespace std;
@@ -17,58 +18,117 @@ struct mokinys{
     int egzaminoRezultatas;
 };
 
+
+bool SudaroTikRaides(string& str) {
+    for (int i=0; i<str.length(); i++) {
+        if (!isalpha(str[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void VarduSkaitymas(istringstream & iss, mokinys* r, int indeksas, bool & err){
+    iss >> r[indeksas].vardas >> r[indeksas].pavarde;
+    if(!SudaroTikRaides(r[indeksas].vardas) || !SudaroTikRaides(r[indeksas].vardas)){
+        cout<<"Varda ir pavarde gali sudaryti tik raides!\n";
+        err=1;   
+    }
+}
+
 int main()
 {
+    int pasirinkimas;
+
+while(true){
+    cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba\n";
+    cin>>pasirinkimas;
+
     mokinys* r = new mokinys[100000];
+    int indeksas = 0, skaicius, iteracija = 0, laisvaEilute = 0;
     string eilute;
-    int indeksas = 0;
-    
-    cout<<"Iveskite mokinio varda, pavarde, gautus pazymius is namu darbu (paskutinis pazymys turi buti egzamino).Jei norite baigti sarasa paspauskite du kartus enter\n";
+    bool err = 0;
 
-    while (getline(cin, eilute)) {
-        if (eilute.empty()) {
-            break;
-        }
-
-
-        istringstream iss(eilute);
-        iss >> r[indeksas].vardas >> r[indeksas].pavarde;
-        //cout<<M[indeksas].vardas<<" ";
-        int skaicius, iteracija = 0;
-        while (iss >> skaicius) {
-            if (skaicius >= 0 && skaicius <= 10) {
-                if(r[indeksas].tarpRez == nullptr){
-                    r[indeksas].tarpRez = new int[1000];
+    switch(pasirinkimas){
+        case 1:
+            cout<<"Iveskite mokinio varda, pavarde, gautus pazymius is namu darbu (paskutinis pazymys turi buti egzamino).Jei norite baigti sarasa paspauskite du kartus enter\n";
+            while (getline(cin, eilute)) {
+                if (eilute.empty()) {
+                    laisvaEilute++;
+                    if(laisvaEilute == 2)
+                        break;
                 }
-                r[indeksas].tarpRez[iteracija] = skaicius;
-                iteracija++;
+
+                istringstream iss(eilute);
+                VarduSkaitymas(iss, r, indeksas, err);
+
+                if(err){
+                    break;
+                }
+
+                while (iss >> skaicius) {
+                    if (skaicius >= 0 && skaicius <= 10) {
+                        if(r[indeksas].tarpRez == nullptr){
+                            r[indeksas].tarpRez = new int[1000];
+                        }
+                        r[indeksas].tarpRez[iteracija] = skaicius;
+                        iteracija++;
+                    }
+
+                }
+
+                // Set egzaminoRezultatas to the last element of tarpiniaiRezultatai
+                if (iteracija != 0) {
+                    r[indeksas].egzaminoRezultatas = r[indeksas].tarpRez[iteracija-1];
+                    int* TarpRezCopy = new int[iteracija];
+                    for(int i=0; i<iteracija; i++){
+                        TarpRezCopy[i] = r[indeksas].tarpRez[i];
+                    }
+                    delete [] r[indeksas].tarpRez;
+
+                    r[indeksas].tarpRez = TarpRezCopy;
+
+                }
+
+                r[indeksas].tarpRezIt = iteracija;
+
+                indeksas++;
+                iteracija = 0;
             }
+           break;
+        
+           
+        case 2:
+            cout<<"Iveskite mokiniu vardus ir pavardes:\n";
 
-        }
+            while (getline(cin, eilute)) {
+                if (eilute.empty()) {
+                    break;
+                }
+                istringstream iss(eilute);
+                VarduSkaitymas(iss, r, indeksas, err);
+                if(err){
+                    break;
+                }
 
-        // Set egzaminoRezultatas to the last element of tarpiniaiRezultatai
-        if (iteracija != 0) {
-            r[indeksas].egzaminoRezultatas = r[indeksas].tarpRez[iteracija-1];
-            int* TarpRezCopy = new int[iteracija];
-            for(int i=0; i<iteracija; i++){
-                TarpRezCopy[i] = r[indeksas].tarpRez[i];
+                indeksas++;
             }
-            delete [] r[indeksas].tarpRez;
+            break;
+        
+        case 3:
+        break;
 
-            r[indeksas].tarpRez = TarpRezCopy;
-
-        }
-
-        r[indeksas].tarpRezIt = iteracija;
-
-        indeksas++;
-        iteracija = 0;
+        case 4:
+        return 0;
     }
     
+
+
     if(indeksas != 0){
+        indeksas--;
         mokinys* rcopy = new mokinys[indeksas];
         for(int i=0; i<indeksas; i++){
-            rcopy[i] = r[i];
+            rcopy[i] = r[i+1];
         }
 
         delete[] r;
@@ -123,5 +183,6 @@ int main()
     } else {
         delete[] r;
     }
+}
     return 0;
 }
