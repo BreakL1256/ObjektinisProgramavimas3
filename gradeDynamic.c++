@@ -33,7 +33,18 @@ void VarduSkaitymas(istringstream & iss, mokinys* r, int indeksas, bool & err){
     if(!SudaroTikRaides(r[indeksas].vardas) || !SudaroTikRaides(r[indeksas].vardas)){
         cout<<"Varda ir pavarde gali sudaryti tik raides!\n";
         err=1;   
+    } else {
+        err=0;
     }
+}
+
+void GeneruotiPazymius(mokinys* r, int indeksas){
+    srand(time(nullptr));
+    r[indeksas].tarpRez = new int[r[indeksas].tarpRezIt];
+    for(int i=0; i<r[indeksas].tarpRezIt; i++){
+       r[indeksas].tarpRez[i] = (double)rand()/RAND_MAX * 10;
+    }
+
 }
 
 int main()
@@ -99,18 +110,23 @@ while(true){
         
            
         case 2:
+            int sugeneruotiSk;
+            cout<<"Parasykite kiek noretumete kad prie kiekvieno mokinio butu sugeneruota pazymiu (pazymiai generuojami 10 balu sistemoje):\n";
+            cin>>sugeneruotiSk;
             cout<<"Iveskite mokiniu vardus ir pavardes:\n";
-
             while (getline(cin, eilute)) {
                 if (eilute.empty()) {
-                    break;
+                    laisvaEilute++;
+                    if(laisvaEilute == 2)
+                        break;
                 }
                 istringstream iss(eilute);
                 VarduSkaitymas(iss, r, indeksas, err);
+                r[indeksas].tarpRezIt = sugeneruotiSk;
+                GeneruotiPazymius(r, indeksas);
                 if(err){
                     break;
                 }
-
                 indeksas++;
             }
             break;
@@ -175,7 +191,7 @@ while(true){
                 mediana = 0;
             }
         }
-
+        
     for (int i = 0; i < indeksas; i++) {
         delete[] rcopy[i].tarpRez;
     }
