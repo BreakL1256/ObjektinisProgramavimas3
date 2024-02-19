@@ -41,6 +41,27 @@ void GeneruotiPazymius(vector<mokinys> & M, int indeksas){
     }
 }
 
+void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
+    char v, p;
+    int vardoIlgis = 0, pavardesIlgis = 0; 
+    vardoIlgis = 6 + (double)rand()/RAND_MAX * (12-6);
+    pavardesIlgis = 6 + (double)rand()/RAND_MAX * (12-6);
+    for(int i=0; i<vardoIlgis; i++){
+        if(i==0)
+            v = 65 + (double)rand()/RAND_MAX * (90-65);
+        else
+            v = 97 + (double)rand()/RAND_MAX * (122-97);
+        M[indeksas].vardas.push_back(v);
+    }
+    for(int i=0; i<pavardesIlgis; i++){
+        if(i==0)
+            v = 65 + (double)rand()/RAND_MAX * (90-65);
+        else
+            v = 97 + (double)rand()/RAND_MAX * (122-97);
+        M[indeksas].pavarde.push_back(v);
+    }
+}
+
 int main()
 {
 srand(time(nullptr));
@@ -118,7 +139,16 @@ while(true){
             break;
 
         case 3:
-            
+            cout<<"Pasirinkite kiek noresite skirtingu mokiniu sugeneruoti ir kiek mokiniai tures sugeneruotu pazymiu (pirmas skaicius - mokiniu sk., antras skaicius - pazymiu sk.)\n";
+            cin>>indeksas>>sugeneruotiSk;
+            for(int i=0; i<indeksas; i++){
+                mokinys x;
+                M.push_back(x);
+                
+                VarduPavardziuGeneravimas(M, i);
+                M[i].tarpiniaiRezultatai.resize(sugeneruotiSk);
+                GeneruotiPazymius(M, i);
+            }
             break;
 
         case 4:
