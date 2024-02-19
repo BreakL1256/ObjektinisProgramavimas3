@@ -1,4 +1,4 @@
-# Vidurkių skaičiavimoo programa
+# Vidurkių skaičiavimo programa
 
 Programa:
 -Priima įvestį iš konsolės (mokinių ir ju pažymių)
