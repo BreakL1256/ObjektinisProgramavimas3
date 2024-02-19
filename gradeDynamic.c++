@@ -39,26 +39,47 @@ void VarduSkaitymas(istringstream & iss, mokinys* r, int indeksas, bool & err){
 }
 
 void GeneruotiPazymius(mokinys* r, int indeksas){
-    srand(time(nullptr));
     r[indeksas].tarpRez = new int[r[indeksas].tarpRezIt];
     for(int i=0; i<r[indeksas].tarpRezIt; i++){
        r[indeksas].tarpRez[i] = (double)rand()/RAND_MAX * 10;
     }
+}
 
+void VarduPavardziuGeneravimas(mokinys* r, int indeksas){
+    char v, p;
+    int vardoIlgis = 0, pavardesIlgis = 0; 
+    vardoIlgis = 6 + (double)rand()/RAND_MAX * (12-6);
+    pavardesIlgis = 6 + (double)rand()/RAND_MAX * (12-6);
+    for(int i=0; i<vardoIlgis; i++){
+        if(i==0)
+            v = 65 + (double)rand()/RAND_MAX * (90-65);
+        else
+            v = 97 + (double)rand()/RAND_MAX * (122-97);
+        r[indeksas].vardas.push_back(v);
+    }
+    for(int i=0; i<pavardesIlgis; i++){
+        if(i==0)
+            v = 65 + (double)rand()/RAND_MAX * (90-65);
+        else
+            v = 97 + (double)rand()/RAND_MAX * (122-97);
+        r[indeksas].pavarde.push_back(v);
+    }
 }
 
 int main()
 {
     int pasirinkimas;
+    srand(time(nullptr));
 
 while(true){
+    mokinys* r = new mokinys[100000];
+    int indeksas = 0, skaicius, iteracija = 0, laisvaEilute = 0, sugeneruotiSk;
+    string eilute;
+    bool err = 0;
+
     cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba\n";
     cin>>pasirinkimas;
 
-    mokinys* r = new mokinys[100000];
-    int indeksas = 0, skaicius, iteracija = 0, laisvaEilute = 0;
-    string eilute;
-    bool err = 0;
 
     switch(pasirinkimas){
         case 1:
@@ -110,10 +131,10 @@ while(true){
         
            
         case 2:
-            int sugeneruotiSk;
+            
             cout<<"Parasykite kiek noretumete kad prie kiekvieno mokinio butu sugeneruota pazymiu (pazymiai generuojami 10 balu sistemoje):\n";
             cin>>sugeneruotiSk;
-            cout<<"Iveskite mokiniu vardus ir pavardes:\n";
+            cout<<"Iveskite mokiniu vardus ir pavardes (noredami baigti ivedima nueje i nauja eilute paspauskite enter):\n";
             while (getline(cin, eilute)) {
                 if (eilute.empty()) {
                     laisvaEilute++;
@@ -122,16 +143,27 @@ while(true){
                 }
                 istringstream iss(eilute);
                 VarduSkaitymas(iss, r, indeksas, err);
-                r[indeksas].tarpRezIt = sugeneruotiSk;
-                GeneruotiPazymius(r, indeksas);
                 if(err){
                     break;
                 }
+                r[indeksas].tarpRezIt = sugeneruotiSk;
+                GeneruotiPazymius(r, indeksas);
                 indeksas++;
             }
             break;
         
         case 3:
+
+            cout<<"Pasirinkite kiek noresite skirtingu mokiniu sugeneruoti ir kiek mokiniai tures sugeneruotu pazymiu (pirmas skaicius - mokiniu sk., antras skaicius - pazymiu sk.)\n";
+            cin>>indeksas>>sugeneruotiSk;
+
+            for(int i=0; i<indeksas; i++){
+                VarduPavardziuGeneravimas(r, i);
+                r[i].tarpRezIt = sugeneruotiSk;
+                GeneruotiPazymius(r, i);
+            }
+            
+
         break;
 
         case 4:
@@ -140,13 +172,19 @@ while(true){
     
 
 
-    if(indeksas != 0){
-        indeksas--;
+    if(indeksas != 0 && err == 0){     
         mokinys* rcopy = new mokinys[indeksas];
-        for(int i=0; i<indeksas; i++){
-            rcopy[i] = r[i+1];
-        }
+        if(pasirinkimas == 3){
+            for(int i=0; i<indeksas; i++){
+                rcopy[i] = r[i];
+            }
+        } else{
 
+            indeksas--;
+            for(int i=0; i<indeksas; i++){
+                rcopy[i] = r[i+1];
+            }
+        }
         delete[] r;
     
    
@@ -184,13 +222,15 @@ while(true){
                     mediana = rcopy[i].tarpRez[skaicius];
                 }else if(rezultatuSk%2==0){
                     int pirmas = rezultatuSk/2-1;
-                    int antras = rezultatuSk/2+1;
+                    int antras = rezultatuSk/2;
                     mediana = (double(rcopy[i].tarpRez[pirmas]+rcopy[i].tarpRez[antras]))/2;
                 }
                 cout<<rcopy[i].pavarde<<setw(16)<<rcopy[i].vardas<<setw(28)<<fixed<<setprecision(2)<<mediana<<endl;
                 mediana = 0;
             }
         }
+    if(pasirinkimas != 3)
+        indeksas++;
         
     for (int i = 0; i < indeksas; i++) {
         delete[] rcopy[i].tarpRez;
