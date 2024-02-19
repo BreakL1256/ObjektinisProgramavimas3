@@ -8,7 +8,7 @@
 
 
 using namespace std;
-
+//Struktura skirta saugoti mokinio duomenis
 struct mokinys{
     string vardas;
     string pavarde;
@@ -16,6 +16,7 @@ struct mokinys{
     int egzaminoRezultatas;
 };
 
+//Funkcija, kuri patikrina ar irasytame zodyje yra tik raides
 bool SudaroTikRaides(string& str) {
     for (int i=0; i<str.length(); i++) {
         if (!isalpha(str[i])) {
@@ -25,6 +26,7 @@ bool SudaroTikRaides(string& str) {
     return true;
 }
 
+//Funkcija, kuri leidzia perskaityti varda ir pavarde ir kartu patikrina ar vardas ir pavarde yra zodziai sudaryti is raidziu
 void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool & err){
     iss >> M[indeksas].vardas >> M[indeksas].pavarde;
     if(!SudaroTikRaides(M[indeksas].vardas) || !SudaroTikRaides(M[indeksas].vardas)){
@@ -34,13 +36,13 @@ void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool
         err=0;
     }
 }
-
+//Funkcija skirta generuoti atsitiktinius pazymius
 void GeneruotiPazymius(vector<mokinys> & M, int indeksas){
     for(int i=0; i<M[indeksas].tarpiniaiRezultatai.size(); i++){
        M[indeksas].tarpiniaiRezultatai[i] = (double)rand()/RAND_MAX * 10;
     }
 }
-
+//Funkcija skirta atsitikitiniu vardu ir pavardziu generavimui sudarytu is atsitiktiniu raidziu
 void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
     char v, p;
     int vardoIlgis = 0, pavardesIlgis = 0; 
@@ -65,7 +67,7 @@ void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
 int main()
 {
 srand(time(nullptr));
-
+//Veikimas padarytas, kad programa veiktu kol nepasirenkamas jos terminavimas
 while(true){
     vector<mokinys> M;
     string eilute;
@@ -74,12 +76,13 @@ while(true){
     
     cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba\n";
     cin>>pasirinkimas;
-
+//Suteikiami 4 pasirinkimai kaip dirbti su duomenimis: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba
     switch(pasirinkimas){
         case 1:
             cout<<"Iveskite mokinio varda, pavarde, gautus pazymius is namu darbu (paskutinis pazymys turi buti egzamino).Jei norite baigti sarasa paspauskite du kartus enter\n";
 
             while (getline(cin, eilute)) {
+                //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
                if (eilute.empty()) {
                     laisvaEilute++;
                     if(laisvaEilute == 2)
@@ -92,10 +95,12 @@ while(true){
 
                 istringstream iss(eilute);
                 VarduSkaitymas(iss, M, indeksas, err);
+                //Jei zodis nera sudarytas is raidziu, nutraukiamas programos darbas ir ismetamas pasirinkimo duomenu apdorojimo meniu 
                 if(err){
                     break;
                 }
                 int skaicius;
+                //Nuskaitomi tik skaiciai 10 sistemoje
                 while (iss >> skaicius) {
                     if (skaicius >= 0 && skaicius <= 10) {
                         M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
@@ -103,7 +108,7 @@ while(true){
 
                 }
 
-                // Set egzaminoRezultatas to the last element of tarpiniaiRezultatai
+                //is vektoriaus istraukiamas egzamino rez.
                 if (!M[indeksas].tarpiniaiRezultatai.empty()) {
                     M[indeksas].egzaminoRezultatas = M[indeksas].tarpiniaiRezultatai.back();
                     M[indeksas].tarpiniaiRezultatai.pop_back();
@@ -131,7 +136,7 @@ while(true){
                 if(err){
                     break;
                 }
-
+                //Is anksto nustatoma kiek mokinia tures pazymiu, kad butu galima generuoti atsitiktinius pazymius
                 M[indeksas].tarpiniaiRezultatai.resize(sugeneruotiSk);
                 GeneruotiPazymius(M, indeksas);
                 indeksas++;
@@ -141,10 +146,11 @@ while(true){
         case 3:
             cout<<"Pasirinkite kiek noresite skirtingu mokiniu sugeneruoti ir kiek mokiniai tures sugeneruotu pazymiu (pirmas skaicius - mokiniu sk., antras skaicius - pazymiu sk.)\n";
             cin>>indeksas>>sugeneruotiSk;
+            //Is anksto nusprendziamas kiek bus mokiniu ir kiek mokiniai tures pazymiu
             for(int i=0; i<indeksas; i++){
                 mokinys x;
                 M.push_back(x);
-                
+
                 VarduPavardziuGeneravimas(M, i);
                 M[i].tarpiniaiRezultatai.resize(sugeneruotiSk);
                 GeneruotiPazymius(M, i);
@@ -154,7 +160,7 @@ while(true){
         case 4:
             return 0;
     }
-
+//Istrinamas pirmas elementas, nes del sudarytos strukutors kaip nuskaitomi duomenys yra nuskaitoma tuscia eilute
     if (!M.empty() && pasirinkimas != 3) {
         M.erase(M.begin());
     }
@@ -164,6 +170,7 @@ while(true){
         int vidurkioTipas = 0;
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;
+        //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
         if(vidurkioTipas == 1){
             double galutinis = 0, pazymiuSuma = 0;
             int mokiniuSk = M.size();
@@ -171,9 +178,11 @@ while(true){
             cout<<"---------------------------------------------------\n";
             for(int i=0; i<mokiniuSk; i++){
                 int rezultatuSk = M[i].tarpiniaiRezultatai.size();
+                //Sudedami visi pazymiai
                 for(int j=0; j<rezultatuSk; j++){
                     pazymiuSuma+=M[i].tarpiniaiRezultatai[j];
                 }
+                //Suskaiciuojamas galutinis pazymys pagal formule
                 galutinis = 0.4 * (pazymiuSuma/rezultatuSk) + 0.6 * M[i].egzaminoRezultatas;
 
                 cout<<M[i].pavarde<<setw(16)<<M[i].vardas<<setw(28)<<fixed<<setprecision(2)<<galutinis<<endl;
@@ -186,11 +195,12 @@ while(true){
             cout<<"---------------------------------------------------\n";
             int mokiniuSk = M.size();
             for(int i=0; i<mokiniuSk; i++){
-
+                //Pridedamas egzamino rezultatas i vektoriu prie pazymiu ir surikiuojami skaiciai vektoriuje nuo didziausio iki maziausio
                 M[i].tarpiniaiRezultatai.push_back(M[i].egzaminoRezultatas);
                 int rezultatuSk = M[i].tarpiniaiRezultatai.size();
                 sort(M[i].tarpiniaiRezultatai.begin(), M[i].tarpiniaiRezultatai.end());
-
+                //skaiciuojama mediana
+                //patikrinama ar yra lyginis ar nelyginis skaicius elementu vektoriuje
                 if(rezultatuSk%2!=0){
                     int skaicius = rezultatuSk/2;
                     mediana = M[i].tarpiniaiRezultatai[skaicius];
