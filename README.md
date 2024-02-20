@@ -1,9 +1,9 @@
 # Vidurkių skaičiavimo programa
 
 Programa:
--Priima įvestį iš konsolės (mokinių ir ju pažymių)
--Generuoja tik pažymius su mokinių įvestimi rankiniu būdu
--Generuoja ir pažymius, ir mokinius.
++ Priima įvestį iš konsolės (mokinių ir ju pažymių)
++ Generuoja tik pažymius su mokinių įvestimi rankiniu būdu
++ Generuoja ir pažymius, ir mokinius.
 
 Yra dvi programos versijos:
 1. gradeVector.cpp - naudojami vektoriai atlikti skaičiavimus ir kaupti duomenis.
