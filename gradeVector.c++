@@ -112,7 +112,6 @@ while(true){
                     if (skaicius >= 0 && skaicius <= 10) {
                         M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
                     }
-                    cout<<skaicius;
                 }
                 if(M[indeksas].tarpiniaiRezultatai.size() == 0)
                     vektoriausIlgiotikrinimas++;
@@ -187,11 +186,11 @@ while(true){
         M.erase(M.begin());
     }
 
-    if(vektoriausIlgiotikrinimas != 0){
+    if(vektoriausIlgiotikrinimas > 1){
         cout<<"Prie pazymiu galima vesti tik skaicius!\n";
     }
 
-    if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas == 0){
+    if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas < 2){
         int vidurkioTipas = 0;
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;
@@ -205,8 +204,10 @@ while(true){
         if(vidurkioTipas == 1){
             double galutinis = 0, pazymiuSuma = 0;
             int mokiniuSk = M.size();
-            cout<<"Pavarde"<<setw(16)<<"Vardas"<<setw(28)<<"Galutinis (Vid.)\n";
-            cout<<"---------------------------------------------------\n";
+            cout << left << setw(25) <<"Pavarde";
+            cout << left << setw(25) <<"Vardas";
+            cout << left << setw(30) << "Galutinis (Vid.)" << endl;
+            cout << "------------------------------------------------------------" << endl;
             for(int i=0; i<mokiniuSk; i++){
                 int rezultatuSk = M[i].tarpiniaiRezultatai.size();
                 //Sudedami visi pazymiai
@@ -216,14 +217,18 @@ while(true){
                 //Suskaiciuojamas galutinis pazymys pagal formule
                 galutinis = 0.4 * (pazymiuSuma/rezultatuSk) + 0.6 * M[i].egzaminoRezultatas;
 
-                cout<<M[i].pavarde<<setw(16)<<M[i].vardas<<setw(28)<<fixed<<setprecision(2)<<galutinis<<endl;
+                cout << left << setw(25) << M[i].pavarde;
+                cout << left << setw(25) << M[i].vardas;
+                cout << left << setw(30) << fixed << setprecision(2) << galutinis << endl;
                 pazymiuSuma = 0;
                 galutinis = 0;
             } 
         }else if (vidurkioTipas == 2){
             double mediana = 0;
-            cout<<"Pavarde"<<setw(16)<<"Vardas"<<setw(28)<<"Galutinis (Med.)\n";
-            cout<<"---------------------------------------------------\n";
+            cout << left << setw(25) <<"Pavarde";
+            cout << left << setw(25) <<"Vardas";
+            cout << left << setw(30) << "Galutinis (Med.)" << endl;
+            cout << string(66, '-') << endl;
             int mokiniuSk = M.size();
             for(int i=0; i<mokiniuSk; i++){
                 //Pridedamas egzamino rezultatas i vektoriu prie pazymiu ir surikiuojami skaiciai vektoriuje nuo didziausio iki maziausio
@@ -240,7 +245,9 @@ while(true){
                     int antras = rezultatuSk/2;
                     mediana = (M[i].tarpiniaiRezultatai[pirmas]+M[i].tarpiniaiRezultatai[antras])/2;
                 }
-                cout<<M[i].pavarde<<setw(16)<<M[i].vardas<<setw(28)<<fixed<<setprecision(2)<<mediana<<endl;
+                cout << left << setw(25) << M[i].pavarde;
+                cout << left << setw(25) << M[i].vardas;
+                cout << left << setw(30) << fixed << setprecision(2) << mediana << endl;
                 mediana = 0;
             }
         }
