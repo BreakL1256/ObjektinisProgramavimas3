@@ -71,19 +71,26 @@ srand(time(nullptr));
 while(true){
     vector<mokinys> M;
     string eilute;
-    int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk;
+    int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, tikrinimas = 0;
     bool err = 0;
     
     cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba\n";
     cin>>pasirinkimas;
+    while(!cin.good() || pasirinkimas<1 || pasirinkimas>4){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba\n";
+        cin>>pasirinkimas;
+    }
 //Suteikiami 4 pasirinkimai kaip dirbti su duomenimis: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba
+
     switch(pasirinkimas){
         case 1:
             cout<<"Iveskite mokinio varda, pavarde, gautus pazymius is namu darbu (paskutinis pazymys turi buti egzamino).Jei norite baigti sarasa paspauskite du kartus enter\n";
 
             while (getline(cin, eilute)) {
                 //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
-               if (eilute.empty()) {
+            if (eilute.empty()) {
                     laisvaEilute++;
                     if(laisvaEilute == 2)
                         break;
@@ -105,11 +112,13 @@ while(true){
                     if (skaicius >= 0 && skaicius <= 10) {
                         M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
                     }
-
+                    cout<<skaicius;
                 }
+                if(M[indeksas].tarpiniaiRezultatai.size() == 0)
+                    tikrinimas++;
 
                 //is vektoriaus istraukiamas egzamino rez.
-                if (!M[indeksas].tarpiniaiRezultatai.empty()) {
+                if (M[indeksas].tarpiniaiRezultatai.size() > 1) {
                     M[indeksas].egzaminoRezultatas = M[indeksas].tarpiniaiRezultatai.back();
                     M[indeksas].tarpiniaiRezultatai.pop_back();
                 }
@@ -120,9 +129,15 @@ while(true){
         case 2:
             cout<<"Parasykite kiek noretumete kad prie kiekvieno mokinio butu sugeneruota pazymiu (pazymiai generuojami 10 balu sistemoje):\n";
             cin>>sugeneruotiSk;
+            while(!cin.good() || sugeneruotiSk < 2){
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout<<"Galima irasyti tik skaicius ( turi buti: skaicius>=2)\n";
+                cin>>sugeneruotiSk;
+            }
             cout<<"Iveskite mokiniu vardus ir pavardes (noredami baigti ivedima nueje i nauja eilute paspauskite enter):\n";
             while (getline(cin, eilute)) {
-               if (eilute.empty()) {
+            if (eilute.empty()) {
                     laisvaEilute++;
                     if(laisvaEilute == 2)
                         break;
@@ -146,6 +161,12 @@ while(true){
         case 3:
             cout<<"Pasirinkite kiek noresite skirtingu mokiniu sugeneruoti ir kiek mokiniai tures sugeneruotu pazymiu (pirmas skaicius - mokiniu sk., antras skaicius - pazymiu sk.)\n";
             cin>>indeksas>>sugeneruotiSk;
+            while(!cin.good() || sugeneruotiSk < 2 || indeksas < 1){
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout<<"Galima irasyti tik skaicius ( turi buti: skaicius>=2)\n";
+                cin>>indeksas>>sugeneruotiSk;
+            }
             //Is anksto nusprendziamas kiek bus mokiniu ir kiek mokiniai tures pazymiu
             for(int i=0; i<indeksas; i++){
                 mokinys x;
@@ -160,16 +181,26 @@ while(true){
         case 4:
             return 0;
     }
+
 //Istrinamas pirmas elementas, nes del sudarytos strukutors kaip nuskaitomi duomenys yra nuskaitoma tuscia eilute
     if (!M.empty() && pasirinkimas != 3) {
         M.erase(M.begin());
     }
 
+    if(tikrinimas != 0){
+        cout<<"Prie pazymiu galima vesti tik skaicius!\n";
+    }
 
-    if(indeksas != 0 && err == 0){
+    if(indeksas != 0 && err == 0 && tikrinimas == 0){
         int vidurkioTipas = 0;
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;
+        while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout<<"Galima irasyti tik skaicius ( 1 arba 2)\n";
+            cin>>vidurkioTipas;
+        }
         //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
         if(vidurkioTipas == 1){
             double galutinis = 0, pazymiuSuma = 0;
