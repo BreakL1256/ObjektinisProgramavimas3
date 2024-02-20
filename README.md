@@ -2,12 +2,12 @@
 
 Programa:
 + Priima įvestį iš konsolės (mokinių ir ju pažymių)
++ Priima įvestį iš tekstinio failo
 + Generuoja tik pažymius su mokinių įvestimi rankiniu būdu
 + Generuoja ir pažymius, ir mokinius.
-
-Yra dvi programos versijos:
+  
+Programos veikimas:
 1. gradeVector.cpp - naudojami vektoriai atlikti skaičiavimus ir kaupti duomenis.
-2. gradeDynamic.cpp - naudojami C masyvai (dinaminė atmintis) atlikti skaičiavimus ir kaupti duomenis.
 
 Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojamos komandos:
 1. Naudojant Vektorius:
@@ -15,10 +15,4 @@ Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojam
 g++ gradeVector.c++ -o gradeVector
 .\gradeVector 
 ```
-2. Naudojant C masyvus (dinaminę atmintį):
-```
-g++ gradeDynamic.c++ -o gradeDynamic
-.\gradeDynamic 
-```
-
 *UI - konsolė, kur pateikiami pasirinkimai kaip norima elgtis su duomenimis*
