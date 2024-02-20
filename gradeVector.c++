@@ -71,7 +71,7 @@ srand(time(nullptr));
 while(true){
     vector<mokinys> M;
     string eilute;
-    int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, tikrinimas = 0;
+    int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0;
     bool err = 0;
     
     cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba\n";
@@ -115,7 +115,7 @@ while(true){
                     cout<<skaicius;
                 }
                 if(M[indeksas].tarpiniaiRezultatai.size() == 0)
-                    tikrinimas++;
+                    vektoriausIlgiotikrinimas++;
 
                 //is vektoriaus istraukiamas egzamino rez.
                 if (M[indeksas].tarpiniaiRezultatai.size() > 1) {
@@ -187,11 +187,11 @@ while(true){
         M.erase(M.begin());
     }
 
-    if(tikrinimas != 0){
+    if(vektoriausIlgiotikrinimas != 0){
         cout<<"Prie pazymiu galima vesti tik skaicius!\n";
     }
 
-    if(indeksas != 0 && err == 0 && tikrinimas == 0){
+    if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas == 0){
         int vidurkioTipas = 0;
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;

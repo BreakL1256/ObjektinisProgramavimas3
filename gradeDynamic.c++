@@ -73,12 +73,18 @@ int main()
 //Veikimas padarytas, kad programa veiktu kol nepasirenkamas jos terminavimas
 while(true){
     mokinys* r = new mokinys[100000];
-    int indeksas = 0, skaicius, iteracija = 0, laisvaEilute = 0, sugeneruotiSk;
+    int indeksas = 0, skaicius, iteracija = 0, laisvaEilute = 0, sugeneruotiSk, masyvoIlgioTikrinimas = 0;
     string eilute;
     bool err = 0;
 
     cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba\n";
     cin>>pasirinkimas;
+    while(!cin.good() || pasirinkimas<1 || pasirinkimas>4){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba\n";
+        cin>>pasirinkimas;
+    }
 
 //Suteikiami 4 pasirinkimai kaip dirbti su duomenimis: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba
     switch(pasirinkimas){
@@ -110,6 +116,9 @@ while(true){
                     }
 
                 }
+                if(iteracija == 0){
+                    masyvoIlgioTikrinimas++;
+                }
 
                 //Perasomi duomenys naudojant atitinkamo dydzio C masyvus del atminties saugojimo
                 if (iteracija != 0) {
@@ -136,6 +145,12 @@ while(true){
             
             cout<<"Parasykite kiek noretumete kad prie kiekvieno mokinio butu sugeneruota pazymiu (pazymiai generuojami 10 balu sistemoje):\n";
             cin>>sugeneruotiSk;
+            while(!cin.good() || sugeneruotiSk < 2){
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout<<"Galima irasyti tik skaicius ( turi buti: skaicius>=2)\n";
+                cin>>sugeneruotiSk;
+            }
             cout<<"Iveskite mokiniu vardus ir pavardes (noredami baigti ivedima nueje i nauja eilute paspauskite enter):\n";
             while (getline(cin, eilute)) {
                 if (eilute.empty()) {
@@ -159,6 +174,12 @@ while(true){
 
             cout<<"Pasirinkite kiek noresite skirtingu mokiniu sugeneruoti ir kiek mokiniai tures sugeneruotu pazymiu (pirmas skaicius - mokiniu sk., antras skaicius - pazymiu sk.)\n";
             cin>>indeksas>>sugeneruotiSk;
+            while(!cin.good() || sugeneruotiSk < 2 || indeksas < 1){
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout<<"Galima irasyti tik skaicius ( turi buti: skaicius>=2)\n";
+                cin>>indeksas>>sugeneruotiSk;
+            }
             //Is anksto nusprendziamas kiek bus mokiniu ir kiek mokiniai tures pazymiu
             for(int i=0; i<indeksas; i++){
                 VarduPavardziuGeneravimas(r, i);
@@ -173,10 +194,12 @@ while(true){
             return 0;
     }
     
-
+    if(masyvoIlgioTikrinimas > 1){
+        cout<<"Prie pazymiu galima vesti tik skaicius!\n";
+    }
     //Istrinamas pirmas elementas, nes del sudarytos strukutors kaip nuskaitomi duomenys yra nuskaitoma tuscia eilute
     //Kartu sukuriamas naujas strukturu masyvas ir perasomi visi duomenys
-    if(indeksas != 0 && err == 0){     
+    if(indeksas != 0 && err == 0 && masyvoIlgioTikrinimas < 2){     
         mokinys* rcopy = new mokinys[indeksas];
         //padaromos skirtingos kopijos skirtingiems pasirinkimams del to, kad nuskaitant duomenis is konsoles irasoma papildoma eilute be duomenu 
         if(pasirinkimas == 3){
@@ -198,6 +221,12 @@ while(true){
         int vidurkioTipas = 0;
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;
+        while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout<<"Galima irasyti tik skaicius ( 1 arba 2)\n";
+            cin>>vidurkioTipas;
+        }
         //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
         if(vidurkioTipas == 1){
             double galutinis = 0, pazymiuSuma = 0;
