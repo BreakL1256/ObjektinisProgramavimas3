@@ -69,11 +69,12 @@ int main()
 {
 srand(time(nullptr));
 //Veikimas padarytas, kad programa veiktu kol nepasirenkamas jos terminavimas
-fstream fread("studentai10000.txt");
+fstream fread;
+fread.open("studentai10000.txt", ios::in);
 while(true){
     vector<mokinys> M;
     string eilute;
-    int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0;
+    int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas;
     bool err = 0;
     
     cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba\n";
@@ -88,6 +89,14 @@ while(true){
 
     switch(pasirinkimas){
         case 1:
+            cout<<"Pasirinkite, kur noretumete, kad butu isvesti duomenys (1 - konsoleje, 2 - faile)\n";
+            cin>>isvedimoPasirinkimas;
+            while(!cin.good() || pasirinkimas<1 || pasirinkimas>2){
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout<<"Pasirinkite, kur noretumete, kad butu isvesti duomenys (1 - konsoleje, 2 - faile)\n";
+                cin>>isvedimoPasirinkimas;
+            }
             fread.ignore(1000, '\n');
             while (getline(fread, eilute)) {
             //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
@@ -128,8 +137,8 @@ while(true){
             }
             break;
         case 2:
+            isvedimoPasirinkimas = 1;
             cout<<"Iveskite mokinio varda, pavarde, gautus pazymius is namu darbu (paskutinis pazymys turi buti egzamino).Jei norite baigti sarasa paspauskite du kartus enter\n";
-
             while (getline(cin, eilute)) {
                 //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
             if (eilute.empty()) {
@@ -168,6 +177,7 @@ while(true){
             break;
 
         case 3:
+            isvedimoPasirinkimas = 1;
             cout<<"Parasykite kiek noretumete kad prie kiekvieno mokinio butu sugeneruota pazymiu (pazymiai generuojami 10 balu sistemoje):\n";
             cin>>sugeneruotiSk;
             while(!cin.good() || sugeneruotiSk < 2){
@@ -200,6 +210,7 @@ while(true){
             break;
 
         case 4:
+            isvedimoPasirinkimas = 1;
             cout<<"Pasirinkite kiek noresite skirtingu mokiniu sugeneruoti ir kiek mokiniai tures sugeneruotu pazymiu (pirmas skaicius - mokiniu sk., antras skaicius - pazymiu sk.)\n";
             cin>>indeksas>>sugeneruotiSk;
             while(!cin.good() || sugeneruotiSk < 2 || indeksas < 1){
@@ -222,7 +233,7 @@ while(true){
         case 5:
             return 0;
     }
-
+    fread.close();
 //Istrinamas pirmas elementas, nes del sudarytos strukutors kaip nuskaitomi duomenys yra nuskaitoma tuscia eilute
     if (!M.empty() && pasirinkimas != 3) {
         M.erase(M.begin());
@@ -232,7 +243,7 @@ while(true){
         cout<<"Prie pazymiu galima vesti tik skaicius!\n";
     }
 
-    if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas < 2){
+    if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas < 2 && isvedimoPasirinkimas == 1){
         int vidurkioTipas = 0;
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;
@@ -266,11 +277,11 @@ while(true){
                 galutinis = 0;
             } 
         }else if (vidurkioTipas == 2){
-            double mediana = 0;
             cout << left << setw(25) <<"Pavarde";
             cout << left << setw(25) <<"Vardas";
             cout << left << setw(30) << "Galutinis (Med.)" << endl;
             cout << string(66, '-') << endl;
+            double mediana = 0;
             int mokiniuSk = M.size();
             for(int i=0; i<mokiniuSk; i++){
                 //Pridedamas egzamino rezultatas i vektoriu prie pazymiu ir surikiuojami skaiciai vektoriuje nuo didziausio iki maziausio
@@ -293,6 +304,8 @@ while(true){
                 mediana = 0;
             }
         }
+    }else if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas < 2 && isvedimoPasirinkimas == 0){
+
     }
 }
 
