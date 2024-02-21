@@ -2,9 +2,10 @@
 
 Programa:
 + Priima įvestį iš konsolės (mokinių ir ju pažymių)
-+ Priima įvestį iš tekstinio failo
++ Priima įvestį ir išvestį į tekstinį failą
 + Generuoja tik pažymius su mokinių įvestimi rankiniu būdu
 + Generuoja ir pažymius, ir mokinius.
++ Duotas pasirinkimas rikiuoti suvestus, nuskaitytus, generuotus duomenis 
   
 Programos veikimas:
 1. gradeVector.cpp - naudojami vektoriai atlikti skaičiavimus ir kaupti duomenis.
