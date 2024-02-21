@@ -15,6 +15,8 @@ struct mokinys{
     string pavarde;
     vector<int> tarpiniaiRezultatai;
     int egzaminoRezultatas;
+    int mediana;
+    int vidurkis;
 };
 
 //Funkcija, kuri patikrina ar irasytame zodyje yra tik raides
@@ -65,7 +67,7 @@ void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
     }
 }
 
-void vidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
+void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
     //Sudedami visi pazymiai
     for(int j=0; j<rezultatuSk; j++){
@@ -73,9 +75,10 @@ void vidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutin
     }
     //Suskaiciuojamas galutinis pazymys pagal formule
     galutinis = 0.4 * (pazymiuSuma/rezultatuSk) + 0.6 * M[i].egzaminoRezultatas;
+    M[i].vidurkis = galutinis;
 }
 
-void medianosSkaiciavimas(vector<mokinys> & M, double & mediana, int i){
+void MedianosSkaiciavimas(vector<mokinys> & M, double & mediana, int i){
     M[i].tarpiniaiRezultatai.push_back(M[i].egzaminoRezultatas);
     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
     sort(M[i].tarpiniaiRezultatai.begin(), M[i].tarpiniaiRezultatai.end());
@@ -89,6 +92,35 @@ void medianosSkaiciavimas(vector<mokinys> & M, double & mediana, int i){
         int antras = rezultatuSk/2;
         mediana = (M[i].tarpiniaiRezultatai[pirmas]+M[i].tarpiniaiRezultatai[antras])/2;
     }
+    M[i].mediana = mediana;
+}
+
+vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas, int vidurkioTipas){
+    int sk = 0;
+    while(!cin.good() || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
+        if(sk > 0){
+            cin.clear();
+            cin.ignore(1000, '\n');
+        }
+        cout<<"Galite pasirinkti rikiuoti tik ta rezultatu tipa kuri pasirinkote!\n";
+        cin>>rikiavimoPasirinkimas;
+    }
+    switch(rikiavimoPasirinkimas){
+        case 1:
+            
+            break;
+        case 2:
+            break;
+
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+    }
+
+    return M;
 }
 
 int main()
@@ -97,7 +129,7 @@ srand(time(nullptr));
 //Veikimas padarytas, kad programa veiktu kol nepasirenkamas jos terminavimas
 while(true){
 fstream fread;
-fread.open("kursiokai.txt", ios::in);
+fread.open("studentai1000000.txt", ios::in);
     vector<mokinys> M;
     string eilute;
     int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas;
@@ -268,9 +300,16 @@ fread.open("kursiokai.txt", ios::in);
         cout<<"Prie pazymiu galima vesti tik skaicius!\n";
     }
 
-    int vidurkioTipas = 0;
-    double mediana = 0, galutinis = 0, pazymiuSuma = 0;
-    int mokiniuSk = M.size();
+    int vidurkioTipas, rikiavimoPasirinkimas, mokiniuSk = M.size();
+    double mediana = 0, galutinis = 0, pazymiuSuma = 0; 
+    cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti:\n";
+    cin>>rikiavimoPasirinkimas;
+    while(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout<<"Galima irasyti tik skaicius [1, 5]\n";
+        cin>>rikiavimoPasirinkimas;
+    }
     if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas < 2 && isvedimoPasirinkimas == 1){
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;
@@ -287,7 +326,10 @@ fread.open("kursiokai.txt", ios::in);
             cout << left << setw(30) << "Galutinis (Vid.)" << endl;
             cout << "------------------------------------------------------------" << endl;
             for(int i=0; i<mokiniuSk; i++){
-                vidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
+                VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
+            }
+        
+            for(int i=0; i<mokiniuSk; i++){
                 cout << left << setw(25) << M[i].pavarde;
                 cout << left << setw(25) << M[i].vardas;
                 cout << left << setw(30) << fixed << setprecision(2) << galutinis << endl;
@@ -300,8 +342,10 @@ fread.open("kursiokai.txt", ios::in);
             cout << left << setw(30) << "Galutinis (Med.)" << endl;
             cout << string(66, '-') << endl;
             for(int i=0; i<mokiniuSk; i++){
+                MedianosSkaiciavimas(M, mediana, i);
+            }
+            for(int i=0; i<mokiniuSk; i++){
                 //Pridedamas egzamino rezultatas i vektoriu prie pazymiu ir surikiuojami skaiciai vektoriuje nuo didziausio iki maziausio
-                medianosSkaiciavimas(M, mediana, i);
                 cout << left << setw(25) << M[i].pavarde;
                 cout << left << setw(25) << M[i].vardas;
                 cout << left << setw(30) << fixed << setprecision(2) << mediana << endl;
@@ -309,7 +353,7 @@ fread.open("kursiokai.txt", ios::in);
             }
         }
     }else if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas < 2 && isvedimoPasirinkimas == 2){
-        fread.open("C:\\Users\\arnas\\Desktop\\Objektinis Programavimas\\v0.1\\rezultatai.txt", ios::out);
+        fread.open("rezultatai.txt", ios::out);
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;
         while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2){
@@ -325,7 +369,9 @@ fread.open("kursiokai.txt", ios::in);
             fread  << left << setw(30) << "Galutinis (Vid.)" << endl;
             fread  << "------------------------------------------------------------" << endl;
             for(int i=0; i<mokiniuSk; i++){
-                vidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
+                VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
+            }
+            for(int i=0; i<mokiniuSk; i++){
                 fread  << left << setw(25) << M[i].pavarde;
                 fread  << left << setw(25) << M[i].vardas;
                 fread  << left << setw(30) << fixed << setprecision(2) << galutinis << endl;
@@ -338,8 +384,10 @@ fread.open("kursiokai.txt", ios::in);
             fread  << left << setw(30) << "Galutinis (Med.)" << endl;
             fread  << string(66, '-') << endl;
             for(int i=0; i<mokiniuSk; i++){
+                MedianosSkaiciavimas(M, mediana, i);
+            }
+            for(int i=0; i<mokiniuSk; i++){
                 //Pridedamas egzamino rezultatas i vektoriu prie pazymiu ir surikiuojami skaiciai vektoriuje nuo didziausio iki maziausio
-                medianosSkaiciavimas(M, mediana, i);
                 fread  << left << setw(25) << M[i].pavarde;
                 fread  << left << setw(25) << M[i].vardas;
                 fread  << left << setw(30) << fixed << setprecision(2) << mediana << endl;
