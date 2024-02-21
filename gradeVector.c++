@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <sstream>
+#include <fstream>
 
 
 using namespace std;
@@ -68,24 +69,65 @@ int main()
 {
 srand(time(nullptr));
 //Veikimas padarytas, kad programa veiktu kol nepasirenkamas jos terminavimas
+fstream fread("studentai10000.txt");
 while(true){
     vector<mokinys> M;
     string eilute;
     int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0;
     bool err = 0;
     
-    cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba\n";
+    cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba\n";
     cin>>pasirinkimas;
-    while(!cin.good() || pasirinkimas<1 || pasirinkimas>4){
+    while(!cin.good() || pasirinkimas<1 || pasirinkimas>5){
         cin.clear();
         cin.ignore(1000, '\n');
-        cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba\n";
+        cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba\n";
         cin>>pasirinkimas;
     }
-//Suteikiami 4 pasirinkimai kaip dirbti su duomenimis: 1 - ranka, 2 - generuoti pazymius, 3 - generuoti ir pazymius ir studentu vardus, pavardes, 4 - baigti darba
+//Suteikiami 4 pasirinkimai kaip dirbti su duomenimis: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba
 
     switch(pasirinkimas){
         case 1:
+            fread.ignore(1000, '\n');
+            while (getline(fread, eilute)) {
+            //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
+                if (eilute.empty()) {
+                    laisvaEilute++;
+                    if(laisvaEilute == 2)
+                        break;
+                }
+
+                //cout<<eilute<<endl;
+
+                mokinys x;
+                M.push_back(x);
+
+
+                istringstream iss(eilute);
+                iss >> M[indeksas].vardas >> M[indeksas].pavarde;
+                //Jei zodis nera sudarytas is raidziu, nutraukiamas programos darbas ir ismetamas pasirinkimo duomenu apdorojimo meniu 
+                if(err){
+                    break;
+                }
+                int skaicius;
+                //Nuskaitomi tik skaiciai 10 sistemoje
+                while (iss >> skaicius) {
+                    if (skaicius >= 0 && skaicius <= 10) {
+                        M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
+                    }
+                }
+                if(M[indeksas].tarpiniaiRezultatai.size() == 0)
+                    vektoriausIlgiotikrinimas++;
+
+                //is vektoriaus istraukiamas egzamino rez.
+                if (M[indeksas].tarpiniaiRezultatai.size() > 1) {
+                    M[indeksas].egzaminoRezultatas = M[indeksas].tarpiniaiRezultatai.back();
+                    M[indeksas].tarpiniaiRezultatai.pop_back();
+                }
+                indeksas++;
+            }
+            break;
+        case 2:
             cout<<"Iveskite mokinio varda, pavarde, gautus pazymius is namu darbu (paskutinis pazymys turi buti egzamino).Jei norite baigti sarasa paspauskite du kartus enter\n";
 
             while (getline(cin, eilute)) {
@@ -125,7 +167,7 @@ while(true){
             }
             break;
 
-        case 2:
+        case 3:
             cout<<"Parasykite kiek noretumete kad prie kiekvieno mokinio butu sugeneruota pazymiu (pazymiai generuojami 10 balu sistemoje):\n";
             cin>>sugeneruotiSk;
             while(!cin.good() || sugeneruotiSk < 2){
@@ -157,7 +199,7 @@ while(true){
             }
             break;
 
-        case 3:
+        case 4:
             cout<<"Pasirinkite kiek noresite skirtingu mokiniu sugeneruoti ir kiek mokiniai tures sugeneruotu pazymiu (pirmas skaicius - mokiniu sk., antras skaicius - pazymiu sk.)\n";
             cin>>indeksas>>sugeneruotiSk;
             while(!cin.good() || sugeneruotiSk < 2 || indeksas < 1){
@@ -177,7 +219,7 @@ while(true){
             }
             break;
 
-        case 4:
+        case 5:
             return 0;
     }
 
