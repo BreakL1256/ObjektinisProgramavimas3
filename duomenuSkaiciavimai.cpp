@@ -30,7 +30,7 @@ void MedianosSkaiciavimas(vector<mokinys> & M, double & mediana, int i){
     }else if(rezultatuSk%2==0){
         int pirmas = rezultatuSk/2-1;
         int antras = rezultatuSk/2;
-        mediana = (M[i].tarpiniaiRezultatai[pirmas]+M[i].tarpiniaiRezultatai[antras])/2;
+        mediana = (M[i].tarpiniaiRezultatai[pirmas]+M[i].tarpiniaiRezultatai[antras])/2.0;
     }
     M[i].mediana = mediana;
 }

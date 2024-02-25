@@ -9,179 +9,17 @@
 #include <ctime>
 #include "skaiciavimai.h"
 
-
 using namespace std;
-//Struktura skirta saugoti mokinio duomenis
-// struct mokinys{
-//     string vardas;
-//     string pavarde;
-//     vector<int> tarpiniaiRezultatai;
-//     int egzaminoRezultatas;
-//     int mediana;
-//     int vidurkis;
-// };
-
-//Funkcija, kuri patikrina ar irasytame zodyje yra tik raides
-// bool SudaroTikRaides(string& str) {
-//     for (int i=0; i<str.length(); i++) {
-//         if (!isalpha(str[i])) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-
-//Funkcija, kuri leidzia perskaityti varda ir pavarde ir kartu patikrina ar vardas ir pavarde yra zodziai sudaryti is raidziu
-// void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool & err){
-//     iss >> M[indeksas].vardas >> M[indeksas].pavarde;
-//     if(!SudaroTikRaides(M[indeksas].vardas) || !SudaroTikRaides(M[indeksas].vardas)){
-//         cout<<"Varda ir pavarde gali sudaryti tik raides!\n";
-//         err=1;   
-//     } else {
-//         err=0;
-//     }
-// }
-//Funkcija skirta generuoti atsitiktinius pazymius
-// void GeneruotiPazymius(vector<mokinys> & M, int indeksas){
-//     for(int i=0; i<M[indeksas].tarpiniaiRezultatai.size(); i++){
-//        M[indeksas].tarpiniaiRezultatai[i] = (double)rand()/RAND_MAX * 10;
-//     }
-// }
-//Funkcija skirta atsitikitiniu vardu ir pavardziu generavimui sudarytu is atsitiktiniu raidziu
-// void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
-//     char v, p;
-//     int vardoIlgis = 0, pavardesIlgis = 0; 
-//     vardoIlgis = 6 + (double)rand()/RAND_MAX * (12-6);
-//     pavardesIlgis = 6 + (double)rand()/RAND_MAX * (12-6);
-//     for(int i=0; i<vardoIlgis; i++){
-//         if(i==0)
-//             v = 65 + (double)rand()/RAND_MAX * (90-65);
-//         else
-//             v = 97 + (double)rand()/RAND_MAX * (122-97);
-//         M[indeksas].vardas.push_back(v);
-//     }
-//     for(int i=0; i<pavardesIlgis; i++){
-//         if(i==0)
-//             v = 65 + (double)rand()/RAND_MAX * (90-65);
-//         else
-//             v = 97 + (double)rand()/RAND_MAX * (122-97);
-//         M[indeksas].pavarde.push_back(v);
-//     }
-// }
-
-// void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
-//     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
-//     //Sudedami visi pazymiai
-//     for(int j=0; j<rezultatuSk; j++){
-//         pazymiuSuma+=M[i].tarpiniaiRezultatai[j];
-//     }
-//     //Suskaiciuojamas galutinis pazymys pagal formule
-//     galutinis = 0.4 * (pazymiuSuma/rezultatuSk) + 0.6 * M[i].egzaminoRezultatas;
-//     M[i].vidurkis = galutinis;
-//     galutinis = 0;
-// }
-
-// void MedianosSkaiciavimas(vector<mokinys> & M, double & mediana, int i){
-//     M[i].tarpiniaiRezultatai.push_back(M[i].egzaminoRezultatas);
-//     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
-//     sort(M[i].tarpiniaiRezultatai.begin(), M[i].tarpiniaiRezultatai.end());
-//     //skaiciuojama mediana
-//     //patikrinama ar yra lyginis ar nelyginis skaicius elementu vektoriuje
-//     if(rezultatuSk%2!=0){
-//         int skaicius = rezultatuSk/2;
-//         mediana = M[i].tarpiniaiRezultatai[skaicius];
-//     }else if(rezultatuSk%2==0){
-//         int pirmas = rezultatuSk/2-1;
-//         int antras = rezultatuSk/2;
-//         mediana = (M[i].tarpiniaiRezultatai[pirmas]+M[i].tarpiniaiRezultatai[antras])/2;
-//     }
-//     M[i].mediana = mediana;
-// }
-// bool PalygintiVardus(const string& a, const string& b) {
-//     if (a.length() != b.length()) {
-//         return a.length() < b.length(); 
-//     }
-//     return a < b;
-// }
-// bool DidejimasVardai(const mokinys& a, const mokinys& b){return PalygintiVardus(a.vardas, b.vardas);}
-// bool MazejimasVardai(const mokinys& a, const mokinys& b){return !PalygintiVardus(a.vardas, b.vardas);}
-// bool DidejimasPavardes(const mokinys& a, const mokinys& b){return PalygintiVardus(a.pavarde, b.pavarde);}
-// bool MazejimasPavardes(const mokinys& a, const mokinys& b){return !PalygintiVardus(a.pavarde, b.pavarde);}
-// bool DidejimasVidurkis(const mokinys& a, const mokinys& b){return a.vidurkis < b.vidurkis;}
-// bool MazejimasVidurkis(const mokinys& a, const mokinys& b){return a.vidurkis > b.vidurkis;}
-// bool DidejimasMediana(const mokinys& a, const mokinys& b){return a.mediana < b.mediana;}
-// bool MazejimasMediana(const mokinys& a, const mokinys& b){return a.mediana > b.mediana;}
-
-// vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas, int vidurkioTipas, double & bendras){
-//     int sk = 0, tvarka;
-//     clock_t pradzia, pabaiga;
-//     if(rikiavimoPasirinkimas != 5){
-//         while(!cin.good() || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
-//             if(sk > 0){
-//                 cin.clear();
-//                 cin.ignore(1000, '\n');
-//             }
-//             cout<<"Galite pasirinkti rikiuoti tik ta rezultatu tipa kuri pasirinkote!\n";
-//             cin>>rikiavimoPasirinkimas;
-//             sk++;
-//         }
-//         cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
-//         cin>>tvarka;
-//         while(!cin.good() || tvarka<1 || tvarka>2){
-//             cin.clear();
-//             cin.ignore(1000, '\n');
-//             cout<<"Galite pasirinkti tik skaicius [1, 2]!\n";
-//             cin>>tvarka;
-//         }
-//     }
-//     pradzia = clock();
-//     switch(rikiavimoPasirinkimas){
-//         case 1:
-//             if(tvarka == 1){
-//             sort(M.begin(), M.end(), DidejimasVardai);
-//             }else if(tvarka == 2){
-//             sort(M.begin(), M.end(), MazejimasVardai);
-//             }
-//             break;
-//         case 2:
-//             if(tvarka == 1){
-//             sort(M.begin(), M.end(), DidejimasPavardes);
-//             }else if(tvarka == 2){
-//             sort(M.begin(), M.end(), MazejimasPavardes);    
-//             }
-//             break;
-//         case 3:
-//             if(tvarka == 1){
-//             sort(M.begin(), M.end(), DidejimasVidurkis);
-//             }else if(tvarka == 2){
-//             sort(M.begin(), M.end(), MazejimasVidurkis);    
-//             }
-//             break;
-//         case 4:
-//             if(tvarka == 1){
-//             sort(M.begin(), M.end(), DidejimasMediana);
-//             }else if(tvarka == 2){
-//             sort(M.begin(), M.end(), MazejimasMediana);   
-//             }
-//             break;
-//         case 5:
-//             break;
-//     }
-//     pabaiga = clock();
-//     bendras += 1.0 * (pabaiga - pradzia) / CLOCKS_PER_SEC;
-//     return M;
-// }
 
 int main()
 {
 clock_t pradzia, pabaiga;
-double bendras;
+double bendras, skaicius;
 srand(time(nullptr));
 
 //Veikimas padarytas, kad programa veiktu kol nepasirenkamas jos terminavimas
 while(true){
 fstream fread;
-fread.open("studentai1000000.txt", ios::in);
     vector<mokinys> M;
     string eilute;
     int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas;
@@ -199,6 +37,7 @@ fread.open("studentai1000000.txt", ios::in);
 
     switch(pasirinkimas){
         case 1:
+            fread.open("studentai10000.txt", ios::in);
             cout<<"Pasirinkite, kur noretumete, kad butu isvesti duomenys (1 - konsoleje, 2 - faile)\n";
             cin>>isvedimoPasirinkimas;
             while(!cin.good() || pasirinkimas<1 || pasirinkimas>2){
@@ -215,7 +54,6 @@ fread.open("studentai1000000.txt", ios::in);
                         break;
                 }
 
-                //cout<<eilute<<endl;
 
                 mokinys x;
                 M.push_back(x);
@@ -227,22 +65,23 @@ fread.open("studentai1000000.txt", ios::in);
                 if(err){
                     break;
                 }
-                int skaicius;
                 //Nuskaitomi tik skaiciai 10 sistemoje
                 while (iss >> skaicius) {
                     if (skaicius >= 0 && skaicius <= 10) {
                         M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
+                        //cout<<skaicius<<endl;
                     }
                 }
                 if(M[indeksas].tarpiniaiRezultatai.size() == 0)
                     vektoriausIlgiotikrinimas++;
 
-                //is vektoriaus istraukiamas egzamino rez.
                 EgzaminoRezultatoGavimas(M, indeksas);
+                //is vektoriaus istraukiamas egzamino rez.
                 indeksas++;
             }
             pabaiga = clock();
             bendras = 1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
+            fread.close();
             //cout<<bendras<<endl;
             break;
         case 2:
@@ -266,7 +105,6 @@ fread.open("studentai1000000.txt", ios::in);
                 if(err){
                     break;
                 }
-                int skaicius;
                 //Nuskaitomi tik skaiciai 10 sistemoje
                 while (iss >> skaicius) {
                     if (skaicius >= 0 && skaicius <= 10) {
@@ -276,8 +114,8 @@ fread.open("studentai1000000.txt", ios::in);
                 if(M[indeksas].tarpiniaiRezultatai.size() == 0)
                     vektoriausIlgiotikrinimas++;
 
-                //is vektoriaus istraukiamas egzamino rez.
                 EgzaminoRezultatoGavimas(M, indeksas);
+                //is vektoriaus istraukiamas egzamino rez.
                 indeksas++;
             }
             break;
@@ -337,14 +175,13 @@ fread.open("studentai1000000.txt", ios::in);
                 M[i].tarpiniaiRezultatai.resize(sugeneruotiSk);
                 GeneruotiPazymius(M, i);
                 //is vektoriaus istraukiamas egzamino rez.
-                EgzaminoRezultatoGavimas(M, indeksas);
+                EgzaminoRezultatoGavimas(M, i);
             }
             break;
 
         case 5:
             return 0;
     }
-    fread.close();
    
 //Istrinamas pirmas elementas, nes del sudarytos strukutors kaip nuskaitomi duomenys yra nuskaitoma tuscia eilute
     if (!M.empty() && pasirinkimas != 4 && pasirinkimas != 1) {
@@ -355,8 +192,8 @@ fread.open("studentai1000000.txt", ios::in);
         cout<<"Prie pazymiu galima vesti tik skaicius!\n";
     }
 
-    int vidurkioTipas, rikiavimoPasirinkimas, mokiniuSk = M.size(), sk = 0;
-    double mediana = 0, galutinis = 0, pazymiuSuma = 0; 
+    int vidurkioTipas, rikiavimoPasirinkimas, mokiniuSk = M.size(), sk = 0, pazymiuSuma = 0; 
+    double mediana = 0, galutinis = 0; 
     cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (1 - vardai, 2 - pavardes, 3 - vidurkiai, 4 - medianos, 5 - nerikiuoti):\n";
     cin>>rikiavimoPasirinkimas;
     while(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5){
@@ -368,7 +205,7 @@ fread.open("studentai1000000.txt", ios::in);
     if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas < 2 && isvedimoPasirinkimas == 1){
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;
-        while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2|| rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
+        while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
             cin.clear();
             cin.ignore(1000, '\n');
             cout<<"Galima irasyti tik skaicius ( 1 arba 2) ir galite pasirinkti rikiuoti tik ta rezultatu tipa kuri pasirinkote!\n";
@@ -410,7 +247,7 @@ fread.open("studentai1000000.txt", ios::in);
         fread.open("rezultatai.txt", ios::out);
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;
-        while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2){
+        while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
             cin.clear();
             cin.ignore(1000, '\n');
             cout<<"Galima irasyti tik skaicius ( 1 arba 2)\n";

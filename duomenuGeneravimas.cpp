@@ -30,13 +30,14 @@ void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool
 void GeneruotiPazymius(vector<mokinys> & M, int indeksas){
     for(int i=0; i<M[indeksas].tarpiniaiRezultatai.size(); i++){
        M[indeksas].tarpiniaiRezultatai[i] = (double)rand()/RAND_MAX * 10;
-       cout<<M[indeksas].tarpiniaiRezultatai[i];
+       //double rnd = (double)rand()/RAND_MAX * 10;
+       cout<<M[indeksas].tarpiniaiRezultatai[i]<<" ";
     }
     cout<<endl;
 }
 //Funkcija skirta atsitikitiniu vardu ir pavardziu generavimui sudarytu is atsitiktiniu raidziu
 void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
-    char v, p;
+    char v;
     int vardoIlgis = 0, pavardesIlgis = 0; 
     vardoIlgis = 6 + (double)rand()/RAND_MAX * (12-6);
     pavardesIlgis = 6 + (double)rand()/RAND_MAX * (12-6);
