@@ -41,9 +41,11 @@ while(true){
         case 1:
             try{
                 fread.open("studentai10000.txt", std::ios::in);
-                 if (!fread.is_open()) {
+                //Throwinamas error jei failas nera atidarytas
+                if (!fread.is_open()) {
                     throw std::ios_base::failure("Failas nera atidarytas!");
                 }
+
                 cout<<"Pasirinkite, kur noretumete, kad butu isvesti duomenys (1 - konsoleje, 2 - faile)\n";
                 cin>>isvedimoPasirinkimas;
                 while(!cin.good() || pasirinkimas<1 || pasirinkimas>2){
@@ -88,8 +90,8 @@ while(true){
                 pabaiga = clock();
                 bendras = 1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
                 fread.close();
-            }
-            catch(const ios_base::failure &e) {
+            // Iskvieciamas blokas jei nebuvo atidarytas failas
+            }catch(const ios_base::failure &e) {
                 cerr << "Error: " << e.what() << endl;
                 cerr << "Failas nebuvo rastas specifikuotoje lokacijoje!" << endl;
                 return 1;
@@ -256,61 +258,70 @@ while(true){
             }
         }
     }else if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas < 2 && isvedimoPasirinkimas == 2){
-        fread.open("rezultatai.txt", ios::out);
-        cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
-        cin>>vidurkioTipas;
-        while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout<<"Galima irasyti tik skaicius ( 1 arba 2)\n";
+        try{
+            fread.open("rezultatai.txt", ios::out);
+            if (!fread.is_open()) {
+                throw std::ios_base::failure("Failas nera atidarytas!");
+            }
+            cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
             cin>>vidurkioTipas;
+            while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout<<"Galima irasyti tik skaicius ( 1 arba 2)\n";
+                cin>>vidurkioTipas;
+            }
+            //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
+            if(vidurkioTipas == 1){ 
+                pradzia = clock();
+                fread << left << setw(25) <<"Pavarde";
+                fread  << left << setw(25) <<"Vardas";
+                fread  << left << setw(30) << "Galutinis (Vid.)" << endl;
+                fread  << "------------------------------------------------------------" << endl;
+                for(int i=0; i<mokiniuSk; i++){
+                    VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
+                    pazymiuSuma = 0;
+                }
+                pabaiga = clock();
+                bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
+                Rikiavimas(M, rikiavimoPasirinkimas, vidurkioTipas, bendras);
+                pradzia = clock();
+                for(int i=0; i<mokiniuSk; i++){
+                    fread  << left << setw(25) << M[i].pavarde;
+                    fread  << left << setw(25) << M[i].vardas;
+                    fread  << left << setw(30) << fixed << setprecision(2) << M[i].vidurkis << endl;
+                } 
+                pabaiga = clock();
+                bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
+            }else if (vidurkioTipas == 2){
+                pradzia = clock();
+                fread  << left << setw(25) <<"Pavarde";
+                fread  << left << setw(25) <<"Vardas";
+                fread  << left << setw(30) << "Galutinis (Med.)" << endl;
+                fread  << string(66, '-') << endl;
+                for(int i=0; i<mokiniuSk; i++){
+                    MedianosSkaiciavimas(M, mediana, i);
+                }
+                pabaiga = clock();
+                bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
+                Rikiavimas(M, rikiavimoPasirinkimas, vidurkioTipas, bendras);
+                pradzia = clock();
+                for(int i=0; i<mokiniuSk; i++){
+                    //Pridedamas egzamino rezultatas i vektoriu prie pazymiu ir surikiuojami skaiciai vektoriuje nuo didziausio iki maziausio
+                    fread  << left << setw(25) << M[i].pavarde;
+                    fread  << left << setw(25) << M[i].vardas;
+                    fread  << left << setw(30) << fixed << setprecision(2) << M[i].mediana << endl;
+                }
+                pabaiga = clock();
+                bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
+            }
+            //cout<<bendras<<endl;
+            fread.close();
+        }catch(const ios_base::failure &e) {
+            cerr << "Error: " << e.what() << endl;
+            cerr << "Failas nebuvo rastas specifikuotoje lokacijoje!" << endl;
+            return 1;
         }
-        //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
-        if(vidurkioTipas == 1){ 
-            pradzia = clock();
-            fread << left << setw(25) <<"Pavarde";
-            fread  << left << setw(25) <<"Vardas";
-            fread  << left << setw(30) << "Galutinis (Vid.)" << endl;
-            fread  << "------------------------------------------------------------" << endl;
-            for(int i=0; i<mokiniuSk; i++){
-                VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
-                pazymiuSuma = 0;
-            }
-            pabaiga = clock();
-            bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
-            Rikiavimas(M, rikiavimoPasirinkimas, vidurkioTipas, bendras);
-            pradzia = clock();
-            for(int i=0; i<mokiniuSk; i++){
-                fread  << left << setw(25) << M[i].pavarde;
-                fread  << left << setw(25) << M[i].vardas;
-                fread  << left << setw(30) << fixed << setprecision(2) << M[i].vidurkis << endl;
-            } 
-            pabaiga = clock();
-            bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
-        }else if (vidurkioTipas == 2){
-            pradzia = clock();
-            fread  << left << setw(25) <<"Pavarde";
-            fread  << left << setw(25) <<"Vardas";
-            fread  << left << setw(30) << "Galutinis (Med.)" << endl;
-            fread  << string(66, '-') << endl;
-            for(int i=0; i<mokiniuSk; i++){
-                MedianosSkaiciavimas(M, mediana, i);
-            }
-            pabaiga = clock();
-            bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
-            Rikiavimas(M, rikiavimoPasirinkimas, vidurkioTipas, bendras);
-            pradzia = clock();
-            for(int i=0; i<mokiniuSk; i++){
-                //Pridedamas egzamino rezultatas i vektoriu prie pazymiu ir surikiuojami skaiciai vektoriuje nuo didziausio iki maziausio
-                fread  << left << setw(25) << M[i].pavarde;
-                fread  << left << setw(25) << M[i].vardas;
-                fread  << left << setw(30) << fixed << setprecision(2) << M[i].mediana << endl;
-            }
-            pabaiga = clock();
-            bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
-        }
-        //cout<<bendras<<endl;
-        fread.close();
     }
 }
 
