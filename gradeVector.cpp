@@ -7,6 +7,8 @@
 #include <sstream>
 #include <fstream>
 #include <ctime>
+#include <ios>
+#include <exception>
 #include "skaiciavimai.h"
 
 using namespace std;
@@ -19,7 +21,7 @@ srand(time(nullptr));
 
 //Veikimas padarytas, kad programa veiktu kol nepasirenkamas jos terminavimas
 while(true){
-fstream fread;
+    fstream fread;
     vector<mokinys> M;
     string eilute;
     int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas;
@@ -37,51 +39,61 @@ fstream fread;
 
     switch(pasirinkimas){
         case 1:
-            fread.open("studentai10000.txt", ios::in);
-            cout<<"Pasirinkite, kur noretumete, kad butu isvesti duomenys (1 - konsoleje, 2 - faile)\n";
-            cin>>isvedimoPasirinkimas;
-            while(!cin.good() || pasirinkimas<1 || pasirinkimas>2){
-                cin.clear();
-                cin.ignore(1000, '\n');
+            try{
+                fread.open("studentai10000.txt", std::ios::in);
+                 if (!fread.is_open()) {
+                    throw std::ios_base::failure("Failas nera atidarytas!");
+                }
                 cout<<"Pasirinkite, kur noretumete, kad butu isvesti duomenys (1 - konsoleje, 2 - faile)\n";
                 cin>>isvedimoPasirinkimas;
-            }
-            pradzia = clock();
-            fread.ignore(1000, '\n');
-            while (getline(fread, eilute)) {
-            //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
-                if (eilute.empty()) {
-                        break;
+                while(!cin.good() || pasirinkimas<1 || pasirinkimas>2){
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    cout<<"Pasirinkite, kur noretumete, kad butu isvesti duomenys (1 - konsoleje, 2 - faile)\n";
+                    cin>>isvedimoPasirinkimas;
                 }
-
-
-                mokinys x;
-                M.push_back(x);
-
-
-                istringstream iss(eilute);
-                iss >> M[indeksas].vardas >> M[indeksas].pavarde;
-                //Jei zodis nera sudarytas is raidziu, nutraukiamas programos darbas ir ismetamas pasirinkimo duomenu apdorojimo meniu 
-                if(err){
-                    break;
-                }
-                //Nuskaitomi tik skaiciai 10 sistemoje
-                while (iss >> skaicius) {
-                    if (skaicius >= 0 && skaicius <= 10) {
-                        M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
-                        //cout<<skaicius<<endl;
+                pradzia = clock();
+                fread.ignore(1000, '\n');
+                while (getline(fread, eilute)) {
+                //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
+                    if (eilute.empty()) {
+                            break;
                     }
-                }
-                if(M[indeksas].tarpiniaiRezultatai.size() == 0)
-                    vektoriausIlgiotikrinimas++;
 
-                EgzaminoRezultatoGavimas(M, indeksas);
-                //is vektoriaus istraukiamas egzamino rez.
-                indeksas++;
+
+                    mokinys x;
+                    M.push_back(x);
+
+
+                    istringstream iss(eilute);
+                    iss >> M[indeksas].vardas >> M[indeksas].pavarde;
+                    //Jei zodis nera sudarytas is raidziu, nutraukiamas programos darbas ir ismetamas pasirinkimo duomenu apdorojimo meniu 
+                    if(err){
+                        break;
+                    }
+                    //Nuskaitomi tik skaiciai 10 sistemoje
+                    while (iss >> skaicius) {
+                        if (skaicius >= 0 && skaicius <= 10) {
+                            M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
+                            //cout<<skaicius<<endl;
+                        }
+                    }
+                    if(M[indeksas].tarpiniaiRezultatai.size() == 0)
+                        vektoriausIlgiotikrinimas++;
+
+                    EgzaminoRezultatoGavimas(M, indeksas);
+                    //is vektoriaus istraukiamas egzamino rez.
+                    indeksas++;
+                }
+                pabaiga = clock();
+                bendras = 1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
+                fread.close();
             }
-            pabaiga = clock();
-            bendras = 1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
-            fread.close();
+            catch(const ios_base::failure &e) {
+                cerr << "Error: " << e.what() << endl;
+                cerr << "Failas nebuvo rastas specifikuotoje lokacijoje!" << endl;
+                return 1;
+            }
             //cout<<bendras<<endl;
             break;
         case 2:
