@@ -19,7 +19,7 @@ bool SudaroTikRaides(string& str) {
 //Funkcija, kuri leidzia perskaityti varda ir pavarde ir kartu patikrina ar vardas ir pavarde yra zodziai sudaryti is raidziu
 void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool & err){
     iss >> M[indeksas].vardas >> M[indeksas].pavarde;
-    if(!SudaroTikRaides(M[indeksas].vardas) || !SudaroTikRaides(M[indeksas].vardas)){
+    if(!SudaroTikRaides(M[indeksas].vardas) || !SudaroTikRaides(M[indeksas].pavarde)){
         cout<<"Varda ir pavarde gali sudaryti tik raides!\n";
         err=1;   
     } else {
