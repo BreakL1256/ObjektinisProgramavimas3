@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
     //Sudedami visi pazymiai
@@ -54,12 +53,17 @@ vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas, int v
     clock_t pradzia, pabaiga;
     if(rikiavimoPasirinkimas != 5){
         cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
-        cin>>tvarka;
-        while(!cin.good() || tvarka<1 || tvarka>2){
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout<<"Galite pasirinkti tik skaicius [1, 2]!\n";
+        try{
             cin>>tvarka;
+            if(!cin.good() || tvarka<1 || tvarka>2) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 2].");
+        }catch(const std::exception& e){
+            cerr << "KLAIDA:" << e.what() << endl;
+            while(!cin.good() || tvarka<1 || tvarka>2){
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout<<"Galite pasirinkti tik skaicius [1, 2]!\n";
+                cin>>tvarka;
+            }
         }
     }
     pradzia = clock();

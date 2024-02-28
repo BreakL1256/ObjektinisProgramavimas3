@@ -28,12 +28,17 @@ while(true){
     bool err = 0;
     
     cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba\n";
-    cin>>pasirinkimas;
-    while(!cin.good() || pasirinkimas<1 || pasirinkimas>5){
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba\n";
+    try{
         cin>>pasirinkimas;
+        if(!cin.good() || pasirinkimas<1 || pasirinkimas>5) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 5].");
+    }catch(const std::exception& e){
+        cerr << "KLAIDA:" << e.what() << endl;
+        while(!cin.good() || pasirinkimas<1 || pasirinkimas>5){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba\n";
+            cin>>pasirinkimas;
+        }
     }
 //Suteikiami 4 pasirinkimai kaip dirbti su duomenimis: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba
 
@@ -44,7 +49,7 @@ while(true){
                 fread.open("studentai10000.txt", std::ios::in);
                 //Throwinamas error jei failas nera atidarytas
                 if (!fread.is_open()) {
-                    throw std::ios_base::failure("Failas nera atidarytas!");
+                    throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
                 }
 
                 cout<<"Pasirinkite, kur noretumete, kad butu isvesti duomenys (1 - konsoleje, 2 - faile)\n";
@@ -53,13 +58,12 @@ while(true){
                 try{
                     cin>>isvedimoPasirinkimas;
                     if(!cin.good() || pasirinkimas<1 || pasirinkimas>2)
-                        throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO.");
+                        throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO (1 ARBA 2).");
                 }catch (const std::exception& e){
                     cerr << "KLAIDA:" << e.what() << endl;
                     while(!cin.good() || pasirinkimas<1 || pasirinkimas>2){
                         cin.clear();
                         cin.ignore(1000, '\n');
-                        cout<<"Pasirinkite, kur noretumete, kad butu isvesti duomenys (1 - konsoleje, 2 - faile)\n";
                         cin>>isvedimoPasirinkimas;
                     }
                 }
@@ -109,8 +113,8 @@ while(true){
                 fread.close();
             // Iskvieciamas blokas jei nebuvo atidarytas failas
             }catch(const ios_base::failure &e) {
-                cerr << "Error: " << e.what() << endl;
-                cerr << "Failas nebuvo rastas specifikuotoje lokacijoje!" << endl;
+                cerr << "KLAIDA: " << e.what() << endl;
+                cerr << "FAILAS NEBUVO RASTAS PRISKIRTOJE LOKACIJOJE!" << endl;
                 return 1;
             }
             //cout<<bendras<<endl;
@@ -168,13 +172,12 @@ while(true){
             try{
                 cin>>sugeneruotiSk;
                 if(!cin.good() || sugeneruotiSk < 2)
-                    throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO.");
+                    throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO (>=2).");
             }catch(const std::invalid_argument& e){
                 cerr << "KLAIDA:" << e.what() << endl;
                 while(!cin.good() || sugeneruotiSk < 2){
                     cin.clear();
                     cin.ignore(1000, '\n');
-                    cout<<"Galima irasyti tik skaicius ( turi buti: skaicius>=2)\n";
                     cin>>sugeneruotiSk;
                 }
             }
@@ -217,13 +220,12 @@ while(true){
             //Tikrinama ar irasytas mokiniu sk. ir pazymiu sk. atitinka int tipa ir ar atitinka nurodytus parametrus naudojant try-catch metoda            
             try{
                 cin>>indeksas>>sugeneruotiSk;
-                if(!cin.good() || sugeneruotiSk < 2 || indeksas < 1) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO.");
+                if(!cin.good() || sugeneruotiSk < 2 || indeksas < 1) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO (MOKINIU SK. > 1 , PAZYMIU SK. > 2).");
             }catch(const std::invalid_argument& e){
                 cerr << "KLAIDA:" << e.what() << endl;
                 while(!cin.good() || sugeneruotiSk < 2 || indeksas < 1){
                     cin.clear();
                     cin.ignore(1000, '\n');
-                    cout<<"Galima irasyti tik skaicius: mokiniu sk>=2, pazymiu sk>=1\n";
                     cin>>indeksas>>sugeneruotiSk;
                 }
             }
@@ -258,25 +260,34 @@ while(true){
     double mediana = 0, galutinis = 0; 
     if(indeksas!=0 && err == 0 && vektoriausIlgiotikrinimas == 0){
         cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (1 - vardai, 2 - pavardes, 3 - vidurkiai, 4 - medianos, 5 - nerikiuoti):\n";
-
-        //Tikrinama ar skaicius yra int tipo 
-        cin>>rikiavimoPasirinkimas;
-        while(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5){
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout<<"Galima irasyti tik skaicius [1, 5]\n";
+        //Tikrinama ar skaicius yra int tipo naudojant try-catch blokas
+        try{ 
             cin>>rikiavimoPasirinkimas;
+            if(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 5].");
+        }catch(const std::invalid_argument& e){
+            cerr << "KLAIDA:" << e.what() << endl;
+            while(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5){
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cin>>rikiavimoPasirinkimas;
+            }
         }
     }
-    if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas == 0 && isvedimoPasirinkimas == 1){
+    try{
         cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
         cin>>vidurkioTipas;
+        if(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1) 
+            throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO (PASIRINKTI VIDURKIO SKAICIAVIMO IR RIKIAVIMO TIPAI TURI SUTAPTI).");
+    }catch(const std::invalid_argument& e){
+        cerr << "KLAIDA:" << e.what() << endl;
         while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
             cin.clear();
             cin.ignore(1000, '\n');
-            cout<<"Galima irasyti tik skaicius ( 1 arba 2) ir galite pasirinkti rikiuoti tik ta rezultatu tipa kuri pasirinkote!\n";
             cin>>vidurkioTipas;
         }
+
+    }
+    if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas == 0 && isvedimoPasirinkimas == 1){
         //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
         if(vidurkioTipas == 1){ 
             for(int i=0; i<mokiniuSk; i++){
@@ -314,14 +325,6 @@ while(true){
             fread.open("rezultatai.txt", ios::out);
             if (!fread.is_open()) {
                 throw std::ios_base::failure("Failas nera atidarytas!");
-            }
-            cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
-            cin>>vidurkioTipas;
-            while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
-                cin.clear();
-                cin.ignore(1000, '\n');
-                cout<<"Galima irasyti tik skaicius ( 1 arba 2)\n";
-                cin>>vidurkioTipas;
             }
             //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
             if(vidurkioTipas == 1){ 
@@ -370,8 +373,8 @@ while(true){
             //cout<<bendras<<endl;
             fread.close();
         }catch(const ios_base::failure &e) {
-            cerr << "Error: " << e.what() << endl;
-            cerr << "Failas nebuvo rastas specifikuotoje lokacijoje!" << endl;
+            cerr << "KLAIDA: " << e.what() << endl;
+            cerr << "FAILAS NEBUVO RASTAS PRISKIRTOJE LOKACIJOJE!" << endl;
             return 1;
         }
     }
