@@ -16,10 +16,4 @@ Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojam
 g++ gradeVector.c++ -o gradeVector
 .\gradeVector 
 ```
-Testavimo rezultatai (programos veikimo laiko matavimas sekundėmis) su skirtingu duomenų imties dydžiu (skaičius prie tekstinio failo rodo kiek yra skirtingu mokinių sąraše, dešinėje išvestas skaičius yra 3 skirtingų bandymų laikų vidurkis):
-```
-studentai10000.txt: 0.1787 s
-studentai100000.txt: 2.16 s
-studentai1000000.txt: 15.488 s
-```
 *UI - konsolė, kur pateikiami pasirinkimai kaip norima elgtis su duomenimis*
