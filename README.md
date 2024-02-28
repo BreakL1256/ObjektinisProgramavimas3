@@ -5,7 +5,11 @@ Programa:
 + Priima įvestį ir išvestį į tekstinį failą
 + Generuoja tik pažymius su mokinių įvestimi rankiniu būdu
 + Generuoja ir pažymius, ir mokinius.
-+ Duotas pasirinkimas rikiuoti suvestus, nuskaitytus, sugeneruotus duomenis 
++ Duotas pasirinkimas rikiuoti suvestus, nuskaitytus, sugeneruotus duomenis
+
+Kodas: 
++ Funkcijos suskirstytos į atskirus failus (sukurtas header failas)
++ Kodas papildytas išimčių valdymu (Exception Handling)
   
 Programos veikimas:
 1. gradeVector.cpp - naudojami vektoriai atlikti skaičiavimus ir kaupti duomenis.
