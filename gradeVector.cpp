@@ -39,6 +39,7 @@ while(true){
 
     switch(pasirinkimas){
         case 1:
+            // Naudojamas try-catch metodas tikrinti ar pavyko atidaryti skaitymo faila
             try{
                 fread.open("studentai10000.txt", std::ios::in);
                 //Throwinamas error jei failas nera atidarytas
@@ -47,8 +48,8 @@ while(true){
                 }
 
                 cout<<"Pasirinkite, kur noretumete, kad butu isvesti duomenys (1 - konsoleje, 2 - faile)\n";
-                //Pasirinkimo tipo tikrinimas naudojant try-catch metoda
                 
+                //Pasirinkimo tipo tikrinimas naudojant try-catch metoda              
                 try{
                     cin>>isvedimoPasirinkimas;
                     if(!cin.good() || pasirinkimas<1 || pasirinkimas>2)
@@ -76,6 +77,7 @@ while(true){
                     M.push_back(x);
 
                     istringstream iss(eilute);
+                    //Tkrinamas skaiciu ivedimas naudojant try-catch metoda
                     try{
                         iss >> M[indeksas].vardas >> M[indeksas].pavarde;
 
@@ -128,9 +130,9 @@ while(true){
                 M.push_back(x);
 
                 istringstream iss(eilute);
+
                 //Tikrinamas vardu ivedimas
-                //Jei zodis nera sudarytas is raidziu, nutraukiamas programos darbas ir ismetamas pasirinkimo duomenu apdorojimo meniu 
-                
+                //Jei zodis nera sudarytas is raidziu, nutraukiamas programos darbas ir ismetamas pasirinkimo duomenu apdorojimo meniu                
                 try{
                     VarduSkaitymas(iss, M, indeksas, err);
                     if(err) throw std::invalid_argument("PASIRINKTI SIMBOLIAI NERA (STRING) TIPO.");
@@ -162,7 +164,7 @@ while(true){
         case 3:
             isvedimoPasirinkimas = 1;
             cout<<"Parasykite kiek noretumete kad prie kiekvieno mokinio butu sugeneruota pazymiu (pazymiai generuojami 10 balu sistemoje):\n";
-            
+            //Tikrinamas ar ivestas simbolis yra int tipo ir ar yra didesnis uz 1 naudojant try-catch metoda
             try{
                 cin>>sugeneruotiSk;
                 if(!cin.good() || sugeneruotiSk < 2)
@@ -189,7 +191,7 @@ while(true){
                 M.push_back(x);
 
                 istringstream iss(eilute);
-                
+                //Tikrinama ar vardas sudaromas tik is raidziu naudojant try-catch metoda
                 try{
                     VarduSkaitymas(iss, M, indeksas, err);
                     if(err) throw std::invalid_argument("PASIRINKTI SIMBOLIAI NERA (STRING) TIPO.");
@@ -212,6 +214,7 @@ while(true){
             isvedimoPasirinkimas = 1;
             cout<<"Pasirinkite kiek noresite skirtingu mokiniu sugeneruoti ir kiek mokiniai tures sugeneruotu pazymiu (pirmas skaicius - mokiniu sk., antras skaicius - pazymiu sk.)\n";
             
+            //Tikrinama ar irasytas mokiniu sk. ir pazymiu sk. atitinka int tipa ir ar atitinka nurodytus parametrus naudojant try-catch metoda            
             try{
                 cin>>indeksas>>sugeneruotiSk;
                 if(!cin.good() || sugeneruotiSk < 2 || indeksas < 1) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO.");
@@ -255,6 +258,8 @@ while(true){
     double mediana = 0, galutinis = 0; 
     if(indeksas!=0 && err == 0 && vektoriausIlgiotikrinimas == 0){
         cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (1 - vardai, 2 - pavardes, 3 - vidurkiai, 4 - medianos, 5 - nerikiuoti):\n";
+
+        //Tikrinama ar skaicius yra int tipo 
         cin>>rikiavimoPasirinkimas;
         while(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5){
             cin.clear();
