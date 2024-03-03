@@ -1,8 +1,19 @@
 # ifndef SKAICIAVIMAI_H
 # define SKAICIAVIMAI_H
 
-#include <string>
+#include <iostream>
+#include <limits>
+#include <iomanip>
+#include <algorithm>
 #include <vector>
+#include <sstream>
+#include <fstream>
+#include <ctime>
+#include <ios>
+#include <exception>
+#include <string>
+#include <chrono>
+
 
 using namespace std;
 
@@ -13,6 +24,18 @@ struct mokinys{
     int egzaminoRezultatas;
     double mediana;
     double vidurkis;
+};
+
+struct pazangieji{
+    string vardas;
+    string pavarde;
+    int galutinis;
+};
+
+struct nepazangieji{
+    string vardas;
+    string pavarde;
+    int galutinis;
 };
 
 bool SudaroTikRaides(string&);
@@ -30,8 +53,8 @@ bool DidejimasVidurkis(const mokinys&, const mokinys&);
 bool MazejimasVidurkis(const mokinys&, const mokinys&);
 bool DidejimasMediana(const mokinys&, const mokinys&);
 bool MazejimasMediana(const mokinys&, const mokinys&);
-vector<mokinys> Rikiavimas(vector<mokinys> &, int, int, double &);
+vector<mokinys> Rikiavimas(vector<mokinys> &, int);
 vector<mokinys> EgzaminoRezultatoGavimas(vector<mokinys> &, int);
-
+void FailuGeneravimas(fstream&, string, int);
 
 #endif

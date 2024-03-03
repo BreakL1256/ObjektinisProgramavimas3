@@ -1,7 +1,7 @@
 #include "skaiciavimai.h"
-#include <iostream>
-#include <ctime>
-#include <algorithm>
+// #include <iostream>
+// #include <ctime>
+// #include <algorithm>
 
 using namespace std;
 
@@ -48,9 +48,8 @@ bool MazejimasVidurkis(const mokinys& a, const mokinys& b){return a.vidurkis > b
 bool DidejimasMediana(const mokinys& a, const mokinys& b){return a.mediana < b.mediana;}
 bool MazejimasMediana(const mokinys& a, const mokinys& b){return a.mediana > b.mediana;}
 
-vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas, int vidurkioTipas, double & bendras){
+vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas){
     int tvarka;
-    clock_t pradzia, pabaiga;
     if(rikiavimoPasirinkimas != 5){
         cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
         try{
@@ -66,7 +65,6 @@ vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas, int v
             }
         }
     }
-    pradzia = clock();
     switch(rikiavimoPasirinkimas){
         case 1:
             if(tvarka == 1){
@@ -99,8 +97,6 @@ vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas, int v
         case 5:
             break;
     }
-    pabaiga = clock();
-    bendras += 1.0 * (pabaiga - pradzia) / CLOCKS_PER_SEC;
     return M;
 }
 

@@ -1,46 +1,33 @@
-#include <iostream>
-#include <random>
-#include <limits>
-#include <iomanip>
-#include <algorithm>
-#include <vector>
-#include <sstream>
-#include <fstream>
-#include <ctime>
-#include <ios>
-#include <exception>
 #include "skaiciavimai.h"
 
 using namespace std;
 
 int main()
 {
-clock_t pradzia, pabaiga;
-double bendras, skaicius;
-srand(time(nullptr));
+double skaicius;
 
 //Veikimas padarytas, kad programa veiktu kol nepasirenkamas jos terminavimas
 while(true){
     fstream fread;
     vector<mokinys> M;
-    string eilute;
-    int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas;
+    string eilute, failoPavadinimas;;
+    int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas, zmoniuSkPasirinkimas = 0;
     bool err = 0;
     
-    cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba\n";
+    cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - generuoti faila su mokiniu duomenimis,  6 - baigti darba\n";
     try{
         cin>>pasirinkimas;
-        if(!cin.good() || pasirinkimas<1 || pasirinkimas>5) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 5].");
+        if(!cin.good() || pasirinkimas<1 || pasirinkimas>6) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 6].");
     }catch(const std::exception& e){
         cerr << "KLAIDA:" << e.what() << endl;
-        while(!cin.good() || pasirinkimas<1 || pasirinkimas>5){
+        while(!cin.good() || pasirinkimas<1 || pasirinkimas>6){
             cin.clear();
             cin.ignore(1000, '\n');
-            cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba\n";
+            cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - generuoti faila su mokiniu duomenimis,  6 - baigti darba\n";
             cin>>pasirinkimas;
         }
     }
-//Suteikiami 4 pasirinkimai kaip dirbti su duomenimis: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - baigti darba
+//Suteikiami 4 pasirinkimai kaip dirbti su duomenimis: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - generuoti faila su mokiniu duomenimis,  6 - baigti darba
 
     switch(pasirinkimas){
         case 1:
@@ -68,7 +55,6 @@ while(true){
                     }
                 }
 
-                pradzia = clock();
                 fread.ignore(1000, '\n');
                 while (getline(fread, eilute)) {
                 //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
@@ -108,8 +94,6 @@ while(true){
                     //is vektoriaus istraukiamas egzamino rez.
                     indeksas++;
                 }
-                pabaiga = clock();
-                bendras = 1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
                 fread.close();
             // Iskvieciamas blokas jei nebuvo atidarytas failas
             }catch(const ios_base::failure &e) {
@@ -244,6 +228,29 @@ while(true){
             break;
 
         case 5:
+            int dydzioMasyvas[5] = {1000, 10000, 100000, 1000000, 10000000};
+            
+            //Pasirinkimas kokio dydzio norimas generuoti masyvas
+            cout<<"Pasirinkite kiek noresite, kad butu sugeneruota mokiniu faile (1 - 1000, 2 - 10000, 3 - 100000, 4 - 1000000, 5 - 10000000)\n";
+            try{
+                cin>>zmoniuSkPasirinkimas;
+                if(!cin.good() || zmoniuSkPasirinkimas < 1 || zmoniuSkPasirinkimas > 5) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 5].");
+            }catch(const std::invalid_argument& e){
+                cerr << "KLAIDA: " << e.what() << endl;
+                while(!cin.good() || zmoniuSkPasirinkimas < 1 || zmoniuSkPasirinkimas > 5){
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    cin>>zmoniuSkPasirinkimas;
+                }
+            }
+
+            failoPavadinimas = "studentu_sarasas_" + to_string(dydzioMasyvas[zmoniuSkPasirinkimas-1]) + ".txt";
+
+            FailuGeneravimas(fread, failoPavadinimas, zmoniuSkPasirinkimas);
+
+
+            break;
+        case 6:
             return 0;
     }
    
@@ -294,7 +301,7 @@ while(true){
                 VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
                 pazymiuSuma = 0;
             }
-            Rikiavimas(M, rikiavimoPasirinkimas, vidurkioTipas, bendras);
+            Rikiavimas(M, rikiavimoPasirinkimas);
             cout << left << setw(25) <<"Pavarde";
             cout << left << setw(25) <<"Vardas";
             cout << left << setw(30) << "Galutinis (Vid.)" << endl;
@@ -308,7 +315,7 @@ while(true){
             for(int i=0; i<mokiniuSk; i++){
                 MedianosSkaiciavimas(M, mediana, i);
             }
-            Rikiavimas(M, rikiavimoPasirinkimas, vidurkioTipas, bendras);
+            Rikiavimas(M, rikiavimoPasirinkimas);
             cout << left << setw(25) <<"Pavarde";
             cout << left << setw(25) <<"Vardas";
             cout << left << setw(30) << "Galutinis (Med.)" << endl;
@@ -328,7 +335,6 @@ while(true){
             }
             //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
             if(vidurkioTipas == 1){ 
-                pradzia = clock();
                 fread << left << setw(25) <<"Pavarde";
                 fread  << left << setw(25) <<"Vardas";
                 fread  << left << setw(30) << "Galutinis (Vid.)" << endl;
@@ -337,19 +343,13 @@ while(true){
                     VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
                     pazymiuSuma = 0;
                 }
-                pabaiga = clock();
-                bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
-                Rikiavimas(M, rikiavimoPasirinkimas, vidurkioTipas, bendras);
-                pradzia = clock();
+                Rikiavimas(M, rikiavimoPasirinkimas);
                 for(int i=0; i<mokiniuSk; i++){
                     fread  << left << setw(25) << M[i].pavarde;
                     fread  << left << setw(25) << M[i].vardas;
                     fread  << left << setw(30) << fixed << setprecision(2) << M[i].vidurkis << endl;
                 } 
-                pabaiga = clock();
-                bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
             }else if (vidurkioTipas == 2){
-                pradzia = clock();
                 fread  << left << setw(25) <<"Pavarde";
                 fread  << left << setw(25) <<"Vardas";
                 fread  << left << setw(30) << "Galutinis (Med.)" << endl;
@@ -357,18 +357,13 @@ while(true){
                 for(int i=0; i<mokiniuSk; i++){
                     MedianosSkaiciavimas(M, mediana, i);
                 }
-                pabaiga = clock();
-                bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
-                Rikiavimas(M, rikiavimoPasirinkimas, vidurkioTipas, bendras);
-                pradzia = clock();
+                Rikiavimas(M, rikiavimoPasirinkimas);
                 for(int i=0; i<mokiniuSk; i++){
                     //Pridedamas egzamino rezultatas i vektoriu prie pazymiu ir surikiuojami skaiciai vektoriuje nuo didziausio iki maziausio
                     fread  << left << setw(25) << M[i].pavarde;
                     fread  << left << setw(25) << M[i].vardas;
                     fread  << left << setw(30) << fixed << setprecision(2) << M[i].mediana << endl;
                 }
-                pabaiga = clock();
-                bendras+=1.0*( pabaiga - pradzia )/ CLOCKS_PER_SEC;
             }
             //cout<<bendras<<endl;
             fread.close();

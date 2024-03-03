@@ -1,12 +1,23 @@
 #include "skaiciavimai.h"
-#include <string>
-#include <vector>
-#include <iostream>
-#include <sstream>
+// #include <string>
+// #include <vector>
+// #include <iostream>
+// #include <sstream>
 
 using namespace std;
 
+void FailuGeneravimas(fstream & fread, string failoPavadinimas, int pasirinkimas){
+    fread.open(failoPavadinimas, std::ios::out);
+    fread << left << setw(30)<<"Vardas";
+    fread << left << setw(30)<<"Pavarde";
+    fread << left << setw(30) << "ND1" << left << setw(30) << "ND2" << left << setw(30) << "ND3" << left << setw(30) << "ND4" << left << setw(30) << "ND5";
+    fread << left << setw(30) << "ND6" << left << setw(30) << "ND7" << left << setw(30) << "ND8" << left << setw(30) << "ND9" << left << setw(30) << "ND10";
+    fread << left << setw(30) << "ND11" << left << setw(30) << "ND12" << left << setw(30) << "ND13" << left << setw(30) << "ND14" << left << setw(30) << "ND15";
+    fread << left << setw(30) << "Egz.\n";
+    
 
+    fread.close();
+}
 bool SudaroTikRaides(string& str) {
     for (int i=0; i<str.length(); i++) {
         if (!isalpha(str[i])) {
