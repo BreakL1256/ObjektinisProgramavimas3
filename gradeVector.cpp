@@ -12,6 +12,7 @@ while(true){
     vector<mokinys> M;
     string eilute, failoPavadinimas;;
     int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas, zmoniuSkPasirinkimas = 0;
+    int dydzioMasyvas[5] = {1000, 10000, 100000, 1000000, 10000000};
     bool err = 0;
     
     cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - generuoti faila su mokiniu duomenimis,  6 - baigti darba\n";
@@ -228,7 +229,6 @@ while(true){
             break;
 
         case 5:
-            int dydzioMasyvas[5] = {1000, 10000, 100000, 1000000, 10000000};
             
             //Pasirinkimas kokio dydzio norimas generuoti masyvas
             cout<<"Pasirinkite kiek noresite, kad butu sugeneruota mokiniu faile (1 - 1000, 2 - 10000, 3 - 100000, 4 - 1000000, 5 - 10000000)\n";
@@ -246,7 +246,7 @@ while(true){
 
             failoPavadinimas = "studentu_sarasas_" + to_string(dydzioMasyvas[zmoniuSkPasirinkimas-1]) + ".txt";
 
-            FailuGeneravimas(fread, failoPavadinimas, zmoniuSkPasirinkimas);
+            FailuGeneravimas(fread, failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
 
 
             break;
@@ -280,19 +280,21 @@ while(true){
             }
         }
     }
-    try{
-        cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
-        cin>>vidurkioTipas;
-        if(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1) 
-            throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO (PASIRINKTI VIDURKIO SKAICIAVIMO IR RIKIAVIMO TIPAI TURI SUTAPTI).");
-    }catch(const std::invalid_argument& e){
-        cerr << "KLAIDA:" << e.what() << endl;
-        while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
-            cin.clear();
-            cin.ignore(1000, '\n');
+    if(pasirinkimas != 5){
+        try{
+            cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
             cin>>vidurkioTipas;
-        }
+            if(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1) 
+                throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO (PASIRINKTI VIDURKIO SKAICIAVIMO IR RIKIAVIMO TIPAI TURI SUTAPTI).");
+        }catch(const std::invalid_argument& e){
+            cerr << "KLAIDA:" << e.what() << endl;
+            while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cin>>vidurkioTipas;
+            }
 
+        }
     }
     if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas == 0 && isvedimoPasirinkimas == 1){
         //Suteikiami 2 pasirinkimai skaiciuoti vidurkius

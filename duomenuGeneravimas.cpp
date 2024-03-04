@@ -7,14 +7,29 @@
 using namespace std;
 
 void FailuGeneravimas(fstream & fread, string failoPavadinimas, int pasirinkimas){
+    //Atsitiktinio skaiciaus generavimas
+    using hrClock = std::chrono::high_resolution_clock;
+    std::mt19937 mt(static_cast<long unsigned int>(hrClock::now().time_since_epoch().count()));
+    std::uniform_int_distribution<int> dist(0, 10);
+
     fread.open(failoPavadinimas, std::ios::out);
-    fread << left << setw(30)<<"Vardas";
-    fread << left << setw(30)<<"Pavarde";
+    fread << left << setw(30) << "Vardas";
+    fread << left << setw(30) << "Pavarde";
     fread << left << setw(30) << "ND1" << left << setw(30) << "ND2" << left << setw(30) << "ND3" << left << setw(30) << "ND4" << left << setw(30) << "ND5";
     fread << left << setw(30) << "ND6" << left << setw(30) << "ND7" << left << setw(30) << "ND8" << left << setw(30) << "ND9" << left << setw(30) << "ND10";
     fread << left << setw(30) << "ND11" << left << setw(30) << "ND12" << left << setw(30) << "ND13" << left << setw(30) << "ND14" << left << setw(30) << "ND15";
-    fread << left << setw(30) << "Egz.\n";
-    
+    fread << left << setw(30) << "Egz.";
+    fread << endl;
+    for(int i=0; i<pasirinkimas; i++){
+        fread << left << setw(30) << "Vardas" + to_string(i + 1);
+        fread << left << setw(30) << "Pavarde" + to_string(i + 1);
+        for(int j = 0; j < 16; j++){
+            fread << left << setw(30) << dist(mt);
+        }
+        fread << endl; 
+    }
+
+
 
     fread.close();
 }
@@ -41,10 +56,7 @@ void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool
 void GeneruotiPazymius(vector<mokinys> & M, int indeksas){
     for(int i=0; i<M[indeksas].tarpiniaiRezultatai.size(); i++){
        M[indeksas].tarpiniaiRezultatai[i] = (double)rand()/RAND_MAX * 10;
-       //double rnd = (double)rand()/RAND_MAX * 10;
-       cout<<M[indeksas].tarpiniaiRezultatai[i]<<" ";
     }
-    cout<<endl;
 }
 //Funkcija skirta atsitikitiniu vardu ir pavardziu generavimui sudarytu is atsitiktiniu raidziu
 void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
