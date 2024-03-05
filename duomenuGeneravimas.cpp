@@ -11,6 +11,9 @@ void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N){
     try{
         fout.open("Pazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
+        fout << left << setw(30) << "Vardas";
+        fout << left << setw(30) << "Pavarde";
+        fout << left << setw(30) << "Galutinis (Vid.)";
         for(const auto &p : P){
             fout << left << setw(30) << p.vardas; 
             fout << left << setw(30) << p.pavarde; 
@@ -26,6 +29,9 @@ void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N){
     try{
         fout.open("Nepazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
+        fout << left << setw(30) << "Vardas";
+        fout << left << setw(30) << "Pavarde";
+        fout << left << setw(30) << "Galutinis (Vid.)";
         for(const auto &n : N){
             fout << left << setw(30) << n.vardas; 
             fout << left << setw(30) << n.pavarde; 
