@@ -10,6 +10,9 @@ double skaicius;
 while(true){
     fstream fread;
     vector<mokinys> M;
+    vector<pazangieji> P;
+    vector<nepazangieji> N;
+    
     string eilute, failoPavadinimas;;
     int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas, zmoniuSkPasirinkimas = 0;
     int dydzioMasyvas[5] = {1000, 10000, 100000, 1000000, 10000000};
@@ -248,6 +251,63 @@ while(true){
 
             FailuGeneravimas(fread, failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
 
+            try{
+                fread.open(failoPavadinimas, std::ios::in);
+                if (!fread.is_open()) {
+                    throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
+                }
+
+                fread.ignore(1000, '\n');
+                while (getline(fread, eilute)) {
+                //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
+                    if (eilute.empty()) {
+                            break;
+                    }
+
+                    mokinys x;
+                    M.push_back(x);
+
+                    istringstream iss(eilute);
+                    //Tkrinamas skaiciu ivedimas naudojant try-catch metoda
+                    try{
+                        iss >> M[indeksas].vardas >> M[indeksas].pavarde;
+
+                        //Nuskaitomi tik skaiciai 10 sistemoje
+                        while (iss >> skaicius) {
+                            if (skaicius >= 0 && skaicius <= 10) {
+                                M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
+                                //cout<<skaicius<<endl;
+                            }
+                            if(iss.fail()){ 
+                                err = true;
+                                throw std::invalid_argument("NETINKAMA IVESTIS: GALIMA IVESTI SKAICIUS (1-10)");
+                            }
+                        }
+                    }catch(const std::invalid_argument& e){
+                        cerr << "KLAIDA: " << e.what() << endl;
+                        break;
+                    }
+
+                    if(M[indeksas].tarpiniaiRezultatai.size() == 0)
+                        vektoriausIlgiotikrinimas++;
+
+                    EgzaminoRezultatoGavimas(M, indeksas);
+                    //is vektoriaus istraukiamas egzamino rez.
+                    indeksas++;
+                }
+                
+                //Paskirsto mokinius i pazangiuosius ir nepazangiuosius
+                MokiniuSkirstymas(M, P, N);
+
+                //Pazangiuju ir nepazangiuju mokiniu isvedimas i faila
+                MokiniuIsvedimas(P, N);
+
+                fread.close();
+            }catch(const ios_base::failure &e){
+                cerr << "KLAIDA: " << e.what() << endl;
+                cerr << "FAILAS NEBUVO RASTAS PRISKIRTOJE LOKACIJOJE!" << endl;
+                return 1;
+            }
 
             break;
         case 6:

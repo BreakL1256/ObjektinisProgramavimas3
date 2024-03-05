@@ -6,8 +6,12 @@
 
 using namespace std;
 
+void MokiniuIsvedimas(vector<pazangieji> &, vector<nepazangieji> &){
+    
+}
+
+//Funkcija generuoja skirtingu dydziu failus 
 void FailuGeneravimas(fstream & fread, string failoPavadinimas, int pasirinkimas){
-    //Atsitiktinio skaiciaus generavimas
     using hrClock = std::chrono::high_resolution_clock;
     std::mt19937 mt(static_cast<long unsigned int>(hrClock::now().time_since_epoch().count()));
     std::uniform_int_distribution<int> dist(0, 10);
@@ -28,11 +32,9 @@ void FailuGeneravimas(fstream & fread, string failoPavadinimas, int pasirinkimas
         }
         fread << endl; 
     }
-
-
-
     fread.close();
 }
+
 bool SudaroTikRaides(string& str) {
     for (int i=0; i<str.length(); i++) {
         if (!isalpha(str[i])) {
