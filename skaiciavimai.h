@@ -30,13 +30,13 @@ struct mokinys{
 struct pazangieji{
     string vardas;
     string pavarde;
-    int galutinis;
+    double galutinis;
 };
 
 struct nepazangieji{
     string vardas;
     string pavarde;
-    int galutinis;
+    double galutinis;
 };
 
 bool SudaroTikRaides(string&);

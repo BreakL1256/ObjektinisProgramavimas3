@@ -6,8 +6,37 @@
 
 using namespace std;
 
-void MokiniuIsvedimas(vector<pazangieji> &, vector<nepazangieji> &){
-    
+void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N){
+    fstream fout;
+    try{
+        fout.open("Pazangieji.txt", std::ios::out);
+        if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
+        for(const auto &p : P){
+            fout << left << setw(30) << p.vardas; 
+            fout << left << setw(30) << p.pavarde; 
+            fout << left << setw(30) << fixed << setprecision(2) << p.galutinis <<endl; 
+        }
+        fout.close();
+    }catch(const ios_base::failure& e){
+        cerr << "KLAIDA: " << e.what() << endl;
+        cerr << "FAILAS NEBUVO RASTAS PRISKIRTOJE LOKACIJOJE!" << endl;
+        return;
+    }
+
+    try{
+        fout.open("Nepazangieji.txt", std::ios::out);
+        if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
+        for(const auto &n : N){
+            fout << left << setw(30) << n.vardas; 
+            fout << left << setw(30) << n.pavarde; 
+            fout << left << setw(30) << fixed << setprecision(2) << n.galutinis <<endl; 
+        }
+        fout.close();
+    }catch(const ios_base::failure& e){
+        cerr << "KLAIDA: " << e.what() << endl;
+        cerr << "FAILAS NEBUVO RASTAS PRISKIRTOJE LOKACIJOJE!" << endl;
+        return;
+    }
 }
 
 //Funkcija generuoja skirtingu dydziu failus 

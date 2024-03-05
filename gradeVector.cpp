@@ -393,7 +393,7 @@ while(true){
         try{
             fread.open("rezultatai.txt", ios::out);
             if (!fread.is_open()) {
-                throw std::ios_base::failure("Failas nera atidarytas!");
+                throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
             }
             //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
             if(vidurkioTipas == 1){ 
