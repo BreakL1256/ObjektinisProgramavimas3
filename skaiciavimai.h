@@ -39,7 +39,8 @@ struct nepazangieji{
     double galutinis;
 };
 
-bool SudaroTikRaides(string&);
+
+bool SudaroTikRaides(string &);
 void VarduSkaitymas(istringstream&, vector<mokinys>& ,int , bool&);
 void GeneruotiPazymius(vector<mokinys>&, int);
 void VarduPavardziuGeneravimas(vector<mokinys>&, int);
@@ -54,8 +55,8 @@ bool DidejimasVidurkis(const mokinys&, const mokinys&);
 bool MazejimasVidurkis(const mokinys&, const mokinys&);
 bool DidejimasMediana(const mokinys&, const mokinys&);
 bool MazejimasMediana(const mokinys&, const mokinys&);
-vector<mokinys> Rikiavimas(vector<mokinys> &, int);
 vector<mokinys> EgzaminoRezultatoGavimas(vector<mokinys> &, int);
+vector<mokinys> Rikiavimas(vector<mokinys> &, int);
 void FailuGeneravimas(fstream&, string, int);
 void MokiniuSkirstymas(vector<mokinys> &, vector<pazangieji> &, vector<nepazangieji> &);
 void MokiniuIsvedimas(vector<pazangieji> &, vector<nepazangieji> &);

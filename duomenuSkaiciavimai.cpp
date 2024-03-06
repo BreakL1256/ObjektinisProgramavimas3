@@ -7,29 +7,27 @@ using namespace std;
 
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
 void MokiniuSkirstymas(vector<mokinys> & M, vector<pazangieji> & P, vector<nepazangieji> & N){
-    double galutinis = 0;
-    int pazymiuSuma = 0, indeksasP = 0, indeksasN = 0;
+    int indeksasP = 0, indeksasN = 0;
     for(int i=0; i<M.size(); i++){
-        for(int j=0; j<M[i].tarpiniaiRezultatai.size(); j++){
-            pazymiuSuma += M[i].tarpiniaiRezultatai[j];
-        }
-        galutinis = 0.4 * (pazymiuSuma/M[i].tarpiniaiRezultatai.size()) + 0.6 * M[i].egzaminoRezultatas;
-        if(galutinis >= 5){
+        // for(int j=0; j<M[i].tarpiniaiRezultatai.size(); j++){
+        //     pazymiuSuma += M[i].tarpiniaiRezultatai[j];
+        // }
+        //galutinis = 0.4 * (pazymiuSuma/M[i].tarpiniaiRezultatai.size()) + 0.6 * M[i].egzaminoRezultatas;
+        if(M[i].vidurkis >= 5){
             pazangieji x;
             P.push_back(x);
             P[indeksasP].vardas = M[i].vardas;
             P[indeksasP].pavarde = M[i].pavarde;
-            P[indeksasP].galutinis = galutinis;
+            P[indeksasP].galutinis = M[i].vidurkis;
             indeksasP++;
-        }else if(galutinis < 5){
+        }else if(M[i].vidurkis < 5){
             nepazangieji x;
             N.push_back(x);
             N[indeksasN].vardas = M[i].vardas;
             N[indeksasN].pavarde = M[i].pavarde;
-            N[indeksasN].galutinis = galutinis;
+            N[indeksasN].galutinis = M[i].vidurkis;
             indeksasN++;
         }
-        pazymiuSuma = 0;
     }
 }
 
@@ -67,6 +65,7 @@ bool PalygintiVardus(const string& a, const string& b) {
     }
     return a < b;
 }
+
 bool DidejimasVardai(const mokinys& a, const mokinys& b){return PalygintiVardus(a.vardas, b.vardas);}
 bool MazejimasVardai(const mokinys& a, const mokinys& b){return !PalygintiVardus(a.vardas, b.vardas);}
 bool DidejimasPavardes(const mokinys& a, const mokinys& b){return PalygintiVardus(a.pavarde, b.pavarde);}

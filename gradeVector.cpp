@@ -295,7 +295,31 @@ while(true){
                     //is vektoriaus istraukiamas egzamino rez.
                     indeksas++;
                 }
+
+                int pazymiuSuma = 0;
+                double galutinis = 0;
+                for(int i=0; i<M.size(); i++){
+                    VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
+                    pazymiuSuma = 0;
+                }
                 
+                int rikiavimoPasirinkimas;
+                cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (1 - vardai, 2 - pavardes, 3 - vidurkiai, 4 - medianos, 5 - nerikiuoti):\n";
+                //Tikrinama ar skaicius yra int tipo naudojant try-catch blokas
+                try{ 
+                    cin>>rikiavimoPasirinkimas;
+                    if(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 5].");
+                }catch(const std::invalid_argument& e){
+                    cerr << "KLAIDA:" << e.what() << endl;
+                    while(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5){
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        cin>>rikiavimoPasirinkimas;
+                    }
+                }
+
+                Rikiavimas(M, rikiavimoPasirinkimas);
+
                 //Paskirsto mokinius i pazangiuosius ir nepazangiuosius
                 MokiniuSkirstymas(M, P, N);
 
@@ -325,7 +349,7 @@ while(true){
 
     int vidurkioTipas, rikiavimoPasirinkimas, mokiniuSk = M.size(), sk = 0, pazymiuSuma = 0; 
     double mediana = 0, galutinis = 0; 
-    if(indeksas!=0 && err == 0 && vektoriausIlgiotikrinimas == 0){
+    if(indeksas!=0 && err == 0 && vektoriausIlgiotikrinimas == 0 && pasirinkimas != 5){
         cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (1 - vardai, 2 - pavardes, 3 - vidurkiai, 4 - medianos, 5 - nerikiuoti):\n";
         //Tikrinama ar skaicius yra int tipo naudojant try-catch blokas
         try{ 

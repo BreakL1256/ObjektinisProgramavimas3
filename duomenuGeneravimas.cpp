@@ -13,7 +13,7 @@ void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N){
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(30) << "Vardas";
         fout << left << setw(30) << "Pavarde";
-        fout << left << setw(30) << "Galutinis (Vid.)";
+        fout << left << setw(30) << "Galutinis (Vid.)" << endl;
         for(const auto &p : P){
             fout << left << setw(30) << p.vardas; 
             fout << left << setw(30) << p.pavarde; 
@@ -31,7 +31,7 @@ void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N){
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(30) << "Vardas";
         fout << left << setw(30) << "Pavarde";
-        fout << left << setw(30) << "Galutinis (Vid.)";
+        fout << left << setw(30) << "Galutinis (Vid.)" << endl;
         for(const auto &n : N){
             fout << left << setw(30) << n.vardas; 
             fout << left << setw(30) << n.pavarde; 
@@ -70,7 +70,8 @@ void FailuGeneravimas(fstream & fread, string failoPavadinimas, int pasirinkimas
     fread.close();
 }
 
-bool SudaroTikRaides(string& str) {
+
+bool SudaroTikRaides(string & str) {
     for (int i=0; i<str.length(); i++) {
         if (!isalpha(str[i])) {
             return false;
