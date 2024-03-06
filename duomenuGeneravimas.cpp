@@ -6,14 +6,15 @@
 
 using namespace std;
 
-void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N){
+void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N, int vidurkioTipas){
     fstream fout;
     try{
         fout.open("Pazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(30) << "Vardas";
         fout << left << setw(30) << "Pavarde";
-        fout << left << setw(30) << "Galutinis (Vid.)" << endl;
+        if(vidurkioTipas == 1) fout << left << setw(30) << "Galutinis (Vid.)" << endl;
+        else if(vidurkioTipas == 2) fout << left << setw(30) << "Galutinis (Med.)" << endl;
         for(const auto &p : P){
             fout << left << setw(30) << p.vardas; 
             fout << left << setw(30) << p.pavarde; 
@@ -31,7 +32,8 @@ void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N){
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(30) << "Vardas";
         fout << left << setw(30) << "Pavarde";
-        fout << left << setw(30) << "Galutinis (Vid.)" << endl;
+        if(vidurkioTipas == 1) fout << left << setw(30) << "Galutinis (Vid.)" << endl;
+        else if(vidurkioTipas == 2) fout << left << setw(30) << "Galutinis (Med.)" << endl;
         for(const auto &n : N){
             fout << left << setw(30) << n.vardas; 
             fout << left << setw(30) << n.pavarde; 

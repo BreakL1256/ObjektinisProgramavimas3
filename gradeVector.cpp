@@ -295,15 +295,8 @@ while(true){
                     //is vektoriaus istraukiamas egzamino rez.
                     indeksas++;
                 }
-
-                int pazymiuSuma = 0;
-                double galutinis = 0;
-                for(int i=0; i<M.size(); i++){
-                    VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
-                    pazymiuSuma = 0;
-                }
                 
-                int rikiavimoPasirinkimas;
+                int rikiavimoPasirinkimas, vidurkioTipas;
                 cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (1 - vardai, 2 - pavardes, 3 - vidurkiai, 4 - medianos, 5 - nerikiuoti):\n";
                 //Tikrinama ar skaicius yra int tipo naudojant try-catch blokas
                 try{ 
@@ -317,14 +310,40 @@ while(true){
                         cin>>rikiavimoPasirinkimas;
                     }
                 }
+                try{
+                    cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
+                    cin>>vidurkioTipas;
+                    if(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1) 
+                        throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO (PASIRINKTI VIDURKIO SKAICIAVIMO IR RIKIAVIMO TIPAI TURI SUTAPTI).");
+                }catch(const std::invalid_argument& e){
+                    cerr << "KLAIDA:" << e.what() << endl;
+                    while(!cin.good() || vidurkioTipas!=1 && vidurkioTipas!=2 || rikiavimoPasirinkimas == 3 && vidurkioTipas == 2 || rikiavimoPasirinkimas == 4 && vidurkioTipas == 1){
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        cin>>vidurkioTipas;
+                    }
+                }
+
+                int pazymiuSuma = 0;
+                double galutinis, mediana;
+                if(vidurkioTipas == 1){
+                    for(int i=0; i<M.size(); i++){
+                        VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
+                        pazymiuSuma = 0;
+                    }
+                }else if(vidurkioTipas == 2){
+                    for(int i=0; i<M.size(); i++){
+                        MedianosSkaiciavimas(M, mediana, i);
+                    }
+                }
 
                 Rikiavimas(M, rikiavimoPasirinkimas);
 
                 //Paskirsto mokinius i pazangiuosius ir nepazangiuosius
-                MokiniuSkirstymas(M, P, N);
+                MokiniuSkirstymas(M, P, N, vidurkioTipas);
 
                 //Pazangiuju ir nepazangiuju mokiniu isvedimas i faila
-                MokiniuIsvedimas(P, N);
+                MokiniuIsvedimas(P, N, vidurkioTipas);
 
                 fread.close();
             }catch(const ios_base::failure &e){
