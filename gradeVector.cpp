@@ -326,6 +326,47 @@ while(true){
                         buffer.clear();
                     }
                 }
+
+                while (getline(buffer, eilute)) {
+                //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
+                    // if (eilute.empty()) {
+                    //         break;
+                    // }
+                    sk++;
+                    mokinys x;
+
+                    istringstream iss(eilute);
+                    //Tkrinamas skaiciu ivedimas naudojant try-catch metoda
+                    try{
+                        iss >> x.vardas >> x.pavarde;
+
+                        //Nuskaitomi tik skaiciai 10 sistemoje
+                        while (iss >> skaicius) {
+                            if (skaicius >= 0 && skaicius <= 10) {
+                                x.tarpiniaiRezultatai.push_back(skaicius);
+                                //cout<<skaicius<<endl;
+                            }
+                            if(iss.fail()){ 
+                                err = true;
+                                throw std::invalid_argument("NETINKAMA IVESTIS: GALIMA IVESTI SKAICIUS (1-10)");
+                            }
+                        }
+                    }catch(const std::invalid_argument& e){
+                        cerr << "KLAIDA: " << e.what() << endl;
+                        break;
+                    }
+
+                    if(x.tarpiniaiRezultatai.size() == 0)
+                        vektoriausIlgiotikrinimas++;
+
+                    if (x.tarpiniaiRezultatai.size() > 1) {
+                        x.egzaminoRezultatas = x.tarpiniaiRezultatai.back();
+                        x.tarpiniaiRezultatai.pop_back();
+                    }
+                // EgzaminoRezultatoGavimas(M, indeksas);
+                    //is vektoriaus istraukiamas egzamino rez.
+                    M.push_back(x);
+                }
                 // Close the file
                 fread.close();
 
