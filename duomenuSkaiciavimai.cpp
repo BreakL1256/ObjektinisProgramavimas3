@@ -9,32 +9,32 @@ using namespace std;
 void MokiniuSkirstymas(vector<mokinys> & M, vector<pazangieji> & P, vector<nepazangieji> & N, int vidurkioTipas){
     int indeksasP = 0, indeksasN = 0;
     double galutinis;
-    for(int i=0; i<M.size(); i++){
+    for(long long i=0; i<M.size(); i++){
         if(vidurkioTipas == 1) galutinis = M[i].vidurkis;
         else if(vidurkioTipas == 2) galutinis = M[i].mediana;
         if(galutinis >= 5){
             pazangieji x;
+            x.vardas = M[i].vardas;
+            x.pavarde = M[i].pavarde;
+            x.galutinis = M[i].vidurkis;
+            if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
+            else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
             P.push_back(x);
-            P[indeksasP].vardas = M[i].vardas;
-            P[indeksasP].pavarde = M[i].pavarde;
-            P[indeksasP].galutinis = M[i].vidurkis;
-            if(vidurkioTipas == 1) P[indeksasP].galutinis = M[i].vidurkis;
-            else if (vidurkioTipas == 2) P[indeksasP].galutinis = M[i].mediana;
-            indeksasP++;
+            //indeksasP++;
         }else if(galutinis < 5){
             nepazangieji x;
+            x.vardas = M[i].vardas;
+            x.pavarde = M[i].pavarde;
+            x.galutinis = M[i].vidurkis;
+            if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
+            else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
             N.push_back(x);
-            N[indeksasN].vardas = M[i].vardas;
-            N[indeksasN].pavarde = M[i].pavarde;
-            N[indeksasN].galutinis = M[i].vidurkis;
-            if(vidurkioTipas == 1) N[indeksasN].galutinis = M[i].vidurkis;
-            else if (vidurkioTipas == 2) N[indeksasN].galutinis = M[i].mediana;
-            indeksasN++;
+            //indeksasN++;
         }
     }
 }
 
-void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
+void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, long long i){
     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
     //Sudedami visi pazymiai
     for(int j=0; j<rezultatuSk; j++){
@@ -46,7 +46,7 @@ void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutin
     galutinis = 0;
 }
 
-void MedianosSkaiciavimas(vector<mokinys> & M, double & mediana, int i){
+void MedianosSkaiciavimas(vector<mokinys> & M, double & mediana, long long i){
     M[i].tarpiniaiRezultatai.push_back(M[i].egzaminoRezultatas);
     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
     sort(M[i].tarpiniaiRezultatai.begin(), M[i].tarpiniaiRezultatai.end());

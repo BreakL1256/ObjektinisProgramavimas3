@@ -53,6 +53,7 @@ void FailuGeneravimas(fstream & fread, string failoPavadinimas, int pasirinkimas
     std::mt19937 mt(static_cast<long unsigned int>(hrClock::now().time_since_epoch().count()));
     std::uniform_int_distribution<int> dist(0, 10);
 
+    auto start = std::chrono::high_resolution_clock::now();
     fread.open(failoPavadinimas, std::ios::out);
     fread << left << setw(30) << "Vardas";
     fread << left << setw(30) << "Pavarde";
@@ -61,15 +62,18 @@ void FailuGeneravimas(fstream & fread, string failoPavadinimas, int pasirinkimas
     fread << left << setw(30) << "ND11" << left << setw(30) << "ND12" << left << setw(30) << "ND13" << left << setw(30) << "ND14" << left << setw(30) << "ND15";
     fread << left << setw(30) << "Egz.";
     fread << endl;
-    for(int i=0; i<pasirinkimas; i++){
+    for(long long i=0; i<pasirinkimas; i++){
         fread << left << setw(30) << "Vardas" + to_string(i + 1);
         fread << left << setw(30) << "Pavarde" + to_string(i + 1);
-        for(int j = 0; j < 16; j++){
+        for(long long j = 0; j < 16; j++){
             fread << left << setw(30) << dist(mt);
         }
         fread << endl; 
     }
     fread.close();
+    auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
+    std::chrono::duration<double> diff = end-start; // Skirtumas (s)
+    std::cout << "Elementų užpildymas užtruko: "<< diff.count() << " s\n";
 }
 
 
