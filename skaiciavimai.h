@@ -57,7 +57,7 @@ bool DidejimasMediana(const mokinys&, const mokinys&);
 bool MazejimasMediana(const mokinys&, const mokinys&);
 vector<mokinys> EgzaminoRezultatoGavimas(vector<mokinys> &, int);
 vector<mokinys> Rikiavimas(vector<mokinys> &, int);
-void FailuGeneravimas(fstream&, string, int);
+void FailuGeneravimas(string, int);
 void MokiniuSkirstymas(vector<mokinys> &, vector<pazangieji> &, vector<nepazangieji> &, int);
 void MokiniuIsvedimas(vector<pazangieji> &, vector<nepazangieji> &, int);
 

@@ -7,18 +7,18 @@
 using namespace std;
 
 void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N, int vidurkioTipas){
-    fstream fout;
+    ofstream fout;
     try{
         fout.open("Pazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
-        fout << left << setw(30) << "Vardas";
-        fout << left << setw(30) << "Pavarde";
-        if(vidurkioTipas == 1) fout << left << setw(30) << "Galutinis (Vid.)" << endl;
-        else if(vidurkioTipas == 2) fout << left << setw(30) << "Galutinis (Med.)" << endl;
+        fout << left << setw(17) << "Vardas";
+        fout << left << setw(17) << "Pavarde";
+        if(vidurkioTipas == 1) fout << "Galutinis (Vid.)" << endl;
+        else if(vidurkioTipas == 2) fout << "Galutinis (Med.)" << endl;
         for(const auto &p : P){
-            fout << left << setw(30) << p.vardas; 
-            fout << left << setw(30) << p.pavarde; 
-            fout << left << setw(30) << fixed << setprecision(2) << p.galutinis <<endl; 
+            fout << left << setw(17) << p.vardas; 
+            fout << left << setw(17) << p.pavarde; 
+            fout << fixed << setprecision(2) << p.galutinis <<endl; 
         }
         fout.close();
     }catch(const ios_base::failure& e){
@@ -30,14 +30,14 @@ void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N, int vidu
     try{
         fout.open("Nepazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
-        fout << left << setw(30) << "Vardas";
-        fout << left << setw(30) << "Pavarde";
-        if(vidurkioTipas == 1) fout << left << setw(30) << "Galutinis (Vid.)" << endl;
-        else if(vidurkioTipas == 2) fout << left << setw(30) << "Galutinis (Med.)" << endl;
+        fout << left << setw(17) << "Vardas";
+        fout << left << setw(17) << "Pavarde";
+        if(vidurkioTipas == 1) fout << "Galutinis (Vid.)" << endl;
+        else if(vidurkioTipas == 2) fout << "Galutinis (Med.)" << endl;
         for(const auto &n : N){
-            fout << left << setw(30) << n.vardas; 
-            fout << left << setw(30) << n.pavarde; 
-            fout << left << setw(30) << fixed << setprecision(2) << n.galutinis <<endl; 
+            fout << left << setw(17) << n.vardas; 
+            fout << left << setw(17) << n.pavarde; 
+            fout << fixed << setprecision(2) << n.galutinis <<endl; 
         }
         fout.close();
     }catch(const ios_base::failure& e){
@@ -48,29 +48,30 @@ void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N, int vidu
 }
 
 //Funkcija generuoja skirtingu dydziu failus 
-void FailuGeneravimas(fstream & fread, string failoPavadinimas, int pasirinkimas){
+void FailuGeneravimas(string failoPavadinimas, int pasirinkimas){
     using hrClock = std::chrono::high_resolution_clock;
     std::mt19937 mt(static_cast<long unsigned int>(hrClock::now().time_since_epoch().count()));
     std::uniform_int_distribution<int> dist(0, 10);
 
     auto start = std::chrono::high_resolution_clock::now();
-    fread.open(failoPavadinimas, std::ios::out);
-    fread << left << setw(30) << "Vardas";
-    fread << left << setw(30) << "Pavarde";
-    fread << left << setw(30) << "ND1" << left << setw(30) << "ND2" << left << setw(30) << "ND3" << left << setw(30) << "ND4" << left << setw(30) << "ND5";
-    fread << left << setw(30) << "ND6" << left << setw(30) << "ND7" << left << setw(30) << "ND8" << left << setw(30) << "ND9" << left << setw(30) << "ND10";
-    fread << left << setw(30) << "ND11" << left << setw(30) << "ND12" << left << setw(30) << "ND13" << left << setw(30) << "ND14" << left << setw(30) << "ND15";
-    fread << left << setw(30) << "Egz.";
-    fread << endl;
+    stringstream buferis;
+    buferis << left << setw(17) << "Vardas";
+    buferis << left << setw(17) << "Pavarde";
+    buferis << left << setw(5) << "ND1" << left << setw(5) << "ND2" << left << setw(5) << "ND3" << left << setw(5) << "ND4" << left << setw(5) << "ND5";
+    buferis << left << setw(5) << "ND6" << left << setw(5) << "ND7" << left << setw(5) << "ND8" << left << setw(5) << "ND9";
+    buferis << "Egz.";
+    buferis << endl;
     for(long long i=0; i<pasirinkimas; i++){
-        fread << left << setw(30) << "Vardas" + to_string(i + 1);
-        fread << left << setw(30) << "Pavarde" + to_string(i + 1);
-        for(long long j = 0; j < 16; j++){
-            fread << left << setw(30) << dist(mt);
+        buferis << left << setw(17) << "Vardas" + to_string(i + 1);
+        buferis << left << setw(17) << "Pavarde" + to_string(i + 1);
+        for(long long j = 0; j < 10; j++){
+            buferis << left << setw(5) << dist(mt);
         }
-        fread << endl; 
+        buferis << endl; 
     }
-    fread.close();
+    ofstream fw(failoPavadinimas);
+    fw << buferis.rdbuf();
+    fw.close();
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start; // Skirtumas (s)
     std::cout << "Elementų užpildymas užtruko: "<< diff.count() << " s\n";
