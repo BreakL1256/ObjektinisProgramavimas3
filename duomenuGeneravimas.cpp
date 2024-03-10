@@ -54,22 +54,29 @@ void FailuGeneravimas(string failoPavadinimas, int pasirinkimas){
     std::uniform_int_distribution<int> dist(0, 10);
 
     auto start = std::chrono::high_resolution_clock::now();
+    ofstream fw(failoPavadinimas);
     stringstream buferis;
+    const int BUFFER_SIZE = 1000;
+
     buferis << left << setw(17) << "Vardas";
     buferis << left << setw(17) << "Pavarde";
     buferis << left << setw(5) << "ND1" << left << setw(5) << "ND2" << left << setw(5) << "ND3" << left << setw(5) << "ND4" << left << setw(5) << "ND5";
     buferis << left << setw(5) << "ND6" << left << setw(5) << "ND7" << left << setw(5) << "ND8" << left << setw(5) << "ND9";
     buferis << "Egz.";
     buferis << endl;
-    for(long long i=0; i<pasirinkimas; i++){
+    for(int i=0; i<pasirinkimas; i++){
+        if(buferis.str().size() > BUFFER_SIZE){
+            fw << buferis.rdbuf();
+            buferis.str("");
+            buferis.clear();
+        }
         buferis << left << setw(17) << "Vardas" + to_string(i + 1);
         buferis << left << setw(17) << "Pavarde" + to_string(i + 1);
-        for(long long j = 0; j < 10; j++){
+        for(int j = 0; j < 10; j++){
             buferis << left << setw(5) << dist(mt);
         }
         buferis << endl; 
     }
-    ofstream fw(failoPavadinimas);
     fw << buferis.rdbuf();
     fw.close();
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
