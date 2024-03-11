@@ -2,10 +2,8 @@
 
 using namespace std;
 
-
 int main()
 {
-const int buffer_size = 1000;
 
 //Veikimas padarytas, kad programa veiktu kol nepasirenkamas jos terminavimas
 while(true){
@@ -19,10 +17,11 @@ while(true){
     string header;
     stringstream buffer;
     int pazSuma = 0;
+
     
     string eilute, failoPavadinimas;
-    int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas, zmoniuSkPasirinkimas = 0, sk = 0, skaicius = 0;
-    int dydzioMasyvas[5] = {1000, 10000, 100000, 1000000, 10000000};
+    int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas, zmoniuSkPasirinkimas = 0, sk = 0,  skaicius = 0;
+    int dydzioMasyvas[5] = {1000, 10000, 100000, 1000000, 9000000};
     bool err = 0;
     
     cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - generuoti faila su mokiniu duomenimis,  6 - baigti darba\n";
@@ -260,39 +259,146 @@ while(true){
 
             //try{
                 start = std::chrono::high_resolution_clock::now();
+
                 fr.open(failoPavadinimas);
                 if (!fr.is_open()) {
                     throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
                 }
-                
-                getline(fr, header);
-                
+
+                getline(fr, eilute);
                 buffer << fr.rdbuf();
-   
-                while (getline(buffer, eilute)) {
-                //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
-                    if(eilute.empty()) continue;
-                    sk++;
-                    mokinys x;
 
+                // Close the file
+                fr.close();
+                fw.open("rezultatai.txt");
+                // Process the buffer line by line
+                while (getline(buffer, eilute)){
                     istringstream iss(eilute);
-                    //Tkrinamas skaiciu ivedimas naudojant try-catch metoda
-                        iss >> x.vardas >> x.pavarde;
+                    sk++;
+                    fw << sk << endl;
+                    mokinys x;
+                    if (!(iss >> x.vardas >> x.pavarde)) {
+                        cerr << "Failed to read vardas and pavarde from line: " << eilute << endl;
+                        continue;
+                    }
 
-                        //Nuskaitomi tik skaiciai 10 sistemoje
-                        while (iss >> skaicius) {
-                                x.tarpiniaiRezultatai.push_back(skaicius);
-                        }
+                    while (iss >> skaicius) {
+                        x.tarpiniaiRezultatai.push_back(skaicius);
+                    }
 
-
-
-                        x.egzaminoRezultatas = x.tarpiniaiRezultatai.back();
-                        x.tarpiniaiRezultatai.pop_back();
-
-                    //is vektoriaus istraukiamas egzamino rez.
+                    x.egzaminoRezultatas = x.tarpiniaiRezultatai.back();
+                    x.tarpiniaiRezultatai.pop_back();
+ 
                     M.push_back(x);
                 }
-                fr.close();
+                fw.close();
+
+                // fr.seekg(0);
+                // fw.open("rezultatai.txt");
+                // getline(fr, header);
+
+                // while(getline(fr, line)){
+
+                //     buffer += line + "\n"; 
+
+                //     if(buffer.size() > buffer_size){
+                //         istringstream iss(buffer);
+
+                //         while(getline(iss, eilute)) {
+                //         //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
+                //             if(eilute.empty()) continue;
+                //             sk++;
+                //             fw << "1:" << sk << endl;
+                //             mokinys x;
+
+                //             istringstream ss(eilute);
+
+                //             //Tkrinamas skaiciu ivedimas naudojant try-catch metoda
+                //                 ss >> x.vardas >> x.pavarde;
+
+                //                 //Nuskaitomi tik skaiciai 10 sistemoje
+                //                 while (ss >> skaicius) {
+                //                         x.tarpiniaiRezultatai.push_back(skaicius);
+                //                 }
+
+
+
+                //                 x.egzaminoRezultatas = x.tarpiniaiRezultatai.back();
+                //                 x.tarpiniaiRezultatai.pop_back();
+
+                //             //is vektoriaus istraukiamas egzamino rez.
+                //             M.push_back(x);
+                //         }
+                //         buffer.clear();
+                //         if (sk == 7000000) break;
+                //     }
+                // }
+
+                // while(getline(fr, line)){
+
+                //     buffer += line + "\n"; 
+
+                //     if(buffer.size() > buffer_size){
+                //         istringstream lss(buffer);
+
+                //         while(getline(lss, eilute)) {
+                //         //Patikrinama ar kada praleidziama tuscia eilute, kad butu sustapdomas rasymo procesas
+                //             if(eilute.empty()) continue;
+                //             sk++;
+                //             fw << "2:" << sk << endl;
+                //             mokinys x;
+
+                //             istringstream sss(eilute);
+
+                //             //Tkrinamas skaiciu ivedimas naudojant try-catch metoda
+                //                 sss >> x.vardas >> x.pavarde;
+
+                //                 //Nuskaitomi tik skaiciai 10 sistemoje
+                //                 while (sss >> skaicius) {
+                //                         x.tarpiniaiRezultatai.push_back(skaicius);
+                //                 }
+
+
+
+                //                 x.egzaminoRezultatas = x.tarpiniaiRezultatai.back();
+                //                 x.tarpiniaiRezultatai.pop_back();
+
+                //             //is vektoriaus istraukiamas egzamino rez.
+                //             M.push_back(x);
+                //         }
+                //         buffer.clear();
+                //     }
+                // }
+
+                // fr.close();
+
+                // if (!buffer.empty()) {
+                //     std::istringstream oss(buffer);
+
+                //     while(getline(oss, eilute)) {
+                //         if(eilute.empty()) continue;
+                //             sk++;
+                //             fw << "3:" << sk << endl;
+                //             mokinys x;
+                //             istringstream sso(eilute);
+                //             //Tkrinamas skaiciu ivedimas naudojant try-catch metoda
+                //                 sso >> x.vardas >> x.pavarde;
+
+                //                 //Nuskaitomi tik skaiciai 10 sistemoje
+                //                 while (sso >> skaicius) {
+                //                     x.tarpiniaiRezultatai.push_back(skaicius);
+                //                 }
+
+
+
+                //                 x.egzaminoRezultatas = x.tarpiniaiRezultatai.back();
+                //                 x.tarpiniaiRezultatai.pop_back();
+
+                //             //is vektoriaus istraukiamas egzamino rez.
+                //             M.push_back(x);
+                //     }
+                // }
+                // fw.close();
 
                 end = std::chrono::high_resolution_clock::now();
                 diff = end-start; // Skirtumas (s)
@@ -327,15 +433,15 @@ while(true){
                 }
                 cout<<sk<<endl;
                 cout<<M.size()<<endl;
-                double galutinis;
+                double galutinis, mediana;
                 if(vidurkioTipas == 1){
-                    for(long long i=0; i<M.size(); i++){
+                    for(size_t i=0; i<M.size(); i++){
                         VidurkioSkaiciavimas(M, pazSuma, galutinis, i);
                         pazSuma = 0;
                     }
                 }else if(vidurkioTipas == 2){
-                    for(long long i=0; i<M.size(); i++){
-                        MedianosSkaiciavimas(M, galutinis, i);
+                    for(size_t i=0; i<M.size(); i++){
+                        MedianosSkaiciavimas(M, mediana, i);
                     }
                 }
 
@@ -374,9 +480,8 @@ while(true){
     // if(vektoriausIlgiotikrinimas >= 1){
     //     cout<<"Turi buti irasyti bent du pazymiai!\n";
     // }
-
+    double galutinis = 0;
     int vidurkioTipas, rikiavimoPasirinkimas, mokiniuSk = M.size(), pazymiuSuma = 0; 
-    double galutinis = 0; 
     if(indeksas!=0 && err == 0 && vektoriausIlgiotikrinimas == 0 && pasirinkimas != 5){
         cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (1 - vardai, 2 - pavardes, 3 - vidurkiai, 4 - medianos, 5 - nerikiuoti):\n";
         //Tikrinama ar skaicius yra int tipo naudojant try-catch blokas

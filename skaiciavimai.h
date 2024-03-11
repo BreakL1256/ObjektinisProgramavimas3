@@ -14,6 +14,7 @@
 #include <string>
 #include <chrono>
 #include <random>
+#include <windows.h>
 
 
 using namespace std;
@@ -23,8 +24,8 @@ struct mokinys{
     string pavarde;
     vector<int> tarpiniaiRezultatai;
     int egzaminoRezultatas;
-    double mediana;
     double vidurkis;
+    double mediana;
 };
 
 struct pazangieji{
