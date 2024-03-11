@@ -60,10 +60,8 @@ void FailuGeneravimas(string failoPavadinimas, int pasirinkimas){
 
     buferis << left << setw(17) << "Vardas";
     buferis << left << setw(17) << "Pavarde";
-    buferis << left << setw(5) << "ND1" << left << setw(5) << "ND2" << left << setw(5) << "ND3" << left << setw(5) << "ND4";
-    // << left << setw(5) << "ND5";
-    //buferis << left << setw(5) << "ND6"; 
-    //<< left << setw(5) << "ND7" << left << setw(5) << "ND8" << left << setw(5) << "ND9";
+    buferis << left << setw(5) << "ND1" << left << setw(5) << "ND2" << left << setw(5) << "ND3" << left << setw(5) << "ND4" << left << setw(5) << "ND5";
+    buferis << left << setw(5) << "ND6" << left << setw(5) << "ND7" << left << setw(5) << "ND8" << left << setw(5) << "ND9";
     buferis << "Egz.";
     buferis << endl;
     for(int i=0; i<pasirinkimas; i++){
