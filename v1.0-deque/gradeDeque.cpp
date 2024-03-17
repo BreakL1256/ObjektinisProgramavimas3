@@ -9,9 +9,9 @@ int main()
 while(true){
     ifstream fr;
     ofstream fw;
-    vector<mokinys> M;
-    vector<pazangieji> P;
-    vector<nepazangieji> N;
+    deque<mokinys> M;
+    deque<pazangieji> P;
+    deque<nepazangieji> N;
     std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
     std::chrono::duration<double> diff;
     string header;

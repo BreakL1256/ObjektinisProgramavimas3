@@ -72,7 +72,7 @@ void FailuGeneravimas(string failoPavadinimas, int pasirinkimas){
         }
         buferis << left << setw(17) << "Vardas" + to_string(i + 1);
         buferis << left << setw(17) << "Pavarde" + to_string(i + 1);
-        for(int j = 0; j < 5; j++){
+        for(int j = 0; j < 10; j++){
             buferis << left << setw(5) << dist(mt);
         }
         buferis << endl; 

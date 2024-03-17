@@ -1,12 +1,9 @@
 #include "skaiciavimai.h"
-// #include <string>
-// #include <vector>
-// #include <iostream>
-// #include <sstream>
+
 
 using namespace std;
 
-void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N, int vidurkioTipas){
+void MokiniuIsvedimas(deque<pazangieji> & P, deque<nepazangieji> & N, int vidurkioTipas){
     ofstream fout;
     try{
         fout.open("../Pazangieji.txt", std::ios::out);
@@ -72,7 +69,7 @@ void FailuGeneravimas(string failoPavadinimas, int pasirinkimas){
         }
         buferis << left << setw(17) << "Vardas" + to_string(i + 1);
         buferis << left << setw(17) << "Pavarde" + to_string(i + 1);
-        for(int j = 0; j < 5; j++){
+        for(int j = 0; j < 10; j++){
             buferis << left << setw(5) << dist(mt);
         }
         buferis << endl; 
@@ -95,7 +92,7 @@ bool SudaroTikRaides(string & str) {
 }
 
 //Funkcija, kuri leidzia perskaityti varda ir pavarde ir kartu patikrina ar vardas ir pavarde yra zodziai sudaryti is raidziu
-void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool & err){
+void VarduSkaitymas(istringstream & iss, deque<mokinys> & M, int indeksas, bool & err){
     iss >> M[indeksas].vardas >> M[indeksas].pavarde;
     if(!SudaroTikRaides(M[indeksas].vardas) || !SudaroTikRaides(M[indeksas].pavarde)){
         cout<<"Varda ir pavarde gali sudaryti tik raides!\n";
@@ -105,13 +102,13 @@ void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool
     }
 }
 //Funkcija skirta generuoti atsitiktinius pazymius
-void GeneruotiPazymius(vector<mokinys> & M, int indeksas){
+void GeneruotiPazymius(deque<mokinys> & M, int indeksas){
     for(int i=0; i<M[indeksas].tarpiniaiRezultatai.size(); i++){
        M[indeksas].tarpiniaiRezultatai[i] = (double)rand()/RAND_MAX * 10;
     }
 }
 //Funkcija skirta atsitikitiniu vardu ir pavardziu generavimui sudarytu is atsitiktiniu raidziu
-void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
+void VarduPavardziuGeneravimas(deque<mokinys> & M, int indeksas){
     char v;
     int vardoIlgis = 0, pavardesIlgis = 0; 
     vardoIlgis = 6 + (double)rand()/RAND_MAX * (12-6);

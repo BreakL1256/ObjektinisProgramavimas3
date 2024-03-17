@@ -5,7 +5,7 @@
 #include <limits>
 #include <iomanip>
 #include <algorithm>
-#include <vector>
+#include <deque>
 #include <sstream>
 #include <fstream>
 #include <ctime>
@@ -22,7 +22,7 @@ using namespace std;
 struct mokinys{
     string vardas;
     string pavarde;
-    vector<int> tarpiniaiRezultatai;
+    deque<int> tarpiniaiRezultatai;
     int egzaminoRezultatas;
     double vidurkis;
     double mediana;
@@ -42,11 +42,11 @@ struct nepazangieji{
 
 
 bool SudaroTikRaides(string &);
-void VarduSkaitymas(istringstream&, vector<mokinys>& ,int , bool&);
-void GeneruotiPazymius(vector<mokinys>&, int);
-void VarduPavardziuGeneravimas(vector<mokinys>&, int);
-void VidurkioSkaiciavimas(vector<mokinys>&, int , double & , int);
-void MedianosSkaiciavimas(vector<mokinys> & , double & , int);
+void VarduSkaitymas(istringstream&, deque<mokinys>& ,int , bool&);
+void GeneruotiPazymius(deque<mokinys>&, int);
+void VarduPavardziuGeneravimas(deque<mokinys>&, int);
+void VidurkioSkaiciavimas(deque<mokinys>&, int , double & , int);
+void MedianosSkaiciavimas(deque<mokinys> & , double & , int);
 bool PalygintiVardus(const string&, const string&);
 bool DidejimasVardai(const mokinys&, const mokinys&);
 bool MazejimasVardai(const mokinys&, const mokinys&);
@@ -56,10 +56,10 @@ bool DidejimasVidurkis(const mokinys&, const mokinys&);
 bool MazejimasVidurkis(const mokinys&, const mokinys&);
 bool DidejimasMediana(const mokinys&, const mokinys&);
 bool MazejimasMediana(const mokinys&, const mokinys&);
-vector<mokinys> EgzaminoRezultatoGavimas(vector<mokinys> &, int);
-vector<mokinys> Rikiavimas(vector<mokinys> &, int);
+deque<mokinys> EgzaminoRezultatoGavimas(deque<mokinys> &, int);
+deque<mokinys> Rikiavimas(deque<mokinys> &, int);
 void FailuGeneravimas(string, int);
-void MokiniuSkirstymas(vector<mokinys> &, vector<pazangieji> &, vector<nepazangieji> &, int);
-void MokiniuIsvedimas(vector<pazangieji> &, vector<nepazangieji> &, int);
+void MokiniuSkirstymas(deque<mokinys> &, deque<pazangieji> &, deque<nepazangieji> &, int);
+void MokiniuIsvedimas(deque<pazangieji> &, deque<nepazangieji> &, int);
 
 #endif

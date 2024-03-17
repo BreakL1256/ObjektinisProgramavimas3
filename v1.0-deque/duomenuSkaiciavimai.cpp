@@ -1,12 +1,10 @@
 #include "skaiciavimai.h"
-// #include <iostream>
-// #include <ctime>
-// #include <algorithm>
+
 
 using namespace std;
 
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
-void MokiniuSkirstymas(vector<mokinys> & M, vector<pazangieji> & P, vector<nepazangieji> & N, int vidurkioTipas){
+void MokiniuSkirstymas(deque<mokinys> & M, deque<pazangieji> & P, deque<nepazangieji> & N, int vidurkioTipas){
     int indeksasP = 0, indeksasN = 0;
     double galutinis;
     for(int i=0; i<M.size(); i++){
@@ -34,7 +32,7 @@ void MokiniuSkirstymas(vector<mokinys> & M, vector<pazangieji> & P, vector<nepaz
     }
 }
 
-void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
+void VidurkioSkaiciavimas(deque<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
     //Sudedami visi pazymiai
     for(int j=0; j<rezultatuSk; j++){
@@ -46,7 +44,7 @@ void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutin
     galutinis = 0;
 }
 
-void MedianosSkaiciavimas(vector<mokinys> & M, double & mediana, int i){
+void MedianosSkaiciavimas(deque<mokinys> & M, double & mediana, int i){
     M[i].tarpiniaiRezultatai.push_back(M[i].egzaminoRezultatas);
     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
     sort(M[i].tarpiniaiRezultatai.begin(), M[i].tarpiniaiRezultatai.end());
@@ -78,7 +76,7 @@ bool MazejimasVidurkis(const mokinys& a, const mokinys& b){return a.vidurkis > b
 bool DidejimasMediana(const mokinys& a, const mokinys& b){return a.mediana < b.mediana;}
 bool MazejimasMediana(const mokinys& a, const mokinys& b){return a.mediana > b.mediana;}
 
-vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas){
+deque<mokinys> Rikiavimas(deque<mokinys> & M, int rikiavimoPasirinkimas){
     int tvarka;
     if(rikiavimoPasirinkimas != 5){
         cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
@@ -130,7 +128,7 @@ vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas){
     return M;
 }
 
-vector<mokinys> EgzaminoRezultatoGavimas(vector<mokinys> & M, int indeksas){
+deque<mokinys> EgzaminoRezultatoGavimas(deque<mokinys> & M, int indeksas){
     if (M[indeksas].tarpiniaiRezultatai.size() > 1) {
         M[indeksas].egzaminoRezultatas = M[indeksas].tarpiniaiRezultatai.back();
         M[indeksas].tarpiniaiRezultatai.pop_back();
