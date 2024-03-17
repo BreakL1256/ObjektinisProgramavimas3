@@ -9,7 +9,7 @@ using namespace std;
 void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N, int vidurkioTipas){
     ofstream fout;
     try{
-        fout.open("Pazangieji.txt", std::ios::out);
+        fout.open("../Pazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(17) << "Vardas";
         fout << left << setw(17) << "Pavarde";
@@ -28,7 +28,7 @@ void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N, int vidu
     }
 
     try{
-        fout.open("Nepazangieji.txt", std::ios::out);
+        fout.open("../Nepazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(17) << "Vardas";
         fout << left << setw(17) << "Pavarde";
