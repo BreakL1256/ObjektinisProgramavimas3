@@ -1,15 +1,12 @@
 #include "skaiciavimai.h"
-// #include <string>
-// #include <vector>
-// #include <iostream>
-// #include <sstream>
+
 
 using namespace std;
 
-void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N, int vidurkioTipas){
+void MokiniuIsvedimas(list<pazangieji> & P, list<nepazangieji> & N, int vidurkioTipas){
     ofstream fout;
     try{
-        fout.open("Pazangieji.txt", std::ios::out);
+        fout.open("../Pazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(17) << "Vardas";
         fout << left << setw(17) << "Pavarde";
@@ -28,7 +25,7 @@ void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N, int vidu
     }
 
     try{
-        fout.open("Nepazangieji.txt", std::ios::out);
+        fout.open("../Nepazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(17) << "Vardas";
         fout << left << setw(17) << "Pavarde";
@@ -95,9 +92,9 @@ bool SudaroTikRaides(string & str) {
 }
 
 //Funkcija, kuri leidzia perskaityti varda ir pavarde ir kartu patikrina ar vardas ir pavarde yra zodziai sudaryti is raidziu
-void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool & err){
-    iss >> M[indeksas].vardas >> M[indeksas].pavarde;
-    if(!SudaroTikRaides(M[indeksas].vardas) || !SudaroTikRaides(M[indeksas].pavarde)){
+void VarduSkaitymas(istringstream & iss, mokinys & x, int indeksas, bool & err){
+    iss >> x.vardas >> x.pavarde;
+    if(!SudaroTikRaides(x.vardas) || !SudaroTikRaides(x.pavarde)){
         cout<<"Varda ir pavarde gali sudaryti tik raides!\n";
         err=1;   
     } else {
@@ -105,13 +102,13 @@ void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool
     }
 }
 //Funkcija skirta generuoti atsitiktinius pazymius
-void GeneruotiPazymius(vector<mokinys> & M, int indeksas){
-    for(int i=0; i<M[indeksas].tarpiniaiRezultatai.size(); i++){
-       M[indeksas].tarpiniaiRezultatai[i] = (double)rand()/RAND_MAX * 10;
+void GeneruotiPazymius(mokinys & x, int indeksas){
+    for(auto it = x.tarpiniaiRezultatai.begin(); it!=x.tarpiniaiRezultatai.end(); ++it){
+       *it = (double)rand()/RAND_MAX * 10;
     }
 }
 //Funkcija skirta atsitikitiniu vardu ir pavardziu generavimui sudarytu is atsitiktiniu raidziu
-void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
+void VarduPavardziuGeneravimas(mokinys & x, int indeksas){
     char v;
     int vardoIlgis = 0, pavardesIlgis = 0; 
     vardoIlgis = 6 + (double)rand()/RAND_MAX * (12-6);
@@ -121,13 +118,13 @@ void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
             v = 65 + (double)rand()/RAND_MAX * (90-65);
         else
             v = 97 + (double)rand()/RAND_MAX * (122-97);
-        M[indeksas].vardas.push_back(v);
+        x.vardas.push_back(v);
     }
     for(int i=0; i<pavardesIlgis; i++){
         if(i==0)
             v = 65 + (double)rand()/RAND_MAX * (90-65);
         else
             v = 97 + (double)rand()/RAND_MAX * (122-97);
-        M[indeksas].pavarde.push_back(v);
+        x.pavarde.push_back(v);
     }
 }

@@ -1,43 +1,38 @@
 #include "skaiciavimai.h"
-// #include <iostream>
-// #include <ctime>
-// #include <algorithm>
+
 
 using namespace std;
 
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
-void MokiniuSkirstymas(vector<mokinys> & M, vector<pazangieji> & P, vector<nepazangieji> & N, int vidurkioTipas){
-    int indeksasP = 0, indeksasN = 0;
+void MokiniuSkirstymas(list<mokinys> & M, list<pazangieji> & P, list<nepazangieji> & N, int vidurkioTipas){
     double galutinis;
-    for(int i=0; i<M.size(); i++){
-        if(vidurkioTipas == 1) galutinis = M[i].vidurkis;
-        else if(vidurkioTipas == 2) galutinis = M[i].mediana;
+    for(const auto& i: M){
+        if(vidurkioTipas == 1) galutinis = i.vidurkis;
+        else if(vidurkioTipas == 2) galutinis = i.mediana;
         if(galutinis >= 5){
             pazangieji x;
-            x.vardas = M[i].vardas;
-            x.pavarde = M[i].pavarde;
-            x.galutinis = M[i].vidurkis;
-            if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
-            else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
+            x.vardas = i.vardas;
+            x.pavarde = i.pavarde;
+            x.galutinis = i.vidurkis;
+            if(vidurkioTipas == 1) x.galutinis = i.vidurkis;
+            else if (vidurkioTipas == 2) x.galutinis = i.mediana;
             P.push_back(x);
-            //indeksasP++;
         }else if(galutinis < 5){
             nepazangieji x;
-            x.vardas = M[i].vardas;
-            x.pavarde = M[i].pavarde;
-            x.galutinis = M[i].vidurkis;
-            if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
-            else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
+            x.vardas = i.vardas;
+            x.pavarde = i.pavarde;
+            x.galutinis = i.vidurkis;
+            if(vidurkioTipas == 1) x.galutinis = i.vidurkis;
+            else if (vidurkioTipas == 2) x.galutinis = i.mediana;
             N.push_back(x);
-            //indeksasN++;
         }
     }
 }
 
-void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
+void VidurkioSkaiciavimas(mokinys x, int pazymiuSuma, double & galutinis, int i){
     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
     //Sudedami visi pazymiai
-    for(int j=0; j<rezultatuSk; j++){
+    for(const auto& i: ){
         pazymiuSuma+=M[i].tarpiniaiRezultatai[j];
     }
     //Suskaiciuojamas galutinis pazymys pagal formule
@@ -46,7 +41,7 @@ void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutin
     galutinis = 0;
 }
 
-void MedianosSkaiciavimas(vector<mokinys> & M, double & mediana, int i){
+void MedianosSkaiciavimas(list<mokinys> & M, double & mediana, int i){
     M[i].tarpiniaiRezultatai.push_back(M[i].egzaminoRezultatas);
     int rezultatuSk = M[i].tarpiniaiRezultatai.size();
     sort(M[i].tarpiniaiRezultatai.begin(), M[i].tarpiniaiRezultatai.end());
@@ -78,7 +73,7 @@ bool MazejimasVidurkis(const mokinys& a, const mokinys& b){return a.vidurkis > b
 bool DidejimasMediana(const mokinys& a, const mokinys& b){return a.mediana < b.mediana;}
 bool MazejimasMediana(const mokinys& a, const mokinys& b){return a.mediana > b.mediana;}
 
-vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas){
+list<mokinys> Rikiavimas(list<mokinys> & M, int rikiavimoPasirinkimas){
     int tvarka;
     if(rikiavimoPasirinkimas != 5){
         cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
@@ -130,7 +125,7 @@ vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas){
     return M;
 }
 
-vector<mokinys> EgzaminoRezultatoGavimas(vector<mokinys> & M, int indeksas){
+list<mokinys> EgzaminoRezultatoGavimas(list<mokinys> & M, int indeksas){
     if (M[indeksas].tarpiniaiRezultatai.size() > 1) {
         M[indeksas].egzaminoRezultatas = M[indeksas].tarpiniaiRezultatai.back();
         M[indeksas].tarpiniaiRezultatai.pop_back();

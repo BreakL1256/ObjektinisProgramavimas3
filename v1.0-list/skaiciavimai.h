@@ -5,7 +5,7 @@
 #include <limits>
 #include <iomanip>
 #include <algorithm>
-#include <vector>
+#include <list>
 #include <sstream>
 #include <fstream>
 #include <ctime>
@@ -22,7 +22,7 @@ using namespace std;
 struct mokinys{
     string vardas;
     string pavarde;
-    vector<int> tarpiniaiRezultatai;
+    list<int> tarpiniaiRezultatai;
     int egzaminoRezultatas;
     double vidurkis;
     double mediana;
@@ -42,11 +42,11 @@ struct nepazangieji{
 
 
 bool SudaroTikRaides(string &);
-void VarduSkaitymas(istringstream&, vector<mokinys>& ,int , bool&);
-void GeneruotiPazymius(vector<mokinys>&, int);
-void VarduPavardziuGeneravimas(vector<mokinys>&, int);
-void VidurkioSkaiciavimas(vector<mokinys>&, int , double & , int);
-void MedianosSkaiciavimas(vector<mokinys> & , double & , int);
+void VarduSkaitymas(istringstream&, mokinys & ,int , bool&);
+void GeneruotiPazymius(mokinys &, int);
+void VarduPavardziuGeneravimas(mokinys &, int);
+void VidurkioSkaiciavimas(mokinys&, int , double & , int);
+void MedianosSkaiciavimas(list<mokinys> & , double & , int);
 bool PalygintiVardus(const string&, const string&);
 bool DidejimasVardai(const mokinys&, const mokinys&);
 bool MazejimasVardai(const mokinys&, const mokinys&);
@@ -56,10 +56,10 @@ bool DidejimasVidurkis(const mokinys&, const mokinys&);
 bool MazejimasVidurkis(const mokinys&, const mokinys&);
 bool DidejimasMediana(const mokinys&, const mokinys&);
 bool MazejimasMediana(const mokinys&, const mokinys&);
-vector<mokinys> EgzaminoRezultatoGavimas(vector<mokinys> &, int);
-vector<mokinys> Rikiavimas(vector<mokinys> &, int);
+list<mokinys> EgzaminoRezultatoGavimas(list<mokinys> &, int);
+list<mokinys> Rikiavimas(list<mokinys> &, int);
 void FailuGeneravimas(string, int);
-void MokiniuSkirstymas(vector<mokinys> &, vector<pazangieji> &, vector<nepazangieji> &, int);
-void MokiniuIsvedimas(vector<pazangieji> &, vector<nepazangieji> &, int);
+void MokiniuSkirstymas(list<mokinys> &, list<pazangieji> &, list<nepazangieji> &, int);
+void MokiniuIsvedimas(list<pazangieji> &, list<nepazangieji> &, int);
 
 #endif
