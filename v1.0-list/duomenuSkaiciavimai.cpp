@@ -29,33 +29,36 @@ void MokiniuSkirstymas(list<mokinys> & M, list<pazangieji> & P, list<nepazangiej
     }
 }
 
-void VidurkioSkaiciavimas(mokinys x, int pazymiuSuma, double & galutinis, int i){
-    int rezultatuSk = M[i].tarpiniaiRezultatai.size();
+void VidurkioSkaiciavimas(mokinys& x, int pazymiuSuma, double & galutinis){
+    int rezultatuSk = x.tarpiniaiRezultatai.size();
     //Sudedami visi pazymiai
-    for(const auto& i: ){
-        pazymiuSuma+=M[i].tarpiniaiRezultatai[j];
+    for(const auto& i: x.tarpiniaiRezultatai){
+        pazymiuSuma+=i;
     }
     //Suskaiciuojamas galutinis pazymys pagal formule
-    galutinis = 0.4 * (pazymiuSuma/rezultatuSk) + 0.6 * M[i].egzaminoRezultatas;
-    M[i].vidurkis = galutinis;
+    galutinis = 0.4 * (pazymiuSuma/rezultatuSk) + 0.6 * x.egzaminoRezultatas;
+    x.vidurkis = galutinis;
     galutinis = 0;
 }
 
-void MedianosSkaiciavimas(list<mokinys> & M, double & mediana, int i){
-    M[i].tarpiniaiRezultatai.push_back(M[i].egzaminoRezultatas);
-    int rezultatuSk = M[i].tarpiniaiRezultatai.size();
-    sort(M[i].tarpiniaiRezultatai.begin(), M[i].tarpiniaiRezultatai.end());
+void MedianosSkaiciavimas(mokinys & x, double & mediana){
+    x.tarpiniaiRezultatai.push_back(x.egzaminoRezultatas);
+    int rezultatuSk = x.tarpiniaiRezultatai.size();
+    sort(x.tarpiniaiRezultatai.begin(), x.tarpiniaiRezultatai.end());
     //skaiciuojama mediana
     //patikrinama ar yra lyginis ar nelyginis skaicius elementu vektoriuje
+    auto mid1 = x.tarpiniaiRezultatai.begin();
+    advance(mid1, (rezultatuSk-1)/2);
     if(rezultatuSk%2!=0){
-        int skaicius = rezultatuSk/2;
-        mediana = M[i].tarpiniaiRezultatai[skaicius];
+        //int skaicius = rezultatuSk/2;
+        //advance(mid, (rezultatuSk-1)/2);
+        mediana = *mid1;
     }else if(rezultatuSk%2==0){
-        int pirmas = rezultatuSk/2-1;
-        int antras = rezultatuSk/2;
-        mediana = (M[i].tarpiniaiRezultatai[pirmas]+M[i].tarpiniaiRezultatai[antras])/2.0;
+        auto mid2 = mid1;
+        advance(mid2, 1);
+        mediana = (*mid1 + *mid2)/2;
     }
-    M[i].mediana = mediana;
+    x.mediana = mediana;
 }
 bool PalygintiVardus(const string& a, const string& b) {
     if (a.length() != b.length()) {
@@ -125,10 +128,10 @@ list<mokinys> Rikiavimas(list<mokinys> & M, int rikiavimoPasirinkimas){
     return M;
 }
 
-list<mokinys> EgzaminoRezultatoGavimas(list<mokinys> & M, int indeksas){
-    if (M[indeksas].tarpiniaiRezultatai.size() > 1) {
-        M[indeksas].egzaminoRezultatas = M[indeksas].tarpiniaiRezultatai.back();
-        M[indeksas].tarpiniaiRezultatai.pop_back();
+mokinys EgzaminoRezultatoGavimas(mokinys & x){
+    if (x.tarpiniaiRezultatai.size() > 1) {
+        x.egzaminoRezultatas = x.tarpiniaiRezultatai.back();
+        x.tarpiniaiRezultatai.pop_back();
     }
-    return M;
+    return x;
 }

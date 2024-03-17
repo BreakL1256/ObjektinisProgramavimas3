@@ -100,7 +100,7 @@ while(true){
                     if(x.tarpiniaiRezultatai.size() == 0)
                         vektoriausIlgiotikrinimas++;
 
-                    EgzaminoRezultatoGavimas(M, indeksas);
+                    EgzaminoRezultatoGavimas(x);
                     //is vektoriaus istraukiamas egzamino rez.
                     M.push_back(x);
                     indeksas++;
@@ -153,7 +153,7 @@ while(true){
                 if(x.tarpiniaiRezultatai.size() == 1)
                     vektoriausIlgiotikrinimas++;
 
-                EgzaminoRezultatoGavimas(M, indeksas);
+                EgzaminoRezultatoGavimas(x);
                 //is vektoriaus istraukiamas egzamino rez.
                 M.push_back(x);
                 indeksas++;
@@ -202,7 +202,7 @@ while(true){
                 if(!eilute.empty())
                     GeneruotiPazymius(x, indeksas);
                 //is vektoriaus istraukiamas egzamino rez.
-                EgzaminoRezultatoGavimas(M, indeksas);
+                EgzaminoRezultatoGavimas(x);
                 M.push_back(x);
                 indeksas++;
             }
@@ -233,7 +233,7 @@ while(true){
                 x.tarpiniaiRezultatai.resize(sugeneruotiSk);
                 GeneruotiPazymius(x, i);
                 //is vektoriaus istraukiamas egzamino rez.
-                EgzaminoRezultatoGavimas(M, i);
+                EgzaminoRezultatoGavimas(x);
                 M.push_back(x);
             }
             break;
@@ -326,13 +326,15 @@ while(true){
                 cout<<M.size()<<endl;
                 double galutinis, mediana;
                 if(vidurkioTipas == 1){
-                    for(size_t i=0; i<M.size(); i++){
-                        VidurkioSkaiciavimas(M, pazSuma, galutinis, i);
+                    for(auto it = M.begin(); it!=M.end(); ++it){
+                        mokinys& s = *it;
+                        VidurkioSkaiciavimas(s, pazSuma, galutinis);
                         pazSuma = 0;
                     }
                 }else if(vidurkioTipas == 2){
-                    for(size_t i=0; i<M.size(); i++){
-                        MedianosSkaiciavimas(M, mediana, i);
+                    for(auto it = M.begin(); it!=M.end(); ++it){
+                        mokinys& s = *it;
+                        MedianosSkaiciavimas(s, mediana);
                     }
                 }
 
@@ -402,8 +404,9 @@ while(true){
     if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas == 0 && isvedimoPasirinkimas == 1){
         //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
         if(vidurkioTipas == 1){ 
-            for(const auto& i: M){
-                VidurkioSkaiciavimas(i, pazymiuSuma, galutinis, i);
+            for(auto it = M.begin(); it!=M.end(); ++it){
+                mokinys& s = *it;
+                VidurkioSkaiciavimas(s, pazymiuSuma, galutinis);
                 pazymiuSuma = 0;
             }
             Rikiavimas(M, rikiavimoPasirinkimas);
@@ -417,8 +420,9 @@ while(true){
                 cout << left << setw(30) << fixed << setprecision(2) << i.vidurkis << endl;
             } 
         }else if (vidurkioTipas == 2){
-            for(int i=0; i<mokiniuSk; i++){
-                MedianosSkaiciavimas(M, galutinis, i);
+            for(auto it = M.begin(); it!=M.end(); ++it){
+                mokinys& s = *it;
+                MedianosSkaiciavimas(s, galutinis);
             }
             Rikiavimas(M, rikiavimoPasirinkimas);
             cout << left << setw(25) <<"Pavarde";
@@ -444,8 +448,9 @@ while(true){
                 fw  << left << setw(25) <<"Vardas";
                 fw  << left << setw(30) << "Galutinis (Vid.)" << endl;
                 fw  << "------------------------------------------------------------" << endl;
-                for(int i=0; i<mokiniuSk; i++){
-                    VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
+                for(auto it = M.begin(); it!=M.end(); ++it){
+                    mokinys& s = *it;
+                    VidurkioSkaiciavimas(s, pazymiuSuma, galutinis);
                     pazymiuSuma = 0;
                 }
                 Rikiavimas(M, rikiavimoPasirinkimas);
@@ -459,8 +464,9 @@ while(true){
                 fw  << left << setw(25) <<"Vardas";
                 fw  << left << setw(30) << "Galutinis (Med.)" << endl;
                 fw  << string(66, '-') << endl;
-                for(int i=0; i<mokiniuSk; i++){
-                    MedianosSkaiciavimas(M, galutinis, i);
+                for(auto it = M.begin(); it!=M.end(); ++it){
+                    mokinys& s = *it;
+                    MedianosSkaiciavimas(s, galutinis);
                 }
                 Rikiavimas(M, rikiavimoPasirinkimas);
                 for(const auto&i: M){
