@@ -369,7 +369,7 @@ while(true){
     //     cout<<"Turi buti irasyti bent du pazymiai!\n";
     // }
     double galutinis = 0;
-    int vidurkioTipas, rikiavimoPasirinkimas, mokiniuSk = M.size(), pazymiuSuma = 0; 
+    int vidurkioTipas, rikiavimoPasirinkimas, pazymiuSuma = 0; 
     if(indeksas!=0 && err == 0 && vektoriausIlgiotikrinimas == 0 && pasirinkimas != 5){
         cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (1 - vardai, 2 - pavardes, 3 - vidurkiai, 4 - medianos, 5 - nerikiuoti):\n";
         //Tikrinama ar skaicius yra int tipo naudojant try-catch blokas

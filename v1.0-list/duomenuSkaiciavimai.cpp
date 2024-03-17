@@ -44,7 +44,8 @@ void VidurkioSkaiciavimas(mokinys& x, int pazymiuSuma, double & galutinis){
 void MedianosSkaiciavimas(mokinys & x, double & mediana){
     x.tarpiniaiRezultatai.push_back(x.egzaminoRezultatas);
     int rezultatuSk = x.tarpiniaiRezultatai.size();
-    sort(x.tarpiniaiRezultatai.begin(), x.tarpiniaiRezultatai.end());
+    //sort(x.tarpiniaiRezultatai.begin(), x.tarpiniaiRezultatai.end());
+    x.tarpiniaiRezultatai.sort();
     //skaiciuojama mediana
     //patikrinama ar yra lyginis ar nelyginis skaicius elementu vektoriuje
     auto mid1 = x.tarpiniaiRezultatai.begin();
@@ -96,30 +97,30 @@ list<mokinys> Rikiavimas(list<mokinys> & M, int rikiavimoPasirinkimas){
     switch(rikiavimoPasirinkimas){
         case 1:
             if(tvarka == 1){
-            sort(M.begin(), M.end(), DidejimasVardai);
+            M.sort( DidejimasVardai);
             }else if(tvarka == 2){
-            sort(M.begin(), M.end(), MazejimasVardai);
+            M.sort( MazejimasVardai);
             }
             break;
         case 2:
             if(tvarka == 1){
-            sort(M.begin(), M.end(), DidejimasPavardes);
+            M.sort(DidejimasPavardes);
             }else if(tvarka == 2){
-            sort(M.begin(), M.end(), MazejimasPavardes);    
+            M.sort(MazejimasPavardes);    
             }
             break;
         case 3:
             if(tvarka == 1){
-            sort(M.begin(), M.end(), DidejimasVidurkis);
+            M.sort(DidejimasVidurkis);
             }else if(tvarka == 2){
-            sort(M.begin(), M.end(), MazejimasVidurkis);    
+            M.sort(MazejimasVidurkis);    
             }
             break;
         case 4:
             if(tvarka == 1){
-            sort(M.begin(), M.end(), DidejimasMediana);
+            M.sort(DidejimasMediana);
             }else if(tvarka == 2){
-            sort(M.begin(), M.end(), MazejimasMediana);   
+            M.sort(MazejimasMediana);   
             }
             break;
         case 5:
