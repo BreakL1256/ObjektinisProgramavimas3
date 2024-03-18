@@ -256,7 +256,7 @@ while(true){
 
             failoPavadinimas = "../studentu_sarasas_" + to_string(dydzioMasyvas[zmoniuSkPasirinkimas-1]) + ".txt";
 
-            FailuGeneravimas(failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
+            //FailuGeneravimas(failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
 
                 start = std::chrono::high_resolution_clock::now();
 
@@ -293,7 +293,7 @@ while(true){
 
                 end = std::chrono::high_resolution_clock::now();
                 diff = end-start; // Skirtumas (s)
-                std::cout << "duomenų nuskaitymą iš failo: "<< diff.count() << " s\n";
+                std::cout << "duomenų nuskaitymas iš failo: "<< diff.count() << " s\n";
                 
                 int rikiavimoPasirinkimas, vidurkioTipas;
                 cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (1 - vardai, 2 - pavardes, 3 - vidurkiai, 4 - medianos, 5 - nerikiuoti):\n";
@@ -337,22 +337,24 @@ while(true){
                         MedianosSkaiciavimas(s, mediana);
                     }
                 }
-
+                start = std::chrono::high_resolution_clock::now();
                 Rikiavimas(M, rikiavimoPasirinkimas);
-
+                end = std::chrono::high_resolution_clock::now();
+                diff = end-start; // Skirtumas (s)
+                std::cout << "Mokiniu rikiavimas: "<< diff.count() << " s\n";
                 //Paskirsto mokinius i pazangiuosius ir nepazangiuosius
                 start = std::chrono::high_resolution_clock::now();
                 MokiniuSkirstymas(M, P, N, vidurkioTipas);
                 end = std::chrono::high_resolution_clock::now();
                 diff = end-start; // Skirtumas (s)
-                std::cout << "Mokinius skirstymas: "<< diff.count() << " s\n";
+                std::cout << "Mokiniu skirstymas: "<< diff.count() << " s\n";
 
                 //Pazangiuju ir nepazangiuju mokiniu isvedimas i faila
-                start = std::chrono::high_resolution_clock::now();
+                //start = std::chrono::high_resolution_clock::now();
                 MokiniuIsvedimas(P, N, vidurkioTipas);
-                end = std::chrono::high_resolution_clock::now();
-                diff = end-start; // Skirtumas (s)
-                std::cout << "Mokinius isvedimas: "<< diff.count() << " s\n";
+                // end = std::chrono::high_resolution_clock::now();
+                // diff = end-start; // Skirtumas (s)
+                // std::cout << "Mokinius isvedimas: "<< diff.count() << " s\n";
 
 
             break;
