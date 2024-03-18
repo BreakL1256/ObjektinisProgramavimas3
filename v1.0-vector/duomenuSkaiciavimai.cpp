@@ -5,7 +5,7 @@ using namespace std;
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
 void MokiniuSkirstymas(vector<mokinys> & M, vector<nepazangieji> & N, int vidurkioTipas){
     double galutinis;
-    for(int i=M.size() - 1; i>=0; i--){
+    for(int i=0; i<M.size(); i++){
         if(vidurkioTipas == 1) galutinis = M[i].vidurkis;
         else if(vidurkioTipas == 2) galutinis = M[i].mediana;
         // if(galutinis >= 5){
@@ -24,9 +24,9 @@ void MokiniuSkirstymas(vector<mokinys> & M, vector<nepazangieji> & N, int vidurk
             else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
             N.push_back(x);
             M.erase(M.begin()+i);
+            i--;
         }
     }
-    reverse(N.begin(), N.end());
 }
 
 void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
