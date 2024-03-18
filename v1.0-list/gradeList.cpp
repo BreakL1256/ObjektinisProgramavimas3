@@ -10,7 +10,7 @@ while(true){
     ifstream fr;
     ofstream fw;
     list<mokinys> M;
-    list<pazangieji> P;
+    //list<pazangieji> P;
     list<nepazangieji> N;
     std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
     std::chrono::duration<double> diff;
@@ -344,14 +344,14 @@ while(true){
                 std::cout << "Mokiniu rikiavimas: "<< diff.count() << " s\n";
                 //Paskirsto mokinius i pazangiuosius ir nepazangiuosius
                 start = std::chrono::high_resolution_clock::now();
-                MokiniuSkirstymas(M, P, N, vidurkioTipas);
+                MokiniuSkirstymas(M, N, vidurkioTipas);
                 end = std::chrono::high_resolution_clock::now();
                 diff = end-start; // Skirtumas (s)
                 std::cout << "Mokiniu skirstymas: "<< diff.count() << " s\n";
 
                 //Pazangiuju ir nepazangiuju mokiniu isvedimas i faila
                 //start = std::chrono::high_resolution_clock::now();
-                MokiniuIsvedimas(P, N, vidurkioTipas);
+                MokiniuIsvedimas(M, N, vidurkioTipas);
                 // end = std::chrono::high_resolution_clock::now();
                 // diff = end-start; // Skirtumas (s)
                 // std::cout << "Mokinius isvedimas: "<< diff.count() << " s\n";
