@@ -1,37 +1,32 @@
 #include "skaiciavimai.h"
-// #include <iostream>
-// #include <ctime>
-// #include <algorithm>
 
 using namespace std;
 
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
 void MokiniuSkirstymas(vector<mokinys> & M, vector<nepazangieji> & N, int vidurkioTipas){
-    int indeksasP = 0, indeksasN = 0;
     double galutinis;
-    for(int i=0; i<M.size(); i++){
+    for(int i=M.size() - 1; i>=0; i--){
         if(vidurkioTipas == 1) galutinis = M[i].vidurkis;
         else if(vidurkioTipas == 2) galutinis = M[i].mediana;
-        if(galutinis >= 5){
-            pazangieji x;
-            x.vardas = M[i].vardas;
-            x.pavarde = M[i].pavarde;
-            x.galutinis = M[i].vidurkis;
-            if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
-            else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
-            P.push_back(x);
-            //indeksasP++;
-        }else if(galutinis < 5){
+        // if(galutinis >= 5){
+        //     pazangieji x;
+        //     x.vardas = M[i].vardas;
+        //     x.pavarde = M[i].pavarde;
+        //     x.galutinis = M[i].vidurkis;
+        //     if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
+        //     else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
+        //     P.push_back(x);
+        if(galutinis < 5){
             nepazangieji x;
             x.vardas = M[i].vardas;
             x.pavarde = M[i].pavarde;
-            x.galutinis = M[i].vidurkis;
             if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
             else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
             N.push_back(x);
-            //indeksasN++;
+            M.erase(M.begin()+i);
         }
     }
+    reverse(N.begin(), N.end());
 }
 
 void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){

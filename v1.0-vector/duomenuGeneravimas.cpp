@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void MokiniuIsvedimas(vector<mokinys> & P, vector<nepazangieji> & N, int vidurkioTipas){
+void MokiniuIsvedimas(vector<mokinys> & M, vector<nepazangieji> & N, int vidurkioTipas){
     ofstream fout;
     try{
         fout.open("../Pazangieji.txt", std::ios::out);
@@ -15,7 +15,7 @@ void MokiniuIsvedimas(vector<mokinys> & P, vector<nepazangieji> & N, int vidurki
         fout << left << setw(17) << "Pavarde";
         if(vidurkioTipas == 1){
             fout << "Galutinis (Vid.)" << endl;
-            for(const auto &p : P){
+            for(const auto &p : M){
                 fout << left << setw(17) << p.vardas; 
                 fout << left << setw(17) << p.pavarde;
                 fout << fixed << setprecision(2) << p.vidurkis <<endl; 
@@ -23,7 +23,7 @@ void MokiniuIsvedimas(vector<mokinys> & P, vector<nepazangieji> & N, int vidurki
         }
         else if(vidurkioTipas == 2){
             fout << "Galutinis (Med.)" << endl;
-            for(const auto &p : P){
+            for(const auto &p : M){
                 fout << left << setw(17) << p.vardas; 
                 fout << left << setw(17) << p.pavarde;
                 fout << fixed << setprecision(2) << p.mediana <<endl; 
