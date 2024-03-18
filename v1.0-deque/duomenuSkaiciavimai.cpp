@@ -4,30 +4,28 @@
 using namespace std;
 
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
-void MokiniuSkirstymas(deque<mokinys> & M, deque<pazangieji> & P, deque<nepazangieji> & N, int vidurkioTipas){
-    int indeksasP = 0, indeksasN = 0;
+void MokiniuSkirstymas(deque<mokinys> & M, deque<nepazangieji> & N, int vidurkioTipas){
     double galutinis;
     for(int i=0; i<M.size(); i++){
         if(vidurkioTipas == 1) galutinis = M[i].vidurkis;
         else if(vidurkioTipas == 2) galutinis = M[i].mediana;
-        if(galutinis >= 5){
-            pazangieji x;
-            x.vardas = M[i].vardas;
-            x.pavarde = M[i].pavarde;
-            x.galutinis = M[i].vidurkis;
-            if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
-            else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
-            P.push_back(x);
-            //indeksasP++;
-        }else if(galutinis < 5){
+        // if(galutinis >= 5){
+        //     pazangieji x;
+        //     x.vardas = M[i].vardas;
+        //     x.pavarde = M[i].pavarde;
+        //     x.galutinis = M[i].vidurkis;
+        //     if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
+        //     else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
+        //     P.push_back(x);
+        if(galutinis < 5){
             nepazangieji x;
             x.vardas = M[i].vardas;
             x.pavarde = M[i].pavarde;
-            x.galutinis = M[i].vidurkis;
             if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
             else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
             N.push_back(x);
-            //indeksasN++;
+            M.erase(M.begin() + i);
+            --i;
         }
     }
 }

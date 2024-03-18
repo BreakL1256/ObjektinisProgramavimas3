@@ -28,12 +28,6 @@ struct mokinys{
     double mediana;
 };
 
-struct pazangieji{
-    string vardas;
-    string pavarde;
-    double galutinis;
-};
-
 struct nepazangieji{
     string vardas;
     string pavarde;
@@ -59,7 +53,7 @@ bool MazejimasMediana(const mokinys&, const mokinys&);
 deque<mokinys> EgzaminoRezultatoGavimas(deque<mokinys> &, int);
 deque<mokinys> Rikiavimas(deque<mokinys> &, int);
 void FailuGeneravimas(string, int);
-void MokiniuSkirstymas(deque<mokinys> &, deque<pazangieji> &, deque<nepazangieji> &, int);
-void MokiniuIsvedimas(deque<pazangieji> &, deque<nepazangieji> &, int);
+void MokiniuSkirstymas(deque<mokinys> &, deque<nepazangieji> &, int);
+void MokiniuIsvedimas(deque<mokinys> &, deque<nepazangieji> &, int);
 
 #endif
