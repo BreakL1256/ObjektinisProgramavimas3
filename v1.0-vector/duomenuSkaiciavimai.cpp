@@ -6,7 +6,7 @@
 using namespace std;
 
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
-void MokiniuSkirstymas(vector<mokinys> & M, vector<pazangieji> & P, vector<nepazangieji> & N, int vidurkioTipas){
+void MokiniuSkirstymas(vector<mokinys> & M, vector<nepazangieji> & N, int vidurkioTipas){
     int indeksasP = 0, indeksasN = 0;
     double galutinis;
     for(int i=0; i<M.size(); i++){

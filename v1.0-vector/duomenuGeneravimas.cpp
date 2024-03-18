@@ -6,19 +6,28 @@
 
 using namespace std;
 
-void MokiniuIsvedimas(vector<pazangieji> & P, vector<nepazangieji> & N, int vidurkioTipas){
+void MokiniuIsvedimas(vector<mokinys> & P, vector<nepazangieji> & N, int vidurkioTipas){
     ofstream fout;
     try{
         fout.open("../Pazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(17) << "Vardas";
         fout << left << setw(17) << "Pavarde";
-        if(vidurkioTipas == 1) fout << "Galutinis (Vid.)" << endl;
-        else if(vidurkioTipas == 2) fout << "Galutinis (Med.)" << endl;
-        for(const auto &p : P){
-            fout << left << setw(17) << p.vardas; 
-            fout << left << setw(17) << p.pavarde; 
-            fout << fixed << setprecision(2) << p.galutinis <<endl; 
+        if(vidurkioTipas == 1){
+            fout << "Galutinis (Vid.)" << endl;
+            for(const auto &p : P){
+                fout << left << setw(17) << p.vardas; 
+                fout << left << setw(17) << p.pavarde;
+                fout << fixed << setprecision(2) << p.vidurkis <<endl; 
+            }
+        }
+        else if(vidurkioTipas == 2){
+            fout << "Galutinis (Med.)" << endl;
+            for(const auto &p : P){
+                fout << left << setw(17) << p.vardas; 
+                fout << left << setw(17) << p.pavarde;
+                fout << fixed << setprecision(2) << p.mediana <<endl; 
+            }
         }
         fout.close();
     }catch(const ios_base::failure& e){
