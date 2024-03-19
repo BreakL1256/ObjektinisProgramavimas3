@@ -18,7 +18,8 @@ while(true){
     stringstream buffer;
     int pazSuma = 0;
 
-    
+    int ags = 0;
+
     string eilute, failoPavadinimas;
     int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas, zmoniuSkPasirinkimas = 0, skaicius = 0;
     int dydzioMasyvas[5] = {1000, 10000, 100000, 1000000, 10000000};
@@ -256,7 +257,7 @@ while(true){
 
             failoPavadinimas = "../studentu_sarasas_" + to_string(dydzioMasyvas[zmoniuSkPasirinkimas-1]) + ".txt";
 
-            //FailuGeneravimas(failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
+            // FailuGeneravimas(failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
 
                 start = std::chrono::high_resolution_clock::now();
 
@@ -265,13 +266,13 @@ while(true){
                     throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
                 }
 
-                getline(fr, eilute);
-                buffer << fr.rdbuf();
-
-
-                fr.close();
-
-                while (getline(buffer, eilute)){
+                // buffer << fr.rdbuf();
+                cout << bool(getline(fr, eilute));
+                cout << eilute;
+                while (getline(fr, eilute)){
+                    ags++;
+                    if(ags%100000==0) 
+                        cout << M.size() << " " << ags  << " " << eilute << endl;
                     istringstream iss(eilute);
 
                     mokinys x;
@@ -288,7 +289,9 @@ while(true){
                     x.tarpiniaiRezultatai.pop_back();
  
                     M.push_back(x);
+
                 }
+                fr.close();
 
 
                 end = std::chrono::high_resolution_clock::now();

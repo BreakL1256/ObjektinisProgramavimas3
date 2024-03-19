@@ -29,12 +29,6 @@ struct mokinys{
 };
 
 
-struct nepazangieji{
-    string vardas;
-    string pavarde;
-    double galutinis;
-};
-
 
 bool SudaroTikRaides(string &);
 void VarduSkaitymas(istringstream&, vector<mokinys>& ,int , bool&);
@@ -54,7 +48,7 @@ bool MazejimasMediana(const mokinys&, const mokinys&);
 vector<mokinys> EgzaminoRezultatoGavimas(vector<mokinys> &, int);
 vector<mokinys> Rikiavimas(vector<mokinys> &, int);
 void FailuGeneravimas(string, int);
-void MokiniuSkirstymas(vector<mokinys> &, vector<nepazangieji> &, int);
-void MokiniuIsvedimas(vector<mokinys> &, vector<nepazangieji> &, int);
+void MokiniuSkirstymas(vector<mokinys> &, vector<mokinys> &, int, int);
+void MokiniuIsvedimas(vector<mokinys> &, vector<mokinys> &, int);
 
 #endif

@@ -9,14 +9,13 @@ int main()
 while(true){
     ifstream fr;
     ofstream fw;
-    vector<mokinys> M;
+    vector<mokinys> M, N;
     //vector<pazangieji> P;
-    vector<nepazangieji> N;
     std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
     std::chrono::duration<double> diff;
     string header;
     stringstream buffer;
-    int pazSuma = 0;
+    int pazSuma = 0, tvarka;
 
     
     string eilute, failoPavadinimas;
@@ -267,10 +266,10 @@ while(true){
                 getline(fr, eilute);
                 buffer << fr.rdbuf();
 
-
                 fr.close();
 
-                while (getline(buffer, eilute)){
+                while (!buffer.eof()){
+                    getline(buffer, eilute);
                     istringstream iss(eilute);
 
                     mokinys x;
@@ -321,6 +320,21 @@ while(true){
                         cin>>vidurkioTipas;
                     }
                 }
+                if(rikiavimoPasirinkimas != 5){
+                    cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
+                    try{
+                        cin>>tvarka;
+                        if(!cin.good() || tvarka<1 || tvarka>2) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 2].");
+                    }catch(const std::exception& e){
+                        cerr << "KLAIDA:" << e.what() << endl;
+                        while(!cin.good() || tvarka<1 || tvarka>2){
+                            cin.clear();
+                            cin.ignore(1000, '\n');
+                            cout<<"Galite pasirinkti tik skaicius [1, 2]!\n";
+                            cin>>tvarka;
+                        }
+                    }
+                }
 
                 cout<<M.size()<<endl;
                 double galutinis, mediana;
@@ -341,7 +355,7 @@ while(true){
                 std::cout << "Mokiniu rikiavimas: "<< diff.count() << " s\n";
                 //Paskirsto mokinius i pazangiuosius ir nepazangiuosius
                 start = std::chrono::high_resolution_clock::now();
-                MokiniuSkirstymas(M, N, vidurkioTipas);
+                MokiniuSkirstymas(M, N, vidurkioTipas, tvarka);
                 end = std::chrono::high_resolution_clock::now();
                 diff = end-start; // Skirtumas (s)
                 std::cout << "Mokiniu skirstymas: "<< diff.count() << " s\n";

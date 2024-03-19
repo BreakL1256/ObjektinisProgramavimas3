@@ -2,12 +2,12 @@
 
 using namespace std;
 
+
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
-void MokiniuSkirstymas(vector<mokinys> & M, vector<nepazangieji> & N, int vidurkioTipas){
-    double galutinis;
-    for(int i=0; i<M.size(); i++){
-        if(vidurkioTipas == 1) galutinis = M[i].vidurkis;
-        else if(vidurkioTipas == 2) galutinis = M[i].mediana;
+void MokiniuSkirstymas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTipas, int rikiavimas){
+    //double galutinis;
+        // if(vidurkioTipas == 1) galutinis = M[i].vidurkis;
+        // else if(vidurkioTipas == 2) galutinis = M[i].mediana;
         // if(galutinis >= 5){
         //     pazangieji x;
         //     x.vardas = M[i].vardas;
@@ -16,17 +16,41 @@ void MokiniuSkirstymas(vector<mokinys> & M, vector<nepazangieji> & N, int vidurk
         //     if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
         //     else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
         //     P.push_back(x);
-        if(galutinis < 5){
-            nepazangieji x;
-            x.vardas = M[i].vardas;
-            x.pavarde = M[i].pavarde;
-            if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
-            else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
-            N.push_back(x);
-            M.erase(M.begin()+i);
-            i--;
+        auto spot = lower_bound(M.begin(), M.end(), 5.0, [](const mokinys &a, const double b){ return a.vidurkis < b; });
+        N.insert(N.begin(), M.begin(), spot); 
+        M.erase(M.begin(), spot);
+        if(vidurkioTipas == 1){
+            if(rikiavimas == 1){
+                auto spot = lower_bound(M.begin(), M.end(), 5.0, []( const mokinys &a, const double b){ return a.vidurkis < b; });
+                N.insert(N.begin(), M.begin(), spot); 
+                M.erase(M.begin(), spot);
+            }else if(rikiavimas == 2){
+                auto spot = upper_bound(M.begin(), M.end(), 5.0, []( const double b, const mokinys &a){ return a.vidurkis < b; });
+                N.insert(N.begin(), M.begin(), spot); 
+                M.erase(M.begin(), spot);
+            }
+        }else if(vidurkioTipas == 2){
+            if(rikiavimas == 1){
+                auto spot = lower_bound(M.begin(), M.end(), 5.0, []( const mokinys &a, const double b){ return a.mediana < b; });
+                N.insert(N.begin(), M.begin(), spot); 
+                M.erase(M.begin(), spot);
+            }else if(rikiavimas == 2){
+                auto spot = upper_bound(M.begin(), M.end(), 5.0, []( const double b, const mokinys &a){ return a.mediana < b; });
+                N.insert(N.begin(), M.begin(), spot); 
+                M.erase(M.begin(), spot);
+            }
         }
-    }
+        // if(galutinis < 5){
+        //     mokinys x;
+        //     x.vardas = M[i].vardas;
+        //     x.pavarde = M[i].pavarde;
+        //     if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
+        //     else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
+        //     N.push_back(x);
+        //     M.erase(M.begin()+i);
+        //     i--;
+        // }
+    
 }
 
 void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){

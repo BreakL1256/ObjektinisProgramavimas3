@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void MokiniuIsvedimas(vector<mokinys> & M, vector<nepazangieji> & N, int vidurkioTipas){
+void MokiniuIsvedimas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTipas){
     ofstream fout;
     try{
         fout.open("../Pazangieji.txt", std::ios::out);
@@ -14,44 +14,53 @@ void MokiniuIsvedimas(vector<mokinys> & M, vector<nepazangieji> & N, int vidurki
         fout << left << setw(17) << "Vardas";
         fout << left << setw(17) << "Pavarde";
         if(vidurkioTipas == 1){
-            fout << "Galutinis (Vid.)" << endl;
+            fout << "Galutinis (Vid.)" << "\n";
             for(const auto &p : M){
                 fout << left << setw(17) << p.vardas; 
                 fout << left << setw(17) << p.pavarde;
-                fout << fixed << setprecision(2) << p.vidurkis <<endl; 
+                fout << fixed << setprecision(2) << p.vidurkis <<"\n"; 
             }
         }
         else if(vidurkioTipas == 2){
-            fout << "Galutinis (Med.)" << endl;
+            fout << "Galutinis (Med.)" << "\n";
             for(const auto &p : M){
                 fout << left << setw(17) << p.vardas; 
                 fout << left << setw(17) << p.pavarde;
-                fout << fixed << setprecision(2) << p.mediana <<endl; 
+                fout << fixed << setprecision(2) << p.mediana <<"\n"; 
             }
         }
         fout.close();
     }catch(const ios_base::failure& e){
-        cerr << "KLAIDA: " << e.what() << endl;
-        cerr << "FAILAS NEBUVO RASTAS PRISKIRTOJE LOKACIJOJE!" << endl;
+        cerr << "KLAIDA: " << e.what() << "\n";
+        cerr << "FAILAS NEBUVO RASTAS PRISKIRTOJE LOKACIJOJE!" << "\n";
         return;
     }
 
     try{
-        fout.open("../Nepazangieji.txt", std::ios::out);
+        fout.open("../mokinys.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(17) << "Vardas";
         fout << left << setw(17) << "Pavarde";
-        if(vidurkioTipas == 1) fout << "Galutinis (Vid.)" << endl;
-        else if(vidurkioTipas == 2) fout << "Galutinis (Med.)" << endl;
-        for(const auto &n : N){
-            fout << left << setw(17) << n.vardas; 
-            fout << left << setw(17) << n.pavarde; 
-            fout << fixed << setprecision(2) << n.galutinis <<endl; 
+        if(vidurkioTipas == 1){
+            fout << "Galutinis (Vid.)" << "\n";
+            for(const auto &n : N){
+                fout << left << setw(17) << n.vardas; 
+                fout << left << setw(17) << n.pavarde; 
+                fout << fixed << setprecision(2) << n.vidurkis <<"\n"; 
+            }
+        }
+        else if(vidurkioTipas == 2){ 
+            fout << "Galutinis (Med.)" << "\n";
+            for(const auto &n : N){
+                fout << left << setw(17) << n.vardas; 
+                fout << left << setw(17) << n.pavarde; 
+                fout << fixed << setprecision(2) << n.mediana <<"\n"; 
+            }
         }
         fout.close();
     }catch(const ios_base::failure& e){
-        cerr << "KLAIDA: " << e.what() << endl;
-        cerr << "FAILAS NEBUVO RASTAS PRISKIRTOJE LOKACIJOJE!" << endl;
+        cerr << "KLAIDA: " << e.what() << "\n";
+        cerr << "FAILAS NEBUVO RASTAS PRISKIRTOJE LOKACIJOJE!" << "\n";
         return;
     }
 }
@@ -72,7 +81,7 @@ void FailuGeneravimas(string failoPavadinimas, int pasirinkimas){
     buferis << left << setw(5) << "ND1" << left << setw(5) << "ND2" << left << setw(5) << "ND3" << left << setw(5) << "ND4" << left << setw(5) << "ND5";
     buferis << left << setw(5) << "ND6" << left << setw(5) << "ND7" << left << setw(5) << "ND8" << left << setw(5) << "ND9";
     buferis << "Egz.";
-    buferis << endl;
+    buferis << "\n";
     for(int i=0; i<pasirinkimas; i++){
         if(buferis.str().size() > BUFFER_SIZE){
             fw << buferis.rdbuf();
@@ -84,7 +93,7 @@ void FailuGeneravimas(string failoPavadinimas, int pasirinkimas){
         for(int j = 0; j < 10; j++){
             buferis << left << setw(5) << dist(mt);
         }
-        buferis << endl; 
+        buferis << "\n"; 
     }
     fw << buferis.rdbuf();
     fw.close();

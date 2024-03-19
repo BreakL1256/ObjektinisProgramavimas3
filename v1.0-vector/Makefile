@@ -1,11 +1,11 @@
 gradeVector : duomenuGeneravimas.o duomenuSkaiciavimai.o gradeVector.cpp
-	g++ -O3 -o gradeVector gradeVector.cpp duomenuGeneravimas.o duomenuSkaiciavimai.o -Wall -Wextra -Werror
+	g++ -O3 -o gradeVector gradeVector.cpp duomenuGeneravimas.o duomenuSkaiciavimai.o 
 
 duomenuGeneravimas :
-	g++ -c duomenuGeneravimas.cpp -Wall -Wextra -Werror
+	g++ -c duomenuGeneravimas.cpp
 
 duomenuSkaiciavimai :
-	g++ -c duomenuSkaiciavimai.cpp -Wall -Wextra -Werror
+	g++ -c duomenuSkaiciavimai.cpp 
 
 clean :
 	rm -f *.o gradeVector
