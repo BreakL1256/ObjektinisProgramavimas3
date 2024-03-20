@@ -37,7 +37,7 @@ void MokiniuIsvedimas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTipa
     }
 
     try{
-        fout.open("../mokinys.txt", std::ios::out);
+        fout.open("../Nepazangieji.txt", std::ios::out);
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(17) << "Vardas";
         fout << left << setw(17) << "Pavarde";

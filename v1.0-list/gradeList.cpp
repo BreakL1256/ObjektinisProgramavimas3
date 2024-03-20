@@ -18,7 +18,7 @@ while(true){
     stringstream buffer;
     int pazSuma = 0;
 
-    int ags = 0;
+    //int ags = 0;
 
     string eilute, failoPavadinimas;
     int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas, zmoniuSkPasirinkimas = 0, skaicius = 0;
@@ -266,13 +266,16 @@ while(true){
                     throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
                 }
 
-                // buffer << fr.rdbuf();
-                cout << bool(getline(fr, eilute));
-                cout << eilute;
-                while (getline(fr, eilute)){
-                    ags++;
-                    if(ags%100000==0) 
-                        cout << M.size() << " " << ags  << " " << eilute << endl;
+                getline(fr, eilute);
+
+                buffer << fr.rdbuf();
+                fr.close();
+                // cout << bool(getline(fr, eilute));
+                // cout << eilute;
+                while (getline(buffer, eilute)){
+                    // ags++;
+                    // if(ags%100000==0) 
+                    //     cout << M.size() << " " << ags  << " " << eilute << endl;
                     istringstream iss(eilute);
 
                     mokinys x;
@@ -291,7 +294,6 @@ while(true){
                     M.push_back(x);
 
                 }
-                fr.close();
 
 
                 end = std::chrono::high_resolution_clock::now();
