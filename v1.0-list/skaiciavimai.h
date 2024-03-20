@@ -28,12 +28,6 @@ struct mokinys{
     double mediana;
 };
 
-struct nepazangieji{
-    string vardas;
-    string pavarde;
-    double galutinis;
-};
-
 
 bool SudaroTikRaides(string &);
 void VarduSkaitymas(istringstream&, mokinys & ,int , bool&);
@@ -51,9 +45,9 @@ bool MazejimasVidurkis(const mokinys&, const mokinys&);
 bool DidejimasMediana(const mokinys&, const mokinys&);
 bool MazejimasMediana(const mokinys&, const mokinys&);
 mokinys EgzaminoRezultatoGavimas(mokinys &);
-list<mokinys> Rikiavimas(list<mokinys> &, int);
+list<mokinys> Rikiavimas(list<mokinys> &, int, const int& sk = 0);
 void FailuGeneravimas(string, int);
-void MokiniuSkirstymas(list<mokinys> &, list<nepazangieji> &, int);
-void MokiniuIsvedimas(list<mokinys> &, list<nepazangieji> &, int);
+void MokiniuSkirstymas(list<mokinys> &, list<mokinys> &, int, int);
+void MokiniuIsvedimas(list<mokinys> &, list<mokinys> &, int);
 
 #endif

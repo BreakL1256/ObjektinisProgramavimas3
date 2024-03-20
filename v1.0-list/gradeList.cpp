@@ -9,14 +9,14 @@ int main()
 while(true){
     ifstream fr;
     ofstream fw;
-    list<mokinys> M;
+    list<mokinys> M, N;
     //list<pazangieji> P;
-    list<nepazangieji> N;
+    //list<nepazangieji> N;
     std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
     std::chrono::duration<double> diff;
     string header;
     stringstream buffer;
-    int pazSuma = 0;
+    int pazSuma = 0, tvarka;
 
     //int ags = 0;
 
@@ -301,11 +301,11 @@ while(true){
                 std::cout << "duomenų nuskaitymas iš failo: "<< diff.count() << " s\n";
                 
                 int rikiavimoPasirinkimas, vidurkioTipas;
-                cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (1 - vardai, 2 - pavardes, 3 - vidurkiai, 4 - medianos, 5 - nerikiuoti):\n";
+                cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (3 - vidurkiai, 4 - medianos)\n";
                 //Tikrinama ar skaicius yra int tipo naudojant try-catch blokas
                 try{ 
                     cin>>rikiavimoPasirinkimas;
-                    if(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 5].");
+                    if(!cin.good() || rikiavimoPasirinkimas<3 || rikiavimoPasirinkimas>4) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [3, 4].");
                 }catch(const std::invalid_argument& e){
                     cerr << "KLAIDA:" << e.what() << endl;
                     while(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5){
@@ -327,6 +327,21 @@ while(true){
                         cin>>vidurkioTipas;
                     }
                 }
+                if(rikiavimoPasirinkimas != 5){
+                    cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
+                    try{
+                        cin>>tvarka;
+                        if(!cin.good() || tvarka<1 || tvarka>2) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 2].");
+                    }catch(const std::exception& e){
+                        cerr << "KLAIDA:" << e.what() << endl;
+                        while(!cin.good() || tvarka<1 || tvarka>2){
+                            cin.clear();
+                            cin.ignore(1000, '\n');
+                            cout<<"Galite pasirinkti tik skaicius [1, 2]!\n";
+                            cin>>tvarka;
+                        }
+                    }
+                }
 
                 cout<<M.size()<<endl;
                 double galutinis, mediana;
@@ -343,13 +358,13 @@ while(true){
                     }
                 }
                 start = std::chrono::high_resolution_clock::now();
-                Rikiavimas(M, rikiavimoPasirinkimas);
+                Rikiavimas(M, rikiavimoPasirinkimas, tvarka);
                 end = std::chrono::high_resolution_clock::now();
                 diff = end-start; // Skirtumas (s)
                 std::cout << "Mokiniu rikiavimas: "<< diff.count() << " s\n";
                 //Paskirsto mokinius i pazangiuosius ir nepazangiuosius
                 start = std::chrono::high_resolution_clock::now();
-                MokiniuSkirstymas(M, N, vidurkioTipas);
+                MokiniuSkirstymas(M, N, vidurkioTipas, tvarka);
                 end = std::chrono::high_resolution_clock::now();
                 diff = end-start; // Skirtumas (s)
                 std::cout << "Mokiniu skirstymas: "<< diff.count() << " s\n";
