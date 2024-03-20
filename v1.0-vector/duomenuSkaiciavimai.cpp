@@ -5,30 +5,33 @@ using namespace std;
 
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
 void MokiniuSkirstymas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTipas, int rikiavimas){
-        auto spot = lower_bound(M.begin(), M.end(), 5.0, [](const mokinys &a, const double b){ return a.vidurkis < b; });
-        N.insert(N.begin(), M.begin(), spot); 
-        M.erase(M.begin(), spot);
-        if(vidurkioTipas == 1){
-            if(rikiavimas == 1){
-                auto spot = lower_bound(M.begin(), M.end(), 5.0, []( const mokinys &a, const double b){ return a.vidurkis < b; });
-                N.insert(N.begin(), M.begin(), spot); 
-                M.erase(M.begin(), spot);
-            }else if(rikiavimas == 2){
-                auto spot = upper_bound(M.begin(), M.end(), 5.0, []( const double b, const mokinys &a){ return a.vidurkis < b; });
-                N.insert(N.begin(), M.begin(), spot); 
-                M.erase(M.begin(), spot);
-            }
-        }else if(vidurkioTipas == 2){
-            if(rikiavimas == 1){
-                auto spot = lower_bound(M.begin(), M.end(), 5.0, []( const mokinys &a, const double b){ return a.mediana < b; });
-                N.insert(N.begin(), M.begin(), spot); 
-                M.erase(M.begin(), spot);
-            }else if(rikiavimas == 2){
-                auto spot = upper_bound(M.begin(), M.end(), 5.0, []( const double b, const mokinys &a){ return a.mediana < b; });
-                N.insert(N.begin(), M.begin(), spot); 
+        // auto spot = lower_bound(M.begin(), M.end(), 5.0, [](const mokinys &a, const double b){ return a.vidurkis < b; });
+        // N.insert(N.begin(), M.begin(), spot); 
+        // M.erase(M.begin(), spot);
+        if (vidurkioTipas == 1) {
+        if (rikiavimas == 1) {
+            auto spot = std::lower_bound(M.begin(), M.end(), 5.0, [](const mokinys& a, const double b) { return a.vidurkis < b; });
+            std::copy(M.begin(), spot, std::back_inserter(N));
+            M.erase(M.begin(), spot);
+        }
+        else if (rikiavimas == 2) {
+            auto spot = std::upper_bound(M.begin(), M.end(), 5.0, [](const double b, const mokinys& a) { return a.vidurkis < b; });
+            std::copy(M.begin(), spot, std::back_inserter(N));
+            M.erase(M.begin(), spot);
+        }
+        }
+        else if (vidurkioTipas == 2) {
+            if (rikiavimas == 1) {
+                auto spot = std::lower_bound(M.begin(), M.end(), 5.0, [](const mokinys& a, const double b) { return a.mediana < b; });
+                std::copy(M.begin(), spot, std::back_inserter(N));
                 M.erase(M.begin(), spot);
             }
-        }   
+            else if (rikiavimas == 2) {
+                auto spot = std::upper_bound(M.begin(), M.end(), 5.0, [](const double b, const mokinys& a) { return a.mediana < b; });
+                std::copy(M.begin(), spot, std::back_inserter(N));
+                M.erase(M.begin(), spot);
+            }
+        }
 }
 
 void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
