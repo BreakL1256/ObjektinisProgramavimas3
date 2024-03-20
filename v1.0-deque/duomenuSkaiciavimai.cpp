@@ -4,28 +4,29 @@
 using namespace std;
 
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
-void MokiniuSkirstymas(deque<mokinys> & M, deque<nepazangieji> & N, int vidurkioTipas){
-    double galutinis;
-    for(int i=0; i<M.size(); i++){
-        if(vidurkioTipas == 1) galutinis = M[i].vidurkis;
-        else if(vidurkioTipas == 2) galutinis = M[i].mediana;
-        // if(galutinis >= 5){
-        //     pazangieji x;
-        //     x.vardas = M[i].vardas;
-        //     x.pavarde = M[i].pavarde;
-        //     x.galutinis = M[i].vidurkis;
-        //     if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
-        //     else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
-        //     P.push_back(x);
-        if(galutinis < 5){
-            nepazangieji x;
-            x.vardas = M[i].vardas;
-            x.pavarde = M[i].pavarde;
-            if(vidurkioTipas == 1) x.galutinis = M[i].vidurkis;
-            else if (vidurkioTipas == 2) x.galutinis = M[i].mediana;
-            N.push_back(x);
-            M.erase(M.begin() + i);
-            --i;
+void MokiniuSkirstymas(deque<mokinys> & M, deque<mokinys> & N, int vidurkioTipas, int rikiavimas){
+    if (vidurkioTipas == 1) {
+        if (rikiavimas == 1) {
+            auto spot = std::lower_bound(M.begin(), M.end(), 5.0, [](const mokinys& a, const double b) { return a.vidurkis < b; });
+            std::copy(M.begin(), spot, std::back_inserter(N));
+            M.erase(M.begin(), spot);
+        }
+        else if (rikiavimas == 2) {
+            auto spot = std::upper_bound(M.begin(), M.end(), 5.0, [](const double b, const mokinys& a) { return a.vidurkis < b; });
+            std::copy(M.begin(), spot, std::back_inserter(N));
+            M.erase(M.begin(), spot);
+        }
+    }
+    else if (vidurkioTipas == 2) {
+        if (rikiavimas == 1) {
+            auto spot = std::lower_bound(M.begin(), M.end(), 5.0, [](const mokinys& a, const double b) { return a.mediana < b; });
+            std::copy(M.begin(), spot, std::back_inserter(N));
+            M.erase(M.begin(), spot);
+        }
+        else if (rikiavimas == 2) {
+            auto spot = std::upper_bound(M.begin(), M.end(), 5.0, [](const double b, const mokinys& a) { return a.mediana < b; });
+            std::copy(M.begin(), spot, std::back_inserter(N));
+            M.erase(M.begin(), spot);
         }
     }
 }
@@ -74,9 +75,9 @@ bool MazejimasVidurkis(const mokinys& a, const mokinys& b){return a.vidurkis > b
 bool DidejimasMediana(const mokinys& a, const mokinys& b){return a.mediana < b.mediana;}
 bool MazejimasMediana(const mokinys& a, const mokinys& b){return a.mediana > b.mediana;}
 
-deque<mokinys> Rikiavimas(deque<mokinys> & M, int rikiavimoPasirinkimas){
+deque<mokinys> Rikiavimas(deque<mokinys> & M, int rikiavimoPasirinkimas, const int& sk){
     int tvarka;
-    if(rikiavimoPasirinkimas != 5){
+    if(rikiavimoPasirinkimas != 5 && sk == 0){
         cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
         try{
             cin>>tvarka;
@@ -90,7 +91,7 @@ deque<mokinys> Rikiavimas(deque<mokinys> & M, int rikiavimoPasirinkimas){
                 cin>>tvarka;
             }
         }
-    }
+    }else if(rikiavimoPasirinkimas != 5 && sk != 0) tvarka = sk;
     switch(rikiavimoPasirinkimas){
         case 1:
             if(tvarka == 1){

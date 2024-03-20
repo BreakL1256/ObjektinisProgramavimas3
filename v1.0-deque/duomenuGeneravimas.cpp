@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void MokiniuIsvedimas(deque<mokinys> & P, deque<nepazangieji> & N, int vidurkioTipas){
+void MokiniuIsvedimas(deque<mokinys> & P, deque<mokinys> & N, int vidurkioTipas){
     ofstream fout;
     try{
         fout.open("../Pazangieji.txt", std::ios::out);
@@ -38,12 +38,21 @@ void MokiniuIsvedimas(deque<mokinys> & P, deque<nepazangieji> & N, int vidurkioT
         if(!fout.is_open())  throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
         fout << left << setw(17) << "Vardas";
         fout << left << setw(17) << "Pavarde";
-        if(vidurkioTipas == 1) fout << "Galutinis (Vid.)" << endl;
-        else if(vidurkioTipas == 2) fout << "Galutinis (Med.)" << endl;
-        for(const auto &n : N){
-            fout << left << setw(17) << n.vardas; 
-            fout << left << setw(17) << n.pavarde; 
-            fout << fixed << setprecision(2) << n.galutinis <<endl; 
+        if(vidurkioTipas == 1){
+            fout << "Galutinis (Vid.)" << endl;
+            for(const auto &n : N){
+                fout << left << setw(17) << n.vardas; 
+                fout << left << setw(17) << n.pavarde; 
+                fout << fixed << setprecision(2) << n.vidurkis <<endl; 
+            }
+        }
+        else if(vidurkioTipas == 2){
+            fout << "Galutinis (Med.)" << endl;
+            for(const auto &n : N){
+                fout << left << setw(17) << n.vardas; 
+                fout << left << setw(17) << n.pavarde; 
+                fout << fixed << setprecision(2) << n.mediana <<endl; 
+            }
         }
         fout.close();
     }catch(const ios_base::failure& e){
