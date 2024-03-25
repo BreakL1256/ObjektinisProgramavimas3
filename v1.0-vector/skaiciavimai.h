@@ -19,13 +19,23 @@
 
 using namespace std;
 
-struct mokinys{
-    string vardas;
-    string pavarde;
-    vector<int> tarpiniaiRezultatai;
-    int egzaminoRezultatas;
-    double vidurkis;
-    double mediana;
+class mokinys{
+    private:
+        string vardas;
+        string pavarde;
+        vector<int> tarpiniaiRezultatai;
+        int egzaminoRezultatas;
+        double vidurkis;
+        double mediana;
+    public: 
+        mokinys(){vidurkis = 0}
+        inline string vardas() const { return vardas; }   
+        inline string pavarde() const { return pavarde; }  
+        inline vector<int> tarpinaiRezultatai() const {return tarpiniaiRezultatai; }
+        inline int egzaminoRezultatas() const { return egzaminoRezultatas; }
+        inline double vidurkis() const { return vidurkis; }
+        inline double mediana() const { return vidurkis; }
+        ~mokinys(){tarpiniaiRezultatai.clear();}
 };
 
 bool SudaroTikRaides(string &);
