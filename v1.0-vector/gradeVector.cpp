@@ -12,7 +12,7 @@ while(true){
     vector<mokinys> M, N;
     //vector<pazangieji> P;
     std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
-    std::chrono::duration<double> diff;
+    std::chrono::duration<double> diff1, diff2, diff3, diffTotal;
     string header;
     stringstream buffer;
     int pazSuma = 0, tvarka;
@@ -290,8 +290,8 @@ while(true){
 
 
                 end = std::chrono::high_resolution_clock::now();
-                diff = end-start; // Skirtumas (s)
-                std::cout << "duomenų nuskaitymas iš failo: "<< diff.count() << " s\n";
+                diff1 = end-start; // Skirtumas (s)
+                std::cout << "duomenų nuskaitymas iš failo: "<< diff1.count() << " s\n";
                 
                 int rikiavimoPasirinkimas, vidurkioTipas;
                 cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (3 - vidurkiai, 4 - medianos)\n";
@@ -351,14 +351,17 @@ while(true){
                 start = std::chrono::high_resolution_clock::now();
                 Rikiavimas(M, rikiavimoPasirinkimas, tvarka);
                 end = std::chrono::high_resolution_clock::now();
-                diff = end-start; // Skirtumas (s)
-                std::cout << "Mokiniu rikiavimas: "<< diff.count() << " s\n";
+                diff2 = end-start; // Skirtumas (s)
+                std::cout << "Mokiniu rikiavimas: "<< diff2.count() << " s\n";
                 //Paskirsto mokinius i pazangiuosius ir nepazangiuosius
                 start = std::chrono::high_resolution_clock::now();
                 MokiniuSkirstymas(M, N, vidurkioTipas, tvarka);
                 end = std::chrono::high_resolution_clock::now();
-                diff = end-start; // Skirtumas (s)
-                std::cout << "Mokiniu skirstymas: "<< diff.count() << " s\n";
+                diff3 = end-start; // Skirtumas (s)
+                std::cout << "Mokiniu skirstymas: "<< diff3.count() << " s\n";
+
+                diffTotal = diff1 + diff2 + diff3;
+                cout<< "Bendras: " << diffTotal.count() << " s\n";
 
                 //Pazangiuju ir nepazangiuju mokiniu isvedimas i faila
                 //start = std::chrono::high_resolution_clock::now();
