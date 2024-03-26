@@ -28,13 +28,19 @@ class mokinys{
         double vidurkis;
         double mediana;
     public: 
-        mokinys(){vidurkis = 0}
+        mokinys(){}
         inline string vardas() const { return vardas; }   
         inline string pavarde() const { return pavarde; }  
         inline vector<int> tarpinaiRezultatai() const {return tarpiniaiRezultatai; }
         inline int egzaminoRezultatas() const { return egzaminoRezultatas; }
         inline double vidurkis() const { return vidurkis; }
         inline double mediana() const { return vidurkis; }
+        void setVardas(const string& vard){vardas = vard;}
+        void setPavarde(const string& pavard){pavarde = pavard;}
+        void setVardas(const vector<int>& rez){tarpiniaiRezultatai = rez;}
+        void setVardas(const string& vard){vardas = vard;}
+        void setVardas(const string& vard){vardas = vard;}
+        void setVardas(const string& vard){vardas = vard;}
         ~mokinys(){tarpiniaiRezultatai.clear();}
 };
 
