@@ -73,12 +73,11 @@ while(true){
 
 
                     mokinys x;
-                    M.push_back(x);
 
                     istringstream iss(eilute);
                     //Tkrinamas skaiciu ivedimas naudojant try-catch metoda
                     try{
-                        iss >> M[indeksas].vardas >> M[indeksas].pavarde;
+                        iss >> M[indeksas].setVardas() >> M[indeksas].pavarde;
 
                         //Nuskaitomi tik skaiciai 10 sistemoje
                         while (iss >> skaicius) {
@@ -96,11 +95,12 @@ while(true){
                         break;
                     }
 
-                    if(M[indeksas].tarpiniaiRezultatai.size() == 0)
+                    if(x.tarpinaiRezultatai().size() == 0)
                         vektoriausIlgiotikrinimas++;
 
                     EgzaminoRezultatoGavimas(M, indeksas);
                     //is vektoriaus istraukiamas egzamino rez.
+                    M.push_back(x);
                     indeksas++;
                 }
                 fr.close();

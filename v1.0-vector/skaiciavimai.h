@@ -37,10 +37,10 @@ class mokinys{
         inline double mediana() const { return vidurkis; }
         void setVardas(const string& vard){vardas = vard;}
         void setPavarde(const string& pavard){pavarde = pavard;}
-        void setVardas(const vector<int>& rez){tarpiniaiRezultatai = rez;}
-        void setVardas(const string& vard){vardas = vard;}
-        void setVardas(const string& vard){vardas = vard;}
-        void setVardas(const string& vard){vardas = vard;}
+        void setRez(const vector<int>& rez){tarpiniaiRezultatai = rez;}
+        void setegz(const int& egz){egzaminoRezultatas = egz;}
+        void setVidurkis(const double& vid){vidurkis = vid;}
+        void setMediana(const double& med){mediana = med;}
         ~mokinys(){tarpiniaiRezultatai.clear();}
 };
 
