@@ -14,7 +14,7 @@ while(true){
     std::chrono::duration<double> diff1, diff2, diff3, diffTotal;
     string header, vardas, pavarde;
     stringstream buffer;
-    int pazSuma = 0, tvarka;
+    int pazSuma = 0, tvarka, l=0;
 
     
     string eilute, failoPavadinimas;
@@ -229,7 +229,6 @@ while(true){
                 mokinys x;
 
                 x.VarduPavardziuGeneravimas(x, i);
-
                 x.tarpRezultatai().resize(sugeneruotiSk);
                 x.GeneruotiPazymius(x, i);
                 //is vektoriaus istraukiamas egzamino rez.
@@ -273,6 +272,8 @@ while(true){
                 while (!buffer.eof()){
                     getline(buffer, eilute);
                     istringstream iss(eilute);
+
+                    if (eilute.empty()) break;
 
                     mokinys x;
                     iss >> vardas >> pavarde;
@@ -341,9 +342,11 @@ while(true){
                 double galutinis, mediana;
                 if(vidurkioTipas == 1){
                     for(auto& x : M){
+                        l++;
                         x.VidurkioSkaiciavimas(x, pazSuma, galutinis);
                         pazSuma = 0;
                     }
+                    cout<<l<<endl;
                 }else if(vidurkioTipas == 2){
                     for(auto& x : M){
                         x.MedianosSkaiciavimas(x, mediana);

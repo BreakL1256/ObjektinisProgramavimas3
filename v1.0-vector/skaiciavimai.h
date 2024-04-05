@@ -31,7 +31,7 @@ class mokinys{
         mokinys(){}
         inline string vard() const { return vardas; }   
         inline string pavard() const { return pavarde; }  
-        inline vector<int> tarpRezultatai() {return tarpiniaiRezultatai; }
+        inline vector<int>& tarpRezultatai() {return tarpiniaiRezultatai; }
         inline int egzaminoRezult() const { return egzaminoRezultatas; }
         inline double vid() const { return vidurkis; }
         inline double med() const { return vidurkis; }
