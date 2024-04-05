@@ -340,12 +340,12 @@ while(true){
                 cout<<M.size()<<endl;
                 double galutinis, mediana;
                 if(vidurkioTipas == 1){
-                    for(const auto& x : M){
+                    for(auto& x : M){
                         x.VidurkioSkaiciavimas(x, pazSuma, galutinis);
                         pazSuma = 0;
                     }
                 }else if(vidurkioTipas == 2){
-                    for(const auto& x : M){
+                    for(auto& x : M){
                         x.MedianosSkaiciavimas(x, mediana);
                     }
                 }
@@ -421,8 +421,8 @@ while(true){
     if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas == 0 && isvedimoPasirinkimas == 1){
         //Suteikiami 2 pasirinkimai skaiciuoti vidurkius
         if(vidurkioTipas == 1){ 
-            for(int i=0; i<mokiniuSk; i++){
-                VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
+            for(auto& x : M){
+                x.VidurkioSkaiciavimas(x, pazymiuSuma, galutinis);
                 pazymiuSuma = 0;
             }
             Rikiavimas(M, rikiavimoPasirinkimas);
@@ -436,8 +436,8 @@ while(true){
                 cout << left << setw(30) << fixed << setprecision(2) << p.vid() << endl;
             } 
         }else if (vidurkioTipas == 2){
-            for(int i=0; i<mokiniuSk; i++){
-                MedianosSkaiciavimas(M, galutinis, i);
+            for(auto& x : M){
+                x.MedianosSkaiciavimas(x, galutinis);
             }
             Rikiavimas(M, rikiavimoPasirinkimas);
             cout << left << setw(25) <<"Pavarde";
@@ -463,8 +463,8 @@ while(true){
                 fw  << left << setw(25) <<"Vardas";
                 fw  << left << setw(30) << "Galutinis (Vid.)" << endl;
                 fw  << "------------------------------------------------------------" << endl;
-                for(int i=0; i<mokiniuSk; i++){
-                    VidurkioSkaiciavimas(M, pazymiuSuma, galutinis, i);
+                for(auto& x : M){
+                    x.VidurkioSkaiciavimas(x, pazymiuSuma, galutinis);
                     pazymiuSuma = 0;
                 }
                 Rikiavimas(M, rikiavimoPasirinkimas);
@@ -478,8 +478,8 @@ while(true){
                 fw  << left << setw(25) <<"Vardas";
                 fw  << left << setw(30) << "Galutinis (Med.)" << endl;
                 fw  << string(66, '-') << endl;
-                for(int i=0; i<mokiniuSk; i++){
-                    MedianosSkaiciavimas(M, galutinis, i);
+                for(auto& x : M){
+                    x.MedianosSkaiciavimas(x, galutinis);
                 }
                 Rikiavimas(M, rikiavimoPasirinkimas);
                 for(const auto& p: M){

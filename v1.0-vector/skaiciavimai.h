@@ -42,27 +42,27 @@ class mokinys{
         void setVidurkis(const double& vid){vidurkis = vid;}
         void setMediana(const double& med){mediana = med;}
         void EgzaminoRezultatoGavimas(mokinys &, int);
-        void MokiniuSkirstymas(vector<mokinys> &, vector<mokinys> &, int, int);
         void VidurkioSkaiciavimas(mokinys&, int , double &);
-        void MedianosSkaiciavimas(mokinys & , double &);
+        void MedianosSkaiciavimas(mokinys& , double &);
         void VarduSkaitymas(istringstream&, mokinys& ,int , bool&);
         void GeneruotiPazymius(mokinys&, int);
         void VarduPavardziuGeneravimas(mokinys&, int);
-        bool PalygintiVardus(const string&, const string&);
-        bool DidejimasVardai(const mokinys&, const mokinys&);
-        bool MazejimasVardai(const mokinys&, const mokinys&);
-        bool DidejimasPavardes(const mokinys&, const mokinys&);
-        bool MazejimasPavardes(const mokinys&, const mokinys&);
-        bool DidejimasVidurkis(const mokinys&, const mokinys&);
-        bool MazejimasVidurkis(const mokinys&, const mokinys&);
-        bool DidejimasMediana(const mokinys&, const mokinys&);
-        bool MazejimasMediana(const mokinys&, const mokinys&);
-        vector<mokinys> Rikiavimas(vector<mokinys> &, int, const int& sk = 0);
         ~mokinys(){tarpiniaiRezultatai.clear();}
 };
 
+void MokiniuSkirstymas(vector<mokinys> &, vector<mokinys> &, int, int);
+vector<mokinys> Rikiavimas(vector<mokinys> &, int, const int& sk = 0);
 void MokiniuIsvedimas(vector<mokinys> &, vector<mokinys> &, int);
 void FailuGeneravimas(string, int);
 bool SudaroTikRaides(string &);
+bool PalygintiVardus(const string&, const string&);
+bool DidejimasVardai(const mokinys&, const mokinys&);
+bool MazejimasVardai(const mokinys&, const mokinys&);
+bool DidejimasPavardes(const mokinys&, const mokinys&);
+bool MazejimasPavardes(const mokinys&, const mokinys&);
+bool DidejimasVidurkis(const mokinys&, const mokinys&);
+bool MazejimasVidurkis(const mokinys&, const mokinys&);
+bool DidejimasMediana(const mokinys&, const mokinys&);
+bool MazejimasMediana(const mokinys&, const mokinys&);
 
 #endif
