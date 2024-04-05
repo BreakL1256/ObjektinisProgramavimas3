@@ -130,7 +130,7 @@ while(true){
                 //Tikrinamas vardu ivedimas
                 //Jei zodis nera sudarytas is raidziu, nutraukiamas programos darbas ir ismetamas pasirinkimo duomenu apdorojimo meniu                
                 try{
-                    VarduSkaitymas(iss, M, indeksas, err);
+                    x.VarduSkaitymas(iss, x, indeksas, err);
                     if(err) throw std::invalid_argument("PASIRINKTI SIMBOLIAI NERA (STRING) TIPO.");
                 
                     while (iss >> skaicius || !iss.eof()) {
@@ -188,7 +188,7 @@ while(true){
                 istringstream iss(eilute);
                 //Tikrinama ar vardas sudaromas tik is raidziu naudojant try-catch metoda
                 try{
-                    VarduSkaitymas(iss, M, indeksas, err);
+                    x.VarduSkaitymas(iss, x, indeksas, err);
                     if(err) throw std::invalid_argument("PASIRINKTI SIMBOLIAI NERA (STRING) TIPO.");
                 }catch(const std::invalid_argument& e){
                     cerr << "KLAIDA: " << e.what() << endl;
@@ -198,7 +198,7 @@ while(true){
                 //Is anksto nustatoma kiek mokinia tures pazymiu, kad butu galima generuoti atsitiktinius pazymius
                 x.tarpRezultatai().resize(sugeneruotiSk);
                 if(!eilute.empty())
-                    GeneruotiPazymius(M, indeksas);
+                    x.GeneruotiPazymius(x, indeksas);
                 //is vektoriaus istraukiamas egzamino rez.
                 x.EgzaminoRezultatoGavimas(x, indeksas);
 
@@ -228,10 +228,10 @@ while(true){
             for(int i=0; i<indeksas; i++){
                 mokinys x;
 
-                VarduPavardziuGeneravimas(M, i);
+                x.VarduPavardziuGeneravimas(x, i);
 
                 x.tarpRezultatai().resize(sugeneruotiSk);
-                GeneruotiPazymius(M, i);
+                x.GeneruotiPazymius(x, i);
                 //is vektoriaus istraukiamas egzamino rez.
                 x.EgzaminoRezultatoGavimas(x, indeksas);
                 M.push_back(x);
@@ -340,13 +340,13 @@ while(true){
                 cout<<M.size()<<endl;
                 double galutinis, mediana;
                 if(vidurkioTipas == 1){
-                    for(size_t i=0; i<M.size(); i++){
-                        VidurkioSkaiciavimas(M, pazSuma, galutinis, i);
+                    for(const auto& x : M){
+                        x.VidurkioSkaiciavimas(x, pazSuma, galutinis);
                         pazSuma = 0;
                     }
                 }else if(vidurkioTipas == 2){
-                    for(size_t i=0; i<M.size(); i++){
-                        MedianosSkaiciavimas(M, mediana, i);
+                    for(const auto& x : M){
+                        x.MedianosSkaiciavimas(x, mediana);
                     }
                 }
                 start = std::chrono::high_resolution_clock::now();

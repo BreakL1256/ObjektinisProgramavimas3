@@ -4,7 +4,7 @@ using namespace std;
 
 
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
-void MokiniuSkirstymas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTipas, int rikiavimas){
+void mokinys::MokiniuSkirstymas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTipas, int rikiavimas){
         // auto spot = lower_bound(M.begin(), M.end(), 5.0, [](const mokinys &a, const double b){ return a.vidurkis < b; });
         // N.insert(N.begin(), M.begin(), spot); 
         // M.erase(M.begin(), spot);
@@ -34,33 +34,33 @@ void MokiniuSkirstymas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTip
         }
 }
 
-void VidurkioSkaiciavimas(vector<mokinys> & M, int pazymiuSuma, double & galutinis, int i){
-    int rezultatuSk = M[i].tarpiniaiRezultatai.size();
+void mokinys::VidurkioSkaiciavimas(mokinys & M, int pazymiuSuma, double & galutinis){
+    int rezultatuSk = M.tarpiniaiRezultatai.size();
     //Sudedami visi pazymiai
     for(int j=0; j<rezultatuSk; j++){
-        pazymiuSuma+=M[i].tarpiniaiRezultatai[j];
+        pazymiuSuma+=M.tarpiniaiRezultatai[j];
     }
     //Suskaiciuojamas galutinis pazymys pagal formule
-    galutinis = 0.4 * (pazymiuSuma/rezultatuSk) + 0.6 * M[i].egzaminoRezultatas;
-    M[i].vidurkis = galutinis;
+    galutinis = 0.4 * (pazymiuSuma/rezultatuSk) + 0.6 * M.egzaminoRezultatas;
+    M.vidurkis = galutinis;
     galutinis = 0;
 }
 
-void MedianosSkaiciavimas(vector<mokinys> & M, double & mediana, int i){
-    M[i].tarpiniaiRezultatai.push_back(M[i].egzaminoRezultatas);
-    int rezultatuSk = M[i].tarpiniaiRezultatai.size();
-    sort(M[i].tarpiniaiRezultatai.begin(), M[i].tarpiniaiRezultatai.end());
+void mokinys::MedianosSkaiciavimas(mokinys & M, double & mediana){
+    M.tarpiniaiRezultatai.push_back(M.egzaminoRezultatas);
+    int rezultatuSk = M.tarpiniaiRezultatai.size();
+    sort(M.tarpiniaiRezultatai.begin(), M.tarpiniaiRezultatai.end());
     //skaiciuojama mediana
     //patikrinama ar yra lyginis ar nelyginis skaicius elementu vektoriuje
     if(rezultatuSk%2!=0){
         int skaicius = rezultatuSk/2;
-        mediana = M[i].tarpiniaiRezultatai[skaicius];
+        mediana = M.tarpiniaiRezultatai[skaicius];
     }else if(rezultatuSk%2==0){
         int pirmas = rezultatuSk/2-1;
         int antras = rezultatuSk/2;
-        mediana = (M[i].tarpiniaiRezultatai[pirmas]+M[i].tarpiniaiRezultatai[antras])/2.0;
+        mediana = (M.tarpiniaiRezultatai[pirmas]+M.tarpiniaiRezultatai[antras])/2.0;
     }
-    M[i].mediana = mediana;
+    M.mediana = mediana;
 }
 bool PalygintiVardus(const string& a, const string& b) {
     if (a.length() != b.length()) {
@@ -69,16 +69,16 @@ bool PalygintiVardus(const string& a, const string& b) {
     return a < b;
 }
 
-bool DidejimasVardai(const mokinys& a, const mokinys& b){return PalygintiVardus(a.vardas, b.vardas);}
-bool MazejimasVardai(const mokinys& a, const mokinys& b){return !PalygintiVardus(a.vardas, b.vardas);}
-bool DidejimasPavardes(const mokinys& a, const mokinys& b){return PalygintiVardus(a.pavarde, b.pavarde);}
-bool MazejimasPavardes(const mokinys& a, const mokinys& b){return !PalygintiVardus(a.pavarde, b.pavarde);}
-bool DidejimasVidurkis(const mokinys& a, const mokinys& b){return a.vidurkis < b.vidurkis;}
-bool MazejimasVidurkis(const mokinys& a, const mokinys& b){return a.vidurkis > b.vidurkis;}
-bool DidejimasMediana(const mokinys& a, const mokinys& b){return a.mediana < b.mediana;}
-bool MazejimasMediana(const mokinys& a, const mokinys& b){return a.mediana > b.mediana;}
+bool mokinys::DidejimasVardai(const mokinys& a, const mokinys& b){return PalygintiVardus(a.vardas, b.vardas);}
+bool mokinys::MazejimasVardai(const mokinys& a, const mokinys& b){return !PalygintiVardus(a.vardas, b.vardas);}
+bool mokinys::DidejimasPavardes(const mokinys& a, const mokinys& b){return PalygintiVardus(a.pavarde, b.pavarde);}
+bool mokinys::MazejimasPavardes(const mokinys& a, const mokinys& b){return !PalygintiVardus(a.pavarde, b.pavarde);}
+bool mokinys::DidejimasVidurkis(const mokinys& a, const mokinys& b){return a.vidurkis < b.vidurkis;}
+bool mokinys::MazejimasVidurkis(const mokinys& a, const mokinys& b){return a.vidurkis > b.vidurkis;}
+bool mokinys::DidejimasMediana(const mokinys& a, const mokinys& b){return a.mediana < b.mediana;}
+bool mokinys::MazejimasMediana(const mokinys& a, const mokinys& b){return a.mediana > b.mediana;}
 
-vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas, const int& sk){
+vector<mokinys> mokinys::Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas, const int& sk){
     int tvarka;
     if(rikiavimoPasirinkimas != 5 && sk == 0){
         cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";

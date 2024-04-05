@@ -16,17 +16,17 @@ void MokiniuIsvedimas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTipa
         if(vidurkioTipas == 1){
             fout << "Galutinis (Vid.)" << "\n";
             for(const auto &p : M){
-                fout << left << setw(17) << p.vardas; 
-                fout << left << setw(17) << p.pavarde;
-                fout << fixed << setprecision(2) << p.vidurkis <<"\n"; 
+                fout << left << setw(17) << p.vard(); 
+                fout << left << setw(17) << p.pavard();
+                fout << fixed << setprecision(2) << p.vid() <<"\n"; 
             }
         }
         else if(vidurkioTipas == 2){
             fout << "Galutinis (Med.)" << "\n";
             for(const auto &p : M){
-                fout << left << setw(17) << p.vardas; 
-                fout << left << setw(17) << p.pavarde;
-                fout << fixed << setprecision(2) << p.mediana <<"\n"; 
+                fout << left << setw(17) << p.vard(); 
+                fout << left << setw(17) << p.pavard();
+                fout << fixed << setprecision(2) << p.med() <<"\n"; 
             }
         }
         fout.close();
@@ -44,17 +44,17 @@ void MokiniuIsvedimas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTipa
         if(vidurkioTipas == 1){
             fout << "Galutinis (Vid.)" << "\n";
             for(const auto &n : N){
-                fout << left << setw(17) << n.vardas; 
-                fout << left << setw(17) << n.pavarde; 
-                fout << fixed << setprecision(2) << n.vidurkis <<"\n"; 
+                fout << left << setw(17) << n.vard(); 
+                fout << left << setw(17) << n.pavard(); 
+                fout << fixed << setprecision(2) << n.vid() <<"\n"; 
             }
         }
         else if(vidurkioTipas == 2){ 
             fout << "Galutinis (Med.)" << "\n";
             for(const auto &n : N){
-                fout << left << setw(17) << n.vardas; 
-                fout << left << setw(17) << n.pavarde; 
-                fout << fixed << setprecision(2) << n.mediana <<"\n"; 
+                fout << left << setw(17) << n.vard(); 
+                fout << left << setw(17) << n.pavard(); 
+                fout << fixed << setprecision(2) << n.med() <<"\n"; 
             }
         }
         fout.close();
@@ -113,9 +113,9 @@ bool SudaroTikRaides(string & str) {
 }
 
 //Funkcija, kuri leidzia perskaityti varda ir pavarde ir kartu patikrina ar vardas ir pavarde yra zodziai sudaryti is raidziu
-void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool & err){
-    iss >> M[indeksas].vardas >> M[indeksas].pavarde;
-    if(!SudaroTikRaides(M[indeksas].vardas) || !SudaroTikRaides(M[indeksas].pavarde)){
+void mokinys::VarduSkaitymas(istringstream & iss, mokinys& M, int indeksas, bool & err){
+    iss >> M.vardas >> M.pavarde;
+    if(!SudaroTikRaides(M.vardas) || !SudaroTikRaides(M.pavarde)){
         cout<<"Varda ir pavarde gali sudaryti tik raides!\n";
         err=1;   
     } else {
@@ -123,13 +123,13 @@ void VarduSkaitymas(istringstream & iss, vector<mokinys> & M, int indeksas, bool
     }
 }
 //Funkcija skirta generuoti atsitiktinius pazymius
-void GeneruotiPazymius(vector<mokinys> & M, int indeksas){
-    for(int i=0; i<M[indeksas].tarpiniaiRezultatai.size(); i++){
-       M[indeksas].tarpiniaiRezultatai[i] = (double)rand()/RAND_MAX * 10;
+void mokinys::GeneruotiPazymius(mokinys & M, int indeksas){
+    for(int i=0; i<M.tarpiniaiRezultatai.size(); i++){
+       M.tarpiniaiRezultatai[i] = (double)rand()/RAND_MAX * 10;
     }
 }
 //Funkcija skirta atsitikitiniu vardu ir pavardziu generavimui sudarytu is atsitiktiniu raidziu
-void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
+void mokinys::VarduPavardziuGeneravimas(mokinys & M, int indeksas){
     char v;
     int vardoIlgis = 0, pavardesIlgis = 0; 
     vardoIlgis = 6 + (double)rand()/RAND_MAX * (12-6);
@@ -139,13 +139,13 @@ void VarduPavardziuGeneravimas(vector<mokinys> & M, int indeksas){
             v = 65 + (double)rand()/RAND_MAX * (90-65);
         else
             v = 97 + (double)rand()/RAND_MAX * (122-97);
-        M[indeksas].vardas.push_back(v);
+        M.vardas.push_back(v);
     }
     for(int i=0; i<pavardesIlgis; i++){
         if(i==0)
             v = 65 + (double)rand()/RAND_MAX * (90-65);
         else
             v = 97 + (double)rand()/RAND_MAX * (122-97);
-        M[indeksas].pavarde.push_back(v);
+        M.pavarde.push_back(v);
     }
 }
