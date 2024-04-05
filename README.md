@@ -31,6 +31,25 @@
 3. `skaiciavimai.h` - antraščių (header) failas.
 4. `Makefile` - paleidimo failas
 
+## Sistemos parametrai:
+CPU - AMD Ryzen 5 6600HS Creator Edition
+RAM - 16 GB
+SSD - 500 GB
+## Tyrimas (klasės ir struktūros): 
+ ### Struktūros:
+ 
+   | Failų dydžiai | Programos veik. (-O3) | Programos veik. (-O2) | Programos veik. (-O1) |
+   | :--- | :---: | :---: | :---: | 
+   | `1000000` | 3.554805  s | 3.65927 s | 3.554275 s | 
+   | `10000000` | 26.60045  s | 31.46395 s | 28.5036 s |
+
+ ### Klasės:
+
+   | Failų dydžiai | Programos veik. (-O3) | Programos veik. (-O2) | Programos veik. (-O1) |
+   | :--- | :---: | :---: | :---: | 
+   | `1000000` | 2.49207  s | 2.53267 s | 2.582605 s | 
+   | `10000000` | 29.26335  s | 29.01405 s | 34.13615 s |
+
 ## Tyrimas
 ### Aprašymas
 Ištestuotos 3 skirtingos strategijos (1 - skirstant mokinius naudojami du nauji skirtingi konteineriai, 2 - skirstant mokinius naudojamas 1 naujas konteineris, 3 - naudojama antra strategija tik su funkcijomis paspartinančiomis darbą). Kiekviena strategija ištestuota su 3 skirtingais konteineriais (vector, list, deque).
