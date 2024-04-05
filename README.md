@@ -32,18 +32,23 @@
 4. `Makefile` - paleidimo failas
 
 ## Sistemos parametrai:
-CPU - AMD Ryzen 5 6600HS Creator Edition
-RAM - 16 GB
-SSD - 500 GB
+CPU - AMD Ryzen 5 6600HS Creator Edition <br /> 
+RAM - 16 GB <br /> 
+SSD - 500 GB <br /> 
+
 ## Tyrimas (klasės ir struktūros): 
- ### Struktūros:
+### Aprašymas
+Tyrimai padaryti pirmiausia su struktūromis (po 2 bandymus) ir po to su klasėmis (po 2 bandymus).
+
+### Rezultatai
+ #### Struktūros:
  
    | Failų dydžiai | Programos veik. (-O3) | Programos veik. (-O2) | Programos veik. (-O1) |
    | :--- | :---: | :---: | :---: | 
    | `1000000` | 3.554805  s | 3.65927 s | 3.554275 s | 
    | `10000000` | 26.60045  s | 31.46395 s | 28.5036 s |
 
- ### Klasės:
+ #### Klasės:
 
    | Failų dydžiai | Programos veik. (-O3) | Programos veik. (-O2) | Programos veik. (-O1) |
    | :--- | :---: | :---: | :---: | 
