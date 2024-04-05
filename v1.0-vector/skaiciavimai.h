@@ -29,18 +29,19 @@ class mokinys{
         double mediana;
     public: 
         mokinys(){}
-        inline string vardas() const { return vardas; }   
-        inline string pavarde() const { return pavarde; }  
-        inline vector<int> tarpinaiRezultatai() const {return tarpiniaiRezultatai; }
-        inline int egzaminoRezultatas() const { return egzaminoRezultatas; }
-        inline double vidurkis() const { return vidurkis; }
-        inline double mediana() const { return vidurkis; }
+        inline string vard() const { return vardas; }   
+        inline string pavard() const { return pavarde; }  
+        inline vector<int> tarpRezultatai() {return tarpiniaiRezultatai; }
+        inline int egzaminoRezult() const { return egzaminoRezultatas; }
+        inline double vid() const { return vidurkis; }
+        inline double med() const { return vidurkis; }
         void setVardas(const string& vard){vardas = vard;}
         void setPavarde(const string& pavard){pavarde = pavard;}
-        void setRez(const vector<int>& rez){tarpiniaiRezultatai = rez;}
+        void setRez(const int& rez){tarpiniaiRezultatai.push_back(rez);}
         void setegz(const int& egz){egzaminoRezultatas = egz;}
         void setVidurkis(const double& vid){vidurkis = vid;}
         void setMediana(const double& med){mediana = med;}
+        void EgzaminoRezultatoGavimas(mokinys &, int);
         ~mokinys(){tarpiniaiRezultatai.clear();}
 };
 
@@ -59,7 +60,6 @@ bool DidejimasVidurkis(const mokinys&, const mokinys&);
 bool MazejimasVidurkis(const mokinys&, const mokinys&);
 bool DidejimasMediana(const mokinys&, const mokinys&);
 bool MazejimasMediana(const mokinys&, const mokinys&);
-vector<mokinys> EgzaminoRezultatoGavimas(vector<mokinys> &, int);
 vector<mokinys> Rikiavimas(vector<mokinys> &, int, const int& sk = 0);
 void FailuGeneravimas(string, int);
 void MokiniuSkirstymas(vector<mokinys> &, vector<mokinys> &, int, int);

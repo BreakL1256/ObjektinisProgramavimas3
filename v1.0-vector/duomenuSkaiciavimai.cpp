@@ -130,10 +130,9 @@ vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas, const
     return M;
 }
 
-vector<mokinys> EgzaminoRezultatoGavimas(vector<mokinys> & M, int indeksas){
-    if (M[indeksas].tarpiniaiRezultatai.size() > 1) {
-        M[indeksas].egzaminoRezultatas = M[indeksas].tarpiniaiRezultatai.back();
-        M[indeksas].tarpiniaiRezultatai.pop_back();
+void mokinys::EgzaminoRezultatoGavimas(mokinys & M, int indeksas){
+    if (M.tarpiniaiRezultatai.size() > 1) {
+        M.setegz(M.tarpiniaiRezultatai.back());
+        M.tarpiniaiRezultatai.pop_back();
     }
-    return M;
 }

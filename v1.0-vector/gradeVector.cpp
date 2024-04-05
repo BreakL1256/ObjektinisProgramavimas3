@@ -10,10 +10,9 @@ while(true){
     ifstream fr;
     ofstream fw;
     vector<mokinys> M, N;
-    //vector<pazangieji> P;
     std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
     std::chrono::duration<double> diff1, diff2, diff3, diffTotal;
-    string header;
+    string header, vardas, pavarde;
     stringstream buffer;
     int pazSuma = 0, tvarka;
 
@@ -77,12 +76,13 @@ while(true){
                     istringstream iss(eilute);
                     //Tkrinamas skaiciu ivedimas naudojant try-catch metoda
                     try{
-                        iss >> M[indeksas].setVardas() >> M[indeksas].pavarde;
-
+                        iss >> vardas >> pavarde;
+                        x.setVardas(vardas);
+                        x.setPavarde(pavarde);
                         //Nuskaitomi tik skaiciai 10 sistemoje
                         while (iss >> skaicius) {
                             if (skaicius >= 0 && skaicius <= 10) {
-                                M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
+                                x.setRez(skaicius);
                                 //cout<<skaicius<<endl;
                             }
                             if(iss.fail()){ 
@@ -95,10 +95,10 @@ while(true){
                         break;
                     }
 
-                    if(x.tarpinaiRezultatai().size() == 0)
+                    if(x.tarpRezultatai().size() == 0)
                         vektoriausIlgiotikrinimas++;
 
-                    EgzaminoRezultatoGavimas(M, indeksas);
+                    x.EgzaminoRezultatoGavimas(x, indeksas);
                     //is vektoriaus istraukiamas egzamino rez.
                     M.push_back(x);
                     indeksas++;
@@ -124,7 +124,6 @@ while(true){
                 }
 
                 mokinys x;
-                M.push_back(x);
 
                 istringstream iss(eilute);
 
@@ -137,7 +136,7 @@ while(true){
                     while (iss >> skaicius || !iss.eof()) {
                         //Nuskaitomi tik skaiciai 10 sistemoje
                         if (skaicius >= 0 && skaicius <= 10) {
-                            M[indeksas].tarpiniaiRezultatai.push_back(skaicius);
+                            x.setRez(skaicius);
                         }
                         if(iss.fail()){ 
                             err = true;
@@ -149,11 +148,12 @@ while(true){
                     break;
                 }
 
-                if(M[indeksas].tarpiniaiRezultatai.size() == 1)
+                if(x.tarpRezultatai().size() == 1)
                     vektoriausIlgiotikrinimas++;
 
-                EgzaminoRezultatoGavimas(M, indeksas);
+                x.EgzaminoRezultatoGavimas(x, indeksas);
                 //is vektoriaus istraukiamas egzamino rez.
+                M.push_back(x);
                 indeksas++;
             }
             break;
@@ -184,7 +184,6 @@ while(true){
                 }
 
                 mokinys x;
-                M.push_back(x);
 
                 istringstream iss(eilute);
                 //Tikrinama ar vardas sudaromas tik is raidziu naudojant try-catch metoda
@@ -197,11 +196,13 @@ while(true){
                 }
                 
                 //Is anksto nustatoma kiek mokinia tures pazymiu, kad butu galima generuoti atsitiktinius pazymius
-                M[indeksas].tarpiniaiRezultatai.resize(sugeneruotiSk);
+                x.tarpRezultatai().resize(sugeneruotiSk);
                 if(!eilute.empty())
                     GeneruotiPazymius(M, indeksas);
                 //is vektoriaus istraukiamas egzamino rez.
-                EgzaminoRezultatoGavimas(M, indeksas);
+                x.EgzaminoRezultatoGavimas(x, indeksas);
+
+                M.push_back(x);
                 indeksas++;
             }
             break;
@@ -226,13 +227,14 @@ while(true){
             //Is anksto nusprendziamas kiek bus mokiniu ir kiek mokiniai tures pazymiu
             for(int i=0; i<indeksas; i++){
                 mokinys x;
-                M.push_back(x);
 
                 VarduPavardziuGeneravimas(M, i);
-                M[i].tarpiniaiRezultatai.resize(sugeneruotiSk);
+
+                x.tarpRezultatai().resize(sugeneruotiSk);
                 GeneruotiPazymius(M, i);
                 //is vektoriaus istraukiamas egzamino rez.
-                EgzaminoRezultatoGavimas(M, i);
+                x.EgzaminoRezultatoGavimas(x, indeksas);
+                M.push_back(x);
             }
             break;
 
@@ -273,17 +275,16 @@ while(true){
                     istringstream iss(eilute);
 
                     mokinys x;
-                    if (!(iss >> x.vardas >> x.pavarde)) {
-                        cerr << "Failed to read vardas and pavarde from line: " << eilute << endl;
-                        continue;
-                    }
+                    iss >> vardas >> pavarde;
+
+                    x.setVardas(vardas);
+                    x.setPavarde(pavarde);
 
                     while (iss >> skaicius) {
-                        x.tarpiniaiRezultatai.push_back(skaicius);
+                        x.setRez(skaicius);
                     }
 
-                    x.egzaminoRezultatas = x.tarpiniaiRezultatai.back();
-                    x.tarpiniaiRezultatai.pop_back();
+                    x.EgzaminoRezultatoGavimas(x, indeksas);
  
                     M.push_back(x);
                 }
@@ -429,10 +430,10 @@ while(true){
             cout << left << setw(25) <<"Vardas";
             cout << left << setw(30) << "Galutinis (Vid.)" << endl;
             cout << "------------------------------------------------------------" << endl;
-            for(int i=0; i<mokiniuSk; i++){
-                cout << left << setw(25) << M[i].pavarde;
-                cout << left << setw(25) << M[i].vardas;
-                cout << left << setw(30) << fixed << setprecision(2) << M[i].vidurkis << endl;
+            for(const auto& p: M){
+                cout << left << setw(25) << p.pavard();
+                cout << left << setw(25) << p.vard();
+                cout << left << setw(30) << fixed << setprecision(2) << p.vid() << endl;
             } 
         }else if (vidurkioTipas == 2){
             for(int i=0; i<mokiniuSk; i++){
@@ -443,11 +444,11 @@ while(true){
             cout << left << setw(25) <<"Vardas";
             cout << left << setw(30) << "Galutinis (Med.)" << endl;
             cout << string(66, '-') << endl;
-            for(int i=0; i<mokiniuSk; i++){
+            for(const auto& p: M){
                 //Pridedamas egzamino rezultatas i vektoriu prie pazymiu ir surikiuojami skaiciai vektoriuje nuo didziausio iki maziausio
-                cout << left << setw(25) << M[i].pavarde;
-                cout << left << setw(25) << M[i].vardas;
-                cout << left << setw(30) << fixed << setprecision(2) << M[i].mediana << endl;
+                cout << left << setw(25) << p.pavard();
+                cout << left << setw(25) << p.vard();
+                cout << left << setw(30) << fixed << setprecision(2) << p.med() << endl;
             }
         }
     }else if(indeksas != 0 && err == 0 && vektoriausIlgiotikrinimas == 0 && isvedimoPasirinkimas == 2){
@@ -467,10 +468,10 @@ while(true){
                     pazymiuSuma = 0;
                 }
                 Rikiavimas(M, rikiavimoPasirinkimas);
-                for(int i=0; i<mokiniuSk; i++){
-                    fw  << left << setw(25) << M[i].pavarde;
-                    fw  << left << setw(25) << M[i].vardas;
-                    fw  << left << setw(30) << fixed << setprecision(2) << M[i].vidurkis << endl;
+                for(const auto& p: M){
+                    fw  << left << setw(25) << p.pavard();
+                    fw  << left << setw(25) << p.vard();
+                    fw  << left << setw(30) << fixed << setprecision(2) << p.vid() << endl;
                 } 
             }else if (vidurkioTipas == 2){
                 fw  << left << setw(25) <<"Pavarde";
@@ -481,11 +482,11 @@ while(true){
                     MedianosSkaiciavimas(M, galutinis, i);
                 }
                 Rikiavimas(M, rikiavimoPasirinkimas);
-                for(int i=0; i<mokiniuSk; i++){
+                for(const auto& p: M){
                     //Pridedamas egzamino rezultatas i vektoriu prie pazymiu ir surikiuojami skaiciai vektoriuje nuo didziausio iki maziausio
-                    fw  << left << setw(25) << M[i].pavarde;
-                    fw  << left << setw(25) << M[i].vardas;
-                    fw  << left << setw(30) << fixed << setprecision(2) << M[i].mediana << endl;
+                    fw  << left << setw(25) << p.pavard();
+                    fw  << left << setw(25) << p.vard();
+                    fw  << left << setw(30) << fixed << setprecision(2) << p.med() << endl;
                 }
             }
             //cout<<bendras<<endl;
