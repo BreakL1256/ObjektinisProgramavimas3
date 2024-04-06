@@ -17,7 +17,7 @@ while(true){
     int pazSuma = 0, tvarka, l=0;
 
     
-    string eilute, failoPavadinimas;
+    string eilute, failoPavadinimas, pilnasFailoPav;
     int indeksas = 0, pasirinkimas, laisvaEilute = 0, sugeneruotiSk, vektoriausIlgiotikrinimas = 0, isvedimoPasirinkimas, zmoniuSkPasirinkimas = 0, skaicius = 0;
     int dydzioMasyvas[5] = {1000, 10000, 100000, 1000000, 10000000};
     bool err = 0;
@@ -39,9 +39,14 @@ while(true){
 
     switch(pasirinkimas){
         case 1:
+            cout<<"Iveskite faila is kurio noretumete skaityti duomenis\n";
+            cin>>failoPavadinimas;
+
+            pilnasFailoPav = "../" + failoPavadinimas;
+
             // Naudojamas try-catch metodas tikrinti ar pavyko atidaryti skaitymo faila
             try{
-                fr.open("studentai10000.txt", std::ios::in);
+                fr.open(pilnasFailoPav, std::ios::in);
                 //Throwinamas error jei failas nera atidarytas
                 if (!fr.is_open()) {
                     throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
@@ -253,125 +258,125 @@ while(true){
                 }
             }
 
+            int rikiavimoPasirinkimas, vidurkioTipas;
+            cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (3 - vidurkiai, 4 - medianos)\n";
+            //Tikrinama ar skaicius yra int tipo naudojant try-catch blokas
+            try{ 
+                cin>>rikiavimoPasirinkimas;
+                if(!cin.good() || rikiavimoPasirinkimas<3 || rikiavimoPasirinkimas>4) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [3, 4].");
+            }catch(const std::invalid_argument& e){
+                cerr << "KLAIDA:" << e.what() << endl;
+                while(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5){
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    cin>>rikiavimoPasirinkimas;
+                }
+            }
+            try{
+                cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
+                cin>>vidurkioTipas;
+                if(!cin.good() || (vidurkioTipas != 1 && vidurkioTipas != 2) || (rikiavimoPasirinkimas == 3 && vidurkioTipas == 2) || (rikiavimoPasirinkimas == 4 && vidurkioTipas == 1)) 
+                    throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO (PASIRINKTI VIDURKIO SKAICIAVIMO IR RIKIAVIMO TIPAI TURI SUTAPTI).");
+            }catch(const std::invalid_argument& e){
+                cerr << "KLAIDA:" << e.what() << endl;
+                while(!cin.good() || (vidurkioTipas != 1 && vidurkioTipas != 2) || (rikiavimoPasirinkimas == 3 && vidurkioTipas == 2) || (rikiavimoPasirinkimas == 4 && vidurkioTipas == 1)){
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    cin>>vidurkioTipas;
+                }
+            }
+            if(rikiavimoPasirinkimas != 5){
+                cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
+                try{
+                    cin>>tvarka;
+                    if(!cin.good() || tvarka<1 || tvarka>2) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 2].");
+                }catch(const std::exception& e){
+                    cerr << "KLAIDA:" << e.what() << endl;
+                    while(!cin.good() || tvarka<1 || tvarka>2){
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        cout<<"Galite pasirinkti tik skaicius [1, 2]!\n";
+                        cin>>tvarka;
+                    }
+                }
+            }
+
             failoPavadinimas = "../studentu_sarasas_" + to_string(dydzioMasyvas[zmoniuSkPasirinkimas-1]) + ".txt";
 
+            start = std::chrono::high_resolution_clock::now();
 
-                start = std::chrono::high_resolution_clock::now();
+            fr.open(failoPavadinimas);
+            if (!fr.is_open()) {
+                throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
+            }
 
-                fr.open(failoPavadinimas);
-                if (!fr.is_open()) {
-                    throw std::ios_base::failure("FAILAS NERA ATIDARYTAS!");
+            getline(fr, eilute);
+            buffer << fr.rdbuf();
+
+            fr.close();
+
+            while (!buffer.eof()){
+                getline(buffer, eilute);
+                istringstream iss(eilute);
+
+                if (eilute.empty()) break;
+
+                mokinys x;
+                iss >> vardas >> pavarde;
+
+                x.setVardas(vardas);
+                x.setPavarde(pavarde);
+
+                while (iss >> skaicius) {
+                    x.setRez(skaicius);
                 }
 
-                getline(fr, eilute);
-                buffer << fr.rdbuf();
+                x.EgzaminoRezultatoGavimas(x, indeksas);
 
-                fr.close();
+                M.push_back(x);
+            }
 
-                while (!buffer.eof()){
-                    getline(buffer, eilute);
-                    istringstream iss(eilute);
 
-                    if (eilute.empty()) break;
+            end = std::chrono::high_resolution_clock::now();
+            diff1 = end-start; // Skirtumas (s)
+            std::cout << "duomenų nuskaitymas iš failo: "<< diff1.count() << " s\n";
+            
 
-                    mokinys x;
-                    iss >> vardas >> pavarde;
-
-                    x.setVardas(vardas);
-                    x.setPavarde(pavarde);
-
-                    while (iss >> skaicius) {
-                        x.setRez(skaicius);
-                    }
-
-                    x.EgzaminoRezultatoGavimas(x, indeksas);
- 
-                    M.push_back(x);
+            cout<<M.size()<<endl;
+            double galutinis, mediana;
+            if(vidurkioTipas == 1){
+                for(auto& x : M){
+                    l++;
+                    x.VidurkioSkaiciavimas(x, pazSuma, galutinis);
+                    pazSuma = 0;
                 }
-
-
-                end = std::chrono::high_resolution_clock::now();
-                diff1 = end-start; // Skirtumas (s)
-                std::cout << "duomenų nuskaitymas iš failo: "<< diff1.count() << " s\n";
-                
-                int rikiavimoPasirinkimas, vidurkioTipas;
-                cout<<"Pasirinkite kuriuos duomenis noresite rikiuoti (3 - vidurkiai, 4 - medianos)\n";
-                //Tikrinama ar skaicius yra int tipo naudojant try-catch blokas
-                try{ 
-                    cin>>rikiavimoPasirinkimas;
-                    if(!cin.good() || rikiavimoPasirinkimas<3 || rikiavimoPasirinkimas>4) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [3, 4].");
-                }catch(const std::invalid_argument& e){
-                    cerr << "KLAIDA:" << e.what() << endl;
-                    while(!cin.good() || rikiavimoPasirinkimas<1 || rikiavimoPasirinkimas>5){
-                        cin.clear();
-                        cin.ignore(1000, '\n');
-                        cin>>rikiavimoPasirinkimas;
-                    }
+                cout<<l<<endl;
+            }else if(vidurkioTipas == 2){
+                for(auto& x : M){
+                    x.MedianosSkaiciavimas(x, mediana);
                 }
-                try{
-                    cout<<"Pasirinkite kokiu budu noretumete, kad butu suskaiciuotas jus vidurkis (1 = paprastai, 2 = mediana):\n";
-                    cin>>vidurkioTipas;
-                    if(!cin.good() || (vidurkioTipas != 1 && vidurkioTipas != 2) || (rikiavimoPasirinkimas == 3 && vidurkioTipas == 2) || (rikiavimoPasirinkimas == 4 && vidurkioTipas == 1)) 
-                        throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO (PASIRINKTI VIDURKIO SKAICIAVIMO IR RIKIAVIMO TIPAI TURI SUTAPTI).");
-                }catch(const std::invalid_argument& e){
-                    cerr << "KLAIDA:" << e.what() << endl;
-                    while(!cin.good() || (vidurkioTipas != 1 && vidurkioTipas != 2) || (rikiavimoPasirinkimas == 3 && vidurkioTipas == 2) || (rikiavimoPasirinkimas == 4 && vidurkioTipas == 1)){
-                        cin.clear();
-                        cin.ignore(1000, '\n');
-                        cin>>vidurkioTipas;
-                    }
-                }
-                if(rikiavimoPasirinkimas != 5){
-                    cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
-                    try{
-                        cin>>tvarka;
-                        if(!cin.good() || tvarka<1 || tvarka>2) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 2].");
-                    }catch(const std::exception& e){
-                        cerr << "KLAIDA:" << e.what() << endl;
-                        while(!cin.good() || tvarka<1 || tvarka>2){
-                            cin.clear();
-                            cin.ignore(1000, '\n');
-                            cout<<"Galite pasirinkti tik skaicius [1, 2]!\n";
-                            cin>>tvarka;
-                        }
-                    }
-                }
+            }
+            start = std::chrono::high_resolution_clock::now();
+            Rikiavimas(M, rikiavimoPasirinkimas, tvarka);
+            end = std::chrono::high_resolution_clock::now();
+            diff2 = end-start; // Skirtumas (s)
+            std::cout << "Mokiniu rikiavimas: "<< diff2.count() << " s\n";
+            //Paskirsto mokinius i pazangiuosius ir nepazangiuosius
+            start = std::chrono::high_resolution_clock::now();
+            MokiniuSkirstymas(M, N, vidurkioTipas, tvarka);
+            end = std::chrono::high_resolution_clock::now();
+            diff3 = end-start; // Skirtumas (s)
+            std::cout << "Mokiniu skirstymas: "<< diff3.count() << " s\n";
 
-                cout<<M.size()<<endl;
-                double galutinis, mediana;
-                if(vidurkioTipas == 1){
-                    for(auto& x : M){
-                        l++;
-                        x.VidurkioSkaiciavimas(x, pazSuma, galutinis);
-                        pazSuma = 0;
-                    }
-                    cout<<l<<endl;
-                }else if(vidurkioTipas == 2){
-                    for(auto& x : M){
-                        x.MedianosSkaiciavimas(x, mediana);
-                    }
-                }
-                start = std::chrono::high_resolution_clock::now();
-                Rikiavimas(M, rikiavimoPasirinkimas, tvarka);
-                end = std::chrono::high_resolution_clock::now();
-                diff2 = end-start; // Skirtumas (s)
-                std::cout << "Mokiniu rikiavimas: "<< diff2.count() << " s\n";
-                //Paskirsto mokinius i pazangiuosius ir nepazangiuosius
-                start = std::chrono::high_resolution_clock::now();
-                MokiniuSkirstymas(M, N, vidurkioTipas, tvarka);
-                end = std::chrono::high_resolution_clock::now();
-                diff3 = end-start; // Skirtumas (s)
-                std::cout << "Mokiniu skirstymas: "<< diff3.count() << " s\n";
+            diffTotal = diff1 + diff2 + diff3;
+            cout<< "Bendras: " << diffTotal.count() << " s\n";
 
-                diffTotal = diff1 + diff2 + diff3;
-                cout<< "Bendras: " << diffTotal.count() << " s\n";
-
-                //Pazangiuju ir nepazangiuju mokiniu isvedimas i faila
-                //start = std::chrono::high_resolution_clock::now();
-                MokiniuIsvedimas(M, N, vidurkioTipas);
-                //end = std::chrono::high_resolution_clock::now();
-                //diff = end-start; // Skirtumas (s)
-                //std::cout << "Mokinius isvedimas: "<< diff.count() << " s\n";
+            //Pazangiuju ir nepazangiuju mokiniu isvedimas i faila
+            //start = std::chrono::high_resolution_clock::now();
+            MokiniuIsvedimas(M, N, vidurkioTipas);
+            //end = std::chrono::high_resolution_clock::now();
+            //diff = end-start; // Skirtumas (s)
+            //std::cout << "Mokinius isvedimas: "<< diff.count() << " s\n";
 
 
             break;
