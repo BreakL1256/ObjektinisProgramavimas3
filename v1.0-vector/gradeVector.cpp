@@ -22,16 +22,16 @@ while(true){
     int dydzioMasyvas[5] = {1000, 10000, 100000, 1000000, 10000000};
     bool err = 0;
     
-    cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - generuoti faila su mokiniu duomenimis,  6 - baigti darba\n";
+    cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - skirstyti mokinius i dvi grupes,  6 - generuoti pasirinkto dydzio failus, 7 - baigti darba\n";
     try{
         cin>>pasirinkimas;
-        if(!cin.good() || pasirinkimas<1 || pasirinkimas>6) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 6].");
+        if(!cin.good() || pasirinkimas<1 || pasirinkimas>7) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 7].");
     }catch(const std::exception& e){
         cerr << "KLAIDA:" << e.what() << endl;
-        while(!cin.good() || pasirinkimas<1 || pasirinkimas>6){
+        while(!cin.good() || pasirinkimas<1 || pasirinkimas>7){
             cin.clear();
             cin.ignore(1000, '\n');
-            cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - generuoti faila su mokiniu duomenimis,  6 - baigti darba\n";
+            cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - skirstyti mokinius i dvi grupes,  6 - generuoti pasirinkto dydzio failus, 7 - baigti darba\n";
             cin>>pasirinkimas;
         }
     }
@@ -239,8 +239,8 @@ while(true){
 
         case 5:
             
-            //Pasirinkimas kokio dydzio norimas generuoti masyvas
-            cout<<"Pasirinkite kiek noresite, kad butu sugeneruota mokiniu faile (1 - 1000, 2 - 10000, 3 - 100000, 4 - 1000000, 5 - 10000000)\n";
+            //Pasirinkimas kokio dydzio norimas naudoti masyvas
+            cout<<"Pasirinkite koki faila noresite naudoti (1 - 1000, 2 - 10000, 3 - 100000, 4 - 1000000, 5 - 10000000)\n";
             try{
                 cin>>zmoniuSkPasirinkimas;
                 if(!cin.good() || zmoniuSkPasirinkimas < 1 || zmoniuSkPasirinkimas > 5) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 5].");
@@ -255,7 +255,6 @@ while(true){
 
             failoPavadinimas = "../studentu_sarasas_" + to_string(dydzioMasyvas[zmoniuSkPasirinkimas-1]) + ".txt";
 
-            //FailuGeneravimas(failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
 
                 start = std::chrono::high_resolution_clock::now();
 
@@ -377,6 +376,25 @@ while(true){
 
             break;
         case 6:
+            //Pasirinkimas kokio dydzio norimas sugeneruoti masyvas
+            cout<<"Pasirinkite kokio dydzio faila noresite sugeneruoti (1 - 1000, 2 - 10000, 3 - 100000, 4 - 1000000, 5 - 10000000)\n";
+            try{
+                cin>>zmoniuSkPasirinkimas;
+                if(!cin.good() || zmoniuSkPasirinkimas < 1 || zmoniuSkPasirinkimas > 5) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 5].");
+            }catch(const std::invalid_argument& e){
+                cerr << "KLAIDA: " << e.what() << endl;
+                while(!cin.good() || zmoniuSkPasirinkimas < 1 || zmoniuSkPasirinkimas > 5){
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    cin>>zmoniuSkPasirinkimas;
+                }
+            }
+
+            failoPavadinimas = "../studentu_sarasas_" + to_string(dydzioMasyvas[zmoniuSkPasirinkimas-1]) + ".txt";
+
+            FailuGeneravimas(failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
+            continue;
+        case 7:
             return 0;
     }
    

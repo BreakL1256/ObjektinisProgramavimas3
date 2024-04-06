@@ -1,5 +1,5 @@
 
-CXXFLAGS = -O1
+CXXFLAGS = -O3
 
 gradeVector : duomenuGeneravimas.o duomenuSkaiciavimai.o gradeVector.cpp
 	g++ $(CXXFLAGS) -o gradeVector gradeVector.cpp duomenuGeneravimas.o duomenuSkaiciavimai.o 
