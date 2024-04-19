@@ -137,9 +137,15 @@ void mokinys::EgzaminoRezultatoGavimas(mokinys & M, int indeksas){
     }
 }
 
+void mokinys::pazymiai(){
+    cout<<"Pazymiai: ";
+    for(int i : tarpiniaiRezultatai){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+}
+
 zmogus::zmogus(){
-    vardas = "";
-    pavarde = "";
     amzius = 0;
     klase = 0;
 }
@@ -149,8 +155,6 @@ zmogus::~zmogus(){
 }
 
 mokinys::mokinys(){
-    vardas = "";
-    pavarde = "";
     egzaminoRezultatas = 0;
     vidurkis = 0;
     mediana = 0;

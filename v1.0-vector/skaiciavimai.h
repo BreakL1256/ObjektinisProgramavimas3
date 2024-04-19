@@ -30,6 +30,8 @@ class zmogus{
         zmogus(const string& v, const string& p): vardas{v}, pavarde{p}{};
         zmogus(const string& v, const string& p, int a, int k)
         : vardas(v), pavarde(p), amzius(a), klase(k) {}
+        virtual void pazymiai() = 0;
+        ~zmogus();
 };
 
 class mokinys : public zmogus{
@@ -46,6 +48,7 @@ class mokinys : public zmogus{
         mokinys& operator=(mokinys&& m);
         friend istream& operator>>(istream& in, mokinys& m);
         friend ostream& operator<<(ostream& out, const mokinys& m);
+        void pazymiai();
         inline string vard() const { return vardas; }   
         inline string pavard() const { return pavarde; }  
         inline vector<int>& tarpRezultatai() {return tarpiniaiRezultatai; }
