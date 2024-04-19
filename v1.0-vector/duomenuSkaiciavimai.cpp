@@ -144,6 +144,10 @@ zmogus::zmogus(){
     klase = 0;
 }
 
+zmogus::~zmogus(){
+    cout<<"Objektas sunaikintas\n";
+}
+
 mokinys::mokinys(){
     vardas = "";
     pavarde = "";
@@ -222,4 +226,5 @@ ostream& operator<<(ostream& out, const mokinys& m){
 
 mokinys::~mokinys(){
     tarpiniaiRezultatai.clear();
+    cout<<"Objektas sunaikintas\n";
 }
