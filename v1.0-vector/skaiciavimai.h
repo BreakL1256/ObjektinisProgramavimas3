@@ -28,7 +28,9 @@ class mokinys{
         double vidurkis;
         double mediana;
     public: 
-        mokinys(){}
+        mokinys();
+        mokinys(const mokinys& m);
+        mokinys& operator=(const mokinys& m);
         inline string vard() const { return vardas; }   
         inline string pavard() const { return pavarde; }  
         inline vector<int>& tarpRezultatai() {return tarpiniaiRezultatai; }
@@ -47,7 +49,7 @@ class mokinys{
         void VarduSkaitymas(istringstream&, mokinys& ,int , bool&);
         void GeneruotiPazymius(mokinys&, int);
         void VarduPavardziuGeneravimas(mokinys&, int);
-        ~mokinys(){tarpiniaiRezultatai.clear();}
+        ~mokinys();
 };
 
 void MokiniuSkirstymas(vector<mokinys> &, vector<mokinys> &, int, int);

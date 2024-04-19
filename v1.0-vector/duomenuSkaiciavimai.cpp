@@ -136,3 +136,37 @@ void mokinys::EgzaminoRezultatoGavimas(mokinys & M, int indeksas){
         M.tarpiniaiRezultatai.pop_back();
     }
 }
+
+mokinys::mokinys(){
+    vardas = "";
+    pavarde = "";
+    egzaminoRezultatas = 0;
+    vidurkis = 0;
+    mediana = 0;
+}
+
+mokinys::mokinys(const mokinys& m)
+: vardas{m.vardas},
+  pavarde{m.pavarde},
+  tarpiniaiRezultatai{m.tarpiniaiRezultatai},
+  egzaminoRezultatas{m.egzaminoRezultatas},
+  vidurkis{m.vidurkis},
+  mediana{m.vidurkis}
+{
+    cout<<"atlikta objekto kopija naudojant copy constructor\n";
+};
+
+mokinys& mokinys::operator=(const mokinys& m){
+    if (&m == this) return *this;
+    vardas = m.vardas;
+    pavarde = m.pavarde;
+    tarpiniaiRezultatai = m.tarpiniaiRezultatai;
+    vidurkis = m.vidurkis;
+    mediana = m.mediana;
+    return *this;
+};
+
+
+mokinys::~mokinys(){
+    tarpiniaiRezultatai.clear();
+}
