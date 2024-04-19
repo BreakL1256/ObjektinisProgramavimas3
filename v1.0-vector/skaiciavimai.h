@@ -30,7 +30,9 @@ class mokinys{
     public: 
         mokinys();
         mokinys(const mokinys& m);
+        mokinys(mokinys&& m); 
         mokinys& operator=(const mokinys& m);
+        mokinys& operator=(mokinys&& v);
         inline string vard() const { return vardas; }   
         inline string pavard() const { return pavarde; }  
         inline vector<int>& tarpRezultatai() {return tarpiniaiRezultatai; }

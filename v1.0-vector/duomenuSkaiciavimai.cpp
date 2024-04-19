@@ -166,6 +166,17 @@ mokinys& mokinys::operator=(const mokinys& m){
     return *this;
 };
 
+mokinys::mokinys(mokinys&& m)
+: vardas{m.vardas},
+  pavarde{m.pavarde},
+  tarpiniaiRezultatai{m.tarpiniaiRezultatai},
+  egzaminoRezultatas{m.egzaminoRezultatas},
+  vidurkis{m.vidurkis},
+  mediana{m.vidurkis}
+{
+    cout<<"atlikta objekto perrasymas naudojant move constructor\n";
+}; 
+
 
 mokinys::~mokinys(){
     tarpiniaiRezultatai.clear();
