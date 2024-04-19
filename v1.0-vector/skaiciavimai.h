@@ -26,9 +26,12 @@ class zmogus{
         int amzius;
         int klase;
     public:
+        zmogus(const string& v, const string& p, int a, int k)
+        : vardas(v), pavarde(p), amzius(a), klase(k) {}
 
-}
-class mokinys{
+};
+
+class mokinys : public zmogus{
     private:
         vector<int> tarpiniaiRezultatai;
         int egzaminoRezultatas;

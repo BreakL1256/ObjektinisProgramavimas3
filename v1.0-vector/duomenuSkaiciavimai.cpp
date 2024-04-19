@@ -146,12 +146,11 @@ mokinys::mokinys(){
 }
 
 mokinys::mokinys(const mokinys& m)
-: vardas{m.vardas},
-  pavarde{m.pavarde},
+: zmogus{m.vardas, m.pavarde, 0, 0},
   tarpiniaiRezultatai{m.tarpiniaiRezultatai},
   egzaminoRezultatas{m.egzaminoRezultatas},
   vidurkis{m.vidurkis},
-  mediana{m.vidurkis}
+  mediana{m.mediana}
 {
     cout<<"atlikta objekto kopija naudojant copy constructor\n";
 };
