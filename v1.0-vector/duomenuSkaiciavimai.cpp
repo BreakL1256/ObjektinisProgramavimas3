@@ -151,7 +151,7 @@ zmogus::zmogus(){
 }
 
 zmogus::~zmogus(){
-    cout<<"Objektas sunaikintas\n";
+    //cout<<"Objektas sunaikintas\n";
 }
 
 mokinys::mokinys(){
@@ -160,75 +160,74 @@ mokinys::mokinys(){
     mediana = 0;
 }
 
-mokinys::mokinys(const mokinys& m)
-: zmogus{m.vardas, m.pavarde},
-  tarpiniaiRezultatai{m.tarpiniaiRezultatai},
-  egzaminoRezultatas{m.egzaminoRezultatas},
-  vidurkis{m.vidurkis},
-  mediana{m.mediana}
-{
-    cout<<"atlikta objekto kopija naudojant copy constructor\n";
-};
+// mokinys::mokinys(const mokinys& m)
+// : zmogus{m.vardas, m.pavarde},
+//   tarpiniaiRezultatai{m.tarpiniaiRezultatai},
+//   egzaminoRezultatas{m.egzaminoRezultatas},
+//   vidurkis{m.vidurkis},
+//   mediana{m.mediana}
+// {
+//     //cout<<"atlikta objekto kopija naudojant copy constructor\n";
+// };
 
-mokinys::mokinys(mokinys&& m)
-: zmogus{move(m.vardas), move(m.pavarde)},
-  tarpiniaiRezultatai{move(m.tarpiniaiRezultatai)},
-  egzaminoRezultatas{m.egzaminoRezultatas},
-  vidurkis{m.vidurkis},
-  mediana{m.vidurkis}
-{
-    egzaminoRezultatas = 0;
-    m.vidurkis = 0;
-    m.mediana = 0;
-    cout<<"atlikta objekto perrasymas naudojant move constructor\n";
-}; 
+// mokinys::mokinys(mokinys&& m)
+// : zmogus{move(m.vardas), move(m.pavarde)},
+//   tarpiniaiRezultatai{move(m.tarpiniaiRezultatai)},
+//   egzaminoRezultatas{m.egzaminoRezultatas},
+//   vidurkis{m.vidurkis},
+//   mediana{m.vidurkis}
+// {
+//     egzaminoRezultatas = 0;
+//     m.vidurkis = 0;
+//     m.mediana = 0;
+// }; 
 
-mokinys& mokinys::operator=(const mokinys& m){
-    if (&m == this) return *this;
-    vardas = m.vardas;
-    pavarde = m.pavarde;
-    tarpiniaiRezultatai = m.tarpiniaiRezultatai;
-    egzaminoRezultatas = m.egzaminoRezultatas;
-    vidurkis = m.vidurkis;
-    mediana = m.mediana;
-    return *this;
-};
+// mokinys& mokinys::operator=(const mokinys& m){
+//     if (&m == this) return *this;
+//     vardas = m.vardas;
+//     pavarde = m.pavarde;
+//     tarpiniaiRezultatai = m.tarpiniaiRezultatai;
+//     egzaminoRezultatas = m.egzaminoRezultatas;
+//     vidurkis = m.vidurkis;
+//     mediana = m.mediana;
+//     return *this;
+// };
 
-mokinys& mokinys::operator=(mokinys&& m){
-    if (&m == this) return *this;
-    vardas = move(m.vardas);
-    pavarde = move(m.pavarde);
-    tarpiniaiRezultatai = move(m.tarpiniaiRezultatai);
-    egzaminoRezultatas = m.egzaminoRezultatas;
-    vidurkis = m.vidurkis;
-    mediana = m.mediana;
-    m.vidurkis = 0;
-    m.mediana = 0;
-    return *this;
-};
+// mokinys& mokinys::operator=(mokinys&& m){
+//     if (&m == this) return *this;
+//     vardas = move(m.vardas);
+//     pavarde = move(m.pavarde);
+//     tarpiniaiRezultatai = move(m.tarpiniaiRezultatai);
+//     egzaminoRezultatas = m.egzaminoRezultatas;
+//     vidurkis = m.vidurkis;
+//     mediana = m.mediana;
+//     m.vidurkis = 0;
+//     m.mediana = 0;
+//     return *this;
+// };
 
-istream& operator>>(istream& in, mokinys& m){
-    in>>m.vardas>>m.pavarde;
-    int skaic = 0;
-    while(in.good()){
-        in>>skaic;
-        m.tarpiniaiRezultatai.push_back(skaic);
-    }
-    return in;
-};
+// // istream& operator>>(istream& in, mokinys& m){
+// //     in>>m.vardas>>m.pavarde;
+// //     int skaic = 0;
+// //     while(in.good()){
+// //         in>>skaic;
+// //         m.tarpiniaiRezultatai.push_back(skaic);
+// //     }
+// //     return in;
+// // };
 
-ostream& operator<<(ostream& out, const mokinys& m){
-    out<<m.vardas<<" "<<m.pavarde<<endl;
-    out<<"pažymiai: ";
-    for(int i: m.tarpiniaiRezultatai){
-        cout<<i<<" ";
-    }
-    out<<"egzamino rezultatas/vidurkis/mediana: ";
-    out<<m.egzaminoRezultatas<<" "<<m.vidurkis<<" "<<m.mediana<<endl;
-    return out;
-};
+// ostream& operator<<(ostream& out, const mokinys& m){
+//     out<<m.vardas<<" "<<m.pavarde<<endl;
+//     out<<"pažymiai: ";
+//     for(int i: m.tarpiniaiRezultatai){
+//         cout<<i<<" ";
+//     }
+//     out<<"egzamino rezultatas/vidurkis/mediana: ";
+//     out<<m.egzaminoRezultatas<<" "<<m.vidurkis<<" "<<m.mediana<<endl;
+//     return out;
+// };
 
 mokinys::~mokinys(){
-    tarpiniaiRezultatai.clear();
-    cout<<"Objektas sunaikintas\n";
+    //tarpiniaiRezultatai.clear();
+    //cout<<"Objektas sunaikintas\n";
 }

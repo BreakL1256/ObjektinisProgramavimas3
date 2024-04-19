@@ -42,12 +42,12 @@ class mokinys : public zmogus{
         double mediana;
     public: 
         mokinys();
-        mokinys(const mokinys& m);
-        mokinys(mokinys&& m); 
-        mokinys& operator=(const mokinys& m);
-        mokinys& operator=(mokinys&& m);
-        friend istream& operator>>(istream& in, mokinys& m);
-        friend ostream& operator<<(ostream& out, const mokinys& m);
+        // mokinys(const mokinys& m);
+        // mokinys(mokinys&& m); 
+        // mokinys& operator=(const mokinys& m);
+        // mokinys& operator=(mokinys&& m);
+        // //friend istream& operator>>(istream& in, mokinys& m);
+        // friend ostream& operator<<(ostream& out, const mokinys& m);
         void pazymiai();
         inline string vard() const { return vardas; }   
         inline string pavard() const { return pavarde; }  
