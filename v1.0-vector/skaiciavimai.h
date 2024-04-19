@@ -32,7 +32,9 @@ class mokinys{
         mokinys(const mokinys& m);
         mokinys(mokinys&& m); 
         mokinys& operator=(const mokinys& m);
-        mokinys& operator=(mokinys&& v);
+        mokinys& operator=(mokinys&& m);
+        friend istream& operator>>(istream& in, mokinys& m);
+        friend ostream& operator<<(ostream& out, const mokinys& m);
         inline string vard() const { return vardas; }   
         inline string pavard() const { return pavarde; }  
         inline vector<int>& tarpRezultatai() {return tarpiniaiRezultatai; }
