@@ -137,6 +137,13 @@ void mokinys::EgzaminoRezultatoGavimas(mokinys & M, int indeksas){
     }
 }
 
+zmogus::zmogus(){
+    vardas = "";
+    pavarde = "";
+    amzius = 0;
+    klase = 0;
+}
+
 mokinys::mokinys(){
     vardas = "";
     pavarde = "";
@@ -146,7 +153,7 @@ mokinys::mokinys(){
 }
 
 mokinys::mokinys(const mokinys& m)
-: zmogus{m.vardas, m.pavarde, 0, 0},
+: zmogus{m.vardas, m.pavarde},
   tarpiniaiRezultatai{m.tarpiniaiRezultatai},
   egzaminoRezultatas{m.egzaminoRezultatas},
   vidurkis{m.vidurkis},
@@ -156,8 +163,7 @@ mokinys::mokinys(const mokinys& m)
 };
 
 mokinys::mokinys(mokinys&& m)
-: vardas{move(m.vardas)},
-  pavarde{move(m.pavarde)},
+: zmogus{move(m.vardas), move(m.pavarde)},
   tarpiniaiRezultatai{move(m.tarpiniaiRezultatai)},
   egzaminoRezultatas{m.egzaminoRezultatas},
   vidurkis{m.vidurkis},

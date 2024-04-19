@@ -26,9 +26,10 @@ class zmogus{
         int amzius;
         int klase;
     public:
+        zmogus();
+        zmogus(const string& v, const string& p): vardas{v}, pavarde{p}{};
         zmogus(const string& v, const string& p, int a, int k)
         : vardas(v), pavarde(p), amzius(a), klase(k) {}
-
 };
 
 class mokinys : public zmogus{
