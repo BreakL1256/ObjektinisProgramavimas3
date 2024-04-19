@@ -19,10 +19,17 @@
 
 using namespace std;
 
-class mokinys{
-    private:
+class zmogus{
+    protected:
         string vardas;
         string pavarde;
+        int amzius;
+        int klase;
+    public:
+
+}
+class mokinys{
+    private:
         vector<int> tarpiniaiRezultatai;
         int egzaminoRezultatas;
         double vidurkis;
