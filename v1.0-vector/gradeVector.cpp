@@ -22,16 +22,16 @@ while(true){
     int dydzioMasyvas[5] = {1000, 10000, 100000, 1000000, 10000000};
     bool err = 0;
     
-    cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - skirstyti mokinius i dvi grupes,  6 - generuoti pasirinkto dydzio failus, 7 - baigti darba\n";
+    cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - skirstyti mokinius i dvi grupes,  6 - generuoti pasirinkto dydzio failus, 7 - testavimas, 8 - baigti darba\n";
     try{
         cin>>pasirinkimas;
-        if(!cin.good() || pasirinkimas<1 || pasirinkimas>7) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 7].");
+        if(!cin.good() || pasirinkimas<1 || pasirinkimas>8) throw std::invalid_argument("PASIRINKTAS SIMBOLIS NERA (INT) TIPO [1, 8].");
     }catch(const std::exception& e){
         cerr << "KLAIDA:" << e.what() << endl;
-        while(!cin.good() || pasirinkimas<1 || pasirinkimas>7){
+        while(!cin.good() || pasirinkimas<1 || pasirinkimas>8){
             cin.clear();
             cin.ignore(1000, '\n');
-            cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - skirstyti mokinius i dvi grupes,  6 - generuoti pasirinkto dydzio failus, 7 - baigti darba\n";
+            cout<<"Pasirinkite kaip noretumete, kad butu apdorojami jusu ivesti duomenys: 1 - is failo, 2 - ranka, 3 - generuoti pazymius, 4 - generuoti ir pazymius ir studentu vardus, pavardes, 5 - skirstyti mokinius i dvi grupes,  6 - generuoti pasirinkto dydzio failus, 7 - testavimas, 8 - baigti darba\n";
             cin>>pasirinkimas;
         }
     }
@@ -400,6 +400,9 @@ while(true){
             FailuGeneravimas(failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
             continue;
         case 7:
+            testavimas();
+            continue;
+        case 8:
             return 0;
     }
    

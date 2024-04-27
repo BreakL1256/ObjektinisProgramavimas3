@@ -42,16 +42,21 @@ class mokinys : public zmogus{
         double mediana;
     public: 
         mokinys();
-        // mokinys(const mokinys& m);
-        // mokinys(mokinys&& m); 
-        // mokinys& operator=(const mokinys& m);
-        // mokinys& operator=(mokinys&& m);
-        // //friend istream& operator>>(istream& in, mokinys& m);
-        // friend ostream& operator<<(ostream& out, const mokinys& m);
+        mokinys(string vardas_, string pavarde_, initializer_list<int> tarpiniai) 
+        : zmogus{vardas_, pavarde_}, tarpiniaiRezultatai{tarpiniai} 
+        {};
+        mokinys(const mokinys& m);
+        mokinys(mokinys&& m); 
+        mokinys& operator=(const mokinys& m);
+        mokinys& operator=(mokinys&& m);
+        friend istream& operator>>(istream& in, mokinys& m);
+        friend ostream& operator<<(ostream& out, const mokinys& m);
+        friend mokinys operator+(const mokinys& a, const mokinys& b);
         void pazymiai();
         inline string vard() const { return vardas; }   
         inline string pavard() const { return pavarde; }  
         inline vector<int>& tarpRezultatai() {return tarpiniaiRezultatai; }
+        inline vector<int> tarpRezultatai() const {return tarpiniaiRezultatai; }
         inline int egzaminoRezult() const { return egzaminoRezultatas; }
         inline double vid() const { return vidurkis; }
         inline double med() const { return vidurkis; }
@@ -84,5 +89,6 @@ bool DidejimasVidurkis(const mokinys&, const mokinys&);
 bool MazejimasVidurkis(const mokinys&, const mokinys&);
 bool DidejimasMediana(const mokinys&, const mokinys&);
 bool MazejimasMediana(const mokinys&, const mokinys&);
+void testavimas();
 
 #endif
