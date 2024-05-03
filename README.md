@@ -19,22 +19,18 @@
 3. `skaiciavimai.h` - antraščių (header) failas.
 4. `Makefile` - paleidimo failas
 
-### Su list'ais:
-1. `gradeList.cpp` - naudojami vektoriai atlikti skaičiavimus ir kaupti duomenis.
-2. `duomenuGeneravimas.cpp`, `duomenuSkaiciavimai.cpp` - funkcijų failai.
-3. `skaiciavimai.h` - antraščių (header) failas.
-4. `Makefile` - paleidimo failas
-
-### Su dekais:
-1. `gradeDeque.cpp` - naudojami vektoriai atlikti skaičiavimus ir kaupti duomenis.
-2. `duomenuGeneravimas.cpp`, `duomenuSkaiciavimai.cpp` - funkcijų failai.
-3. `skaiciavimai.h` - antraščių (header) failas.
-4. `Makefile` - paleidimo failas
-
 ## Sistemos parametrai:
 CPU - AMD Ryzen 5 6600HS Creator Edition <br /> 
 RAM - 16 GB <br /> 
 SSD - 500 GB <br /> 
+
+## "Rule of five" ir įvesties/išvesties operatorių testavimas:
+![Screenshot 2024-04-27 195334](https://github.com/BreakL1256/ObjektinisProgramavimas2/assets/96627090/693277a0-9091-4f00-a29a-de02449d6a3a)
+### Abstrakčios klasės testavimas:
+![Screenshot 2024-04-27 214351](https://github.com/BreakL1256/ObjektinisProgramavimas2/assets/96627090/c4eb63ce-501c-4891-93ea-6840587ef18c)
+
+## Perdengti metodai:
+Galimas įvedimas ir rankiniu būdu, ir automatiniu, ir nuskaitant iš failo. Duomenys gali būti išvesti kartu ir į failą, ir į ekraną. Išvedimo("<<") ir įvedimo(">>") operatoriai, gali būti kartu naudojami įvedimui/išvedimui ir į ekraną, ir į failą.
 
 ## Tyrimas (klasės ir struktūros): 
 ### Aprašymas
@@ -160,18 +156,6 @@ Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojam
 cd v1.0-vector
 mingw32-make
 gradeVector
-```
-2. Naudojant List'us:
-```
-cd v1.0-list
-mingw32-make
-gradeList
-```
-3. Naudojant Dekus:
-```
-cd v1.0-deque
-mingw32-make
-gradeDeque
 ```
 > [!NOTE]
 > *UI - konsolė, kur pateikiami pasirinkimai kaip norima elgtis su duomenimis*
