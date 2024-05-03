@@ -1,4 +1,4 @@
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
+#define CATCH_CONFIG_MAIN  
 #include "catch2/catch.hpp"
 #include "skaiciavimai.h"
 
@@ -23,22 +23,43 @@ TEST_CASE( "Move constructor", "[MC]" ) {
     for (int i = 0; i < bVec.size(); ++i) {
         REQUIRE_FALSE(bVec[i] == aVec[i]);
     }
-
 }
 
 TEST_CASE( "Copy assignment operator", "[CAO]" ) {
-   
+    mokinys a{"Tom", "Tom", {3, 5, 6}}, b;
+    b = a;
+
+    vector<int> aVec = a.tarpRezultatai();
+    vector<int> bVec = b.tarpRezultatai();
+
+    REQUIRE(a.vard() == b.vard() && a.pavard() == b.pavard() && aVec.size() == bVec.size());
+    for (int i = 0; i < aVec.size(); ++i) {
+        REQUIRE(aVec[i] == bVec[i]);
+    }
+    
 }
 
 TEST_CASE( "Move assignment operator", "[MAO]" ) {
-   
+    mokinys a{"Tom", "Tom", {3, 5, 6}}, b;
+    b = move(a);
+
+    vector<int> aVec = a.tarpRezultatai();
+    vector<int> bVec = b.tarpRezultatai();
+
+    REQUIRE(a.vard() == "" && a.pavard() == "" && a.tarpRezultatai().empty());
+    REQUIRE(b.vard() != a.vard() && b.pavard() != a.pavard() && aVec.size() != bVec.size());
+    for (int i = 0; i < bVec.size(); ++i) {
+        REQUIRE_FALSE(bVec[i] == aVec[i]);
+    }
 }
 
 TEST_CASE( "Ivesties operatorius", "[IO]" ) {
-   
+    mokinys e;
+    REQUIRE(cin>>e);
 }
 
 TEST_CASE( "Isvesties operatorius", "[IO]" ) {
-   
+    mokinys e;
+    REQUIRE(cout<<e);
 }
 
