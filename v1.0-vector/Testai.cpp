@@ -19,6 +19,10 @@ TEST_CASE( "Move constructor", "[MC]" ) {
     vector<int> aVec = a.tarpRezultatai();
     vector<int> bVec = b.tarpRezultatai();
     REQUIRE(a.vard() == "" && a.pavard() == "" && a.tarpRezultatai().empty());
+    REQUIRE(b.vard() != a.vard() && b.pavard() != a.pavard() && aVec.size() != bVec.size());
+    for (int i = 0; i < bVec.size(); ++i) {
+        REQUIRE_FALSE(bVec[i] == aVec[i]);
+    }
 
 }
 
