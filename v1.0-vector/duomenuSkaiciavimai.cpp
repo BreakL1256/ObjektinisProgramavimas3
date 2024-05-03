@@ -181,7 +181,7 @@ mokinys::mokinys(mokinys&& m)
 {
     m.vardas = "";
     m.pavarde = "";
-    fill_n(m.tarpiniaiRezultatai.begin(), m.tarpiniaiRezultatai.size(), 0);
+    m.tarpRezultatai().clear();
     m.egzaminoRezultatas = 0;
     m.vidurkis = 0;
     m.mediana = 0;
@@ -209,7 +209,7 @@ mokinys& mokinys::operator=(mokinys&& m){
     mediana = m.mediana;
     m.vardas = "";
     m.pavarde = "";
-    fill_n(m.tarpiniaiRezultatai.begin(), m.tarpiniaiRezultatai.size(), 0);
+    m.tarpRezultatai().clear();
     m.egzaminoRezultatas = 0;
     m.vidurkis = 0;
     m.mediana = 0;
