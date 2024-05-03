@@ -1,0 +1,99 @@
+\doxysection{skaiciavimai.\+h}
+\hypertarget{skaiciavimai_8h_source}{}\label{skaiciavimai_8h_source}\mbox{\hyperlink{skaiciavimai_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#\ ifndef\ SKAICIAVIMAI\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#\ define\ SKAICIAVIMAI\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <ios>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <windows.h>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classzmogus}{zmogus}}\{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classzmogus_ab79ef7e33cb25ed93458a93f49579d34}{vardas}};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classzmogus_ae57250d8b5eec99e78c5bae3a0ab1856}{pavarde}};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classzmogus_af1fdaf262c691987277667ab44307b89}{amzius}};}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classzmogus_aa53f59c54b4ed2bccbce4f25a83a6d7d}{klase}};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classzmogus_a3cb03824ec8269cf401cbf615e440833}{zmogus}}();}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classzmogus_a377aa173a62e658f30de671beabe8274}{zmogus}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ p):\ \mbox{\hyperlink{classzmogus_ab79ef7e33cb25ed93458a93f49579d34}{vardas}}\{v\},\ \mbox{\hyperlink{classzmogus_ae57250d8b5eec99e78c5bae3a0ab1856}{pavarde}}\{p\}\{\};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classzmogus_a690ac4a791c6ae82abb85d3623224825}{zmogus}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ p,\ \textcolor{keywordtype}{int}\ a,\ \textcolor{keywordtype}{int}\ k)}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classzmogus_ab79ef7e33cb25ed93458a93f49579d34}{vardas}}(v),\ \mbox{\hyperlink{classzmogus_ae57250d8b5eec99e78c5bae3a0ab1856}{pavarde}}(p),\ \mbox{\hyperlink{classzmogus_af1fdaf262c691987277667ab44307b89}{amzius}}(a),\ \mbox{\hyperlink{classzmogus_aa53f59c54b4ed2bccbce4f25a83a6d7d}{klase}}(k)\ \{\}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classzmogus_a37bb15dbebbc393a5814c5214d2b4760}{pazymiai}}()\ =\ 0;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classzmogus_a03d8b774303f436c2d94a8341b0dce3a}{\string~zmogus}}();}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classmokinys}{mokinys}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classzmogus}{zmogus}}\{}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ vector<int>\ tarpiniaiRezultatai;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ egzaminoRezultatas;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ vidurkis;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ mediana;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{public}:\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmokinys_af9d199b0dc0ad3020a800cccf3f08e2a}{mokinys}}();}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmokinys_a8f91a2068262a12d7070ea0937a024ae}{mokinys}}(\textcolor{keywordtype}{string}\ vardas\_,\ \textcolor{keywordtype}{string}\ pavarde\_,\ initializer\_list<int>\ tarpiniai)\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classzmogus}{zmogus}}\{vardas\_,\ pavarde\_\},\ tarpiniaiRezultatai\{tarpiniai\}\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \{\};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmokinys_af9d199b0dc0ad3020a800cccf3f08e2a}{mokinys}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&\ m);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmokinys_af9d199b0dc0ad3020a800cccf3f08e2a}{mokinys}}(\mbox{\hyperlink{classmokinys}{mokinys}}\&\&\ m);\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmokinys}{mokinys}}\&\ \mbox{\hyperlink{classmokinys_a7f0bf22435c9070e8ab28b334df49ad9}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&\ m);}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmokinys}{mokinys}}\&\ \mbox{\hyperlink{classmokinys_a7f0bf22435c9070e8ab28b334df49ad9}{operator=}}(\mbox{\hyperlink{classmokinys}{mokinys}}\&\&\ m);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ istream\&\ \mbox{\hyperlink{classmokinys_aae1db51a8ebe1c3b7e3e6317ab891ad9}{operator>>}}(istream\&\ in,\ \mbox{\hyperlink{classmokinys}{mokinys}}\&\ m);}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ ostream\&\ \mbox{\hyperlink{classmokinys_a3548e516c80567df71c64b8cdfc29915}{operator<<}}(ostream\&\ out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&\ m);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classmokinys}{mokinys}}\ \mbox{\hyperlink{classmokinys_a6fef1effd4abd7b2c846814fb5732c4a}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&\ b);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_ad7fef1523fd2a85d0f716c1296e69dc2}{pazymiai}}();}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classmokinys_a1311b6ffce83a6424de652c4ed6fb872}{vard}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classzmogus_ab79ef7e33cb25ed93458a93f49579d34}{vardas}};\ \}\ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classmokinys_a85416ebe8444ec71f0cb50d45cbbd115}{pavard}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classzmogus_ae57250d8b5eec99e78c5bae3a0ab1856}{pavarde}};\ \}\ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ vector<int>\&\ \mbox{\hyperlink{classmokinys_aade72feb4cd887d778c6bc40274fb553}{tarpRezultatai}}()\ \{\textcolor{keywordflow}{return}\ tarpiniaiRezultatai;\ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ vector<int>\ \mbox{\hyperlink{classmokinys_add681ad5c00d575efbc79ef88aa8883f}{tarpRezultatai}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ tarpiniaiRezultatai;\ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classmokinys_a62781f822516b3e29b3193f10a98e4ab}{egzaminoRezult}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ egzaminoRezultatas;\ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classmokinys_abbc3cc69821b860a8b419d0aefd3f3c4}{vid}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vidurkis;\ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classmokinys_acac3d400b34ea7486009c8732f69d3f6}{med}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vidurkis;\ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_a45826b137259a75eb7df781983c08c47}{setVardas}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ \mbox{\hyperlink{classmokinys_a1311b6ffce83a6424de652c4ed6fb872}{vard}})\{\mbox{\hyperlink{classzmogus_ab79ef7e33cb25ed93458a93f49579d34}{vardas}}\ =\ \mbox{\hyperlink{classmokinys_a1311b6ffce83a6424de652c4ed6fb872}{vard}};\}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_a76fac6df3beaa574d1d0476be8c63dc3}{setPavarde}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ \mbox{\hyperlink{classmokinys_a85416ebe8444ec71f0cb50d45cbbd115}{pavard}})\{\mbox{\hyperlink{classzmogus_ae57250d8b5eec99e78c5bae3a0ab1856}{pavarde}}\ =\ \mbox{\hyperlink{classmokinys_a85416ebe8444ec71f0cb50d45cbbd115}{pavard}};\}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_ac0582757c3215fe4b8c7ee628e90a1a0}{setRez}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ rez)\{tarpiniaiRezultatai.push\_back(rez);\}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_ad31375fada639ae94e1d119ae54dbff1}{setegz}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ egz)\{egzaminoRezultatas\ =\ egz;\}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_a4936bde18f493f468c1823d61db94a7c}{setVidurkis}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\&\ \mbox{\hyperlink{classmokinys_abbc3cc69821b860a8b419d0aefd3f3c4}{vid}})\{vidurkis\ =\ \mbox{\hyperlink{classmokinys_abbc3cc69821b860a8b419d0aefd3f3c4}{vid}};\}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_ae00506a146a392b4dfacc1cb687b85bd}{setMediana}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\&\ \mbox{\hyperlink{classmokinys_acac3d400b34ea7486009c8732f69d3f6}{med}})\{mediana\ =\ \mbox{\hyperlink{classmokinys_acac3d400b34ea7486009c8732f69d3f6}{med}};\}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_a43fbf1f92ef736050706faa52b7441da}{EgzaminoRezultatoGavimas}}(\mbox{\hyperlink{classmokinys}{mokinys}}\ \&,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_a9c4dccc7f5a25bc55000e38c468d6c6e}{VidurkioSkaiciavimas}}(\mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keywordtype}{int}\ ,\ \textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_aa44d2cdfbdb8da7235705d2cc0a5ae4c}{MedianosSkaiciavimas}}(\mbox{\hyperlink{classmokinys}{mokinys}}\&\ ,\ \textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_ac85e359002a0813c2140992bfa3953dd}{VarduSkaitymas}}(istringstream\&,\ \mbox{\hyperlink{classmokinys}{mokinys}}\&\ ,\textcolor{keywordtype}{int}\ ,\ \textcolor{keywordtype}{bool}\&);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_ab41e662096ca6025e124a60f4f833545}{GeneruotiPazymius}}(\mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmokinys_a5fa5d9dc4ae4e73b906a99056b4f8356}{VarduPavardziuGeneravimas}}(\mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmokinys_a2419cfb6f399f08c446507a5ebe330dd}{\string~mokinys}}();}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{skaiciavimai_8h_aa3f668f9cca9e376a385b061ef55a20d}{MokiniuSkirstymas}}(vector<mokinys>\ \&,\ vector<mokinys>\ \&,\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00079\ vector<mokinys>\ \mbox{\hyperlink{skaiciavimai_8h_a39b6b5ca3c3816cb0078d089ccb32b8c}{Rikiavimas}}(vector<mokinys>\ \&,\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ sk\ =\ 0);}
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{skaiciavimai_8h_ae57a1dfbecf6b00a6238f978835e5730}{MokiniuIsvedimas}}(vector<mokinys>\ \&,\ vector<mokinys>\ \&,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{skaiciavimai_8h_a5fb2a387c486b1ece42fd0efa92ec452}{FailuGeneravimas}}(\textcolor{keywordtype}{string},\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{skaiciavimai_8h_a93a028a102ab23b00d211f193a4ddabe}{SudaroTikRaides}}(\textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{skaiciavimai_8h_ad0776232aff7279e74f99d6de9c1d68f}{PalygintiVardus}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&);}
+\DoxyCodeLine{00084\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{skaiciavimai_8h_a4e2d379b962f49b6bf9596e741dc6c6c}{DidejimasVardai}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&);}
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{skaiciavimai_8h_abefc355f28dd1f79abab0c1b2f36c133}{MazejimasVardai}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&);}
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{skaiciavimai_8h_aecbe4105d84d3d873e798cf8c21ee746}{DidejimasPavardes}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&);}
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{skaiciavimai_8h_ad1eaeb72a1d93d79576557a34744cc45}{MazejimasPavardes}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&);}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{skaiciavimai_8h_a84daad5150351afb2cb09ef99b2aadbb}{DidejimasVidurkis}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&);}
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{skaiciavimai_8h_afec53401416b677264fb6222b9f987a7}{MazejimasVidurkis}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&);}
+\DoxyCodeLine{00090\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{skaiciavimai_8h_a3876ce1c80747aebde63cde633e1ae4a}{DidejimasMediana}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&);}
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{skaiciavimai_8h_a40f56afe2a8a7624b9c4220cd785b969}{MazejimasMediana}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmokinys}{mokinys}}\&);}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{skaiciavimai_8h_a31a9b8a9c24e8270b70e3ad8352944a4}{testavimas}}();}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
