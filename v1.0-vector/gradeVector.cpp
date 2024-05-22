@@ -15,6 +15,7 @@ while(true){
     string header, vardas, pavarde;
     stringstream buffer;
     int pazSuma = 0, tvarka, l=0;
+    
 
     
     string eilute, failoPavadinimas, pilnasFailoPav;

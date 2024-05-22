@@ -79,3 +79,9 @@ TEST_CASE( "Isvesties operatorius", "[IO]" ) {
     REQUIRE(cout<<e);
 }
 
+TEST_CASE( "BEt koks testas", "II" ) {
+    int e = 1, b = 2;
+    REQUIRE(e == b);
+}
+
+
