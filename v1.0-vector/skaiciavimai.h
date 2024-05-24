@@ -90,5 +90,6 @@ bool MazejimasVidurkis(const mokinys&, const mokinys&);
 bool DidejimasMediana(const mokinys&, const mokinys&);
 bool MazejimasMediana(const mokinys&, const mokinys&);
 void testavimas();
+void EfektyvumoFunkcija();
 
 #endif

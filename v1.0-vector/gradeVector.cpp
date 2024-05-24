@@ -402,7 +402,7 @@ while(true){
             FailuGeneravimas(failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
             continue;
         case 7:
-            testavimas();
+            EfektyvumoFunkcija();
             continue;
         case 8:
             return 0;
