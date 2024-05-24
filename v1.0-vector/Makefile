@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -O3
+CXXFLAGS = -O3 -std=c++20
 RM = rm -f
 
 # Source files

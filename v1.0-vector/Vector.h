@@ -1,5 +1,5 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef Vector_H
+#define Vector_H
 
 #include <memory>         // Include for std::allocator
 #include <iterator>       // Include for std::reverse_iterator and std::iterator_traits
@@ -14,7 +14,7 @@ namespace my_std {
       private:
         // private members
         T* array;          // Pointer to the dynamic array
-        size_t size_;      // Current number of elements in the vector
+        size_t size_;      // Current number of elements in the Vector
         size_t capacity_;  // Current capacity of the dynamic array
         Allocator alloc;   // Allocator for memory management
       public:
@@ -34,27 +34,27 @@ namespace my_std {
 
 
         // construct/copy/destroy
-        constexpr vector() noexcept(noexcept(Allocator())) : vector(Allocator()) { }
-        constexpr explicit vector(const Allocator&) noexcept;
-        constexpr explicit vector(size_type n, const Allocator& = Allocator());
-        constexpr vector(size_type n, const T& value, const Allocator& = Allocator());
+        constexpr Vector() noexcept(noexcept(Allocator())) : Vector(Allocator()) { }
+        constexpr explicit Vector(const Allocator&) noexcept;
+        constexpr explicit Vector(size_type n, const Allocator& = Allocator());
+        constexpr Vector(size_type n, const T& value, const Allocator& = Allocator());
         template<class InputIt>
-        constexpr vector(InputIt first, InputIt last, const Allocator& = Allocator());
+        constexpr Vector(InputIt first, InputIt last, const Allocator& = Allocator());
         template<std::ranges::input_range R>
-        constexpr vector(std::ranges::from_range_t, R&& rg, const Allocator& = Allocator());
-        constexpr vector(const vector& x);
-        constexpr vector(vector&&) noexcept;
-        constexpr vector(const vector&, const std::type_identity_t<Allocator>&);
-        constexpr vector(vector&&, const std::type_identity_t<Allocator>&);
-        constexpr vector(std::initializer_list<T>, const Allocator& = Allocator());
-        constexpr ~vector();
-        constexpr vector& operator=(const vector& x);
-        constexpr vector& operator=(vector&& x)
+        constexpr Vector(R&& rg, const Allocator& = Allocator());
+        constexpr Vector(const Vector& x);
+        constexpr Vector(Vector&&) noexcept;
+        constexpr Vector(const Vector&, const std::type_identity_t<Allocator>&);
+        constexpr Vector(Vector&&, const std::type_identity_t<Allocator>&);
+        constexpr Vector(std::initializer_list<T>, const Allocator& = Allocator());
+        constexpr ~Vector();
+        constexpr Vector& operator=(const Vector& x);
+        constexpr Vector& operator=(Vector&& x)
             noexcept(
                 std::allocator_traits<Allocator>::propagate_on_container_move_assignment::value ||
                 std::allocator_traits<Allocator>::is_always_equal::value
             );
-        constexpr vector& operator=(std::initializer_list<T>);
+        constexpr Vector& operator=(std::initializer_list<T>);
         template<class InputIt>
         constexpr void assign(InputIt first, InputIt last);
         template<std::ranges::input_range R>
@@ -123,7 +123,7 @@ namespace my_std {
         constexpr iterator insert(const_iterator position, std::initializer_list<T> il);
         constexpr iterator erase(const_iterator position);
         constexpr iterator erase(const_iterator first, const_iterator last);
-        constexpr void     swap(vector&)
+        constexpr void     swap(Vector&)
             noexcept(std::allocator_traits<Allocator>::propagate_on_container_swap::value ||
                 std::allocator_traits<Allocator>::is_always_equal::value);
         constexpr void     clear() noexcept;
@@ -135,7 +135,7 @@ namespace my_std {
 
 //   template<std::ranges::input_range R, class Allocator = std::allocator<std::ranges::range_value_t<R>>>
 //   Vector(std::ranges::from_range_t, R&&, Allocator = Allocator())
-//       -> vector<std::ranges::range_value_t<R>, Allocator>;
+//       -> Vector<std::ranges::range_value_t<R>, Allocator>;
 }
 
 #endif
