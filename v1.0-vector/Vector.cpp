@@ -373,4 +373,155 @@ Vector<T, Allocator>& Vector<T, Allocator>::operator=(Vector&& x) noexcept {
     constexpr typename Vector<T, Allocator>::const_reference Vector<T, Allocator>::back() const {
         return data_[size_ - 1];
     }
+
+    // data access
+    template<class T, class Allocator>
+    constexpr T* Vector<T, Allocator>::data() noexcept {
+        return data_;
+    }
+
+    template<class T, class Allocator>
+    constexpr const T* Vector<T, Allocator>::data() const noexcept {
+        return data_;
+    }
+    // modifiers
+    template<class T, class Allocator>
+    template<class... Args>
+    constexpr typename Vector<T, Allocator>::reference Vector<T, Allocator>::emplace_back(Args&&... args) {
+        if (size_ == capacity_) {
+            reserve(capacity_ == 0 ? 1 : 2 * capacity_);
+        }
+        allocator_.construct(data_ + size_, std::forward<Args>(args)...);
+        ++size_;
+        return back();
+    }
+
+    template<class T, class Allocator>
+    constexpr void Vector<T, Allocator>::push_back(const T& x) {
+        emplace_back(x);
+    }
+
+    template<class T, class Allocator>
+    constexpr void Vector<T, Allocator>::push_back(T&& x) {
+        emplace_back(std::move(x));
+    }
+
+    template<class T, class Allocator>
+    template<std::ranges::input_range R>
+    constexpr void Vector<T, Allocator>::append_range(R&& rg) {
+        for (const auto& element : rg) {
+            push_back(element);
+        }
+    }
+
+    template<class T, class Allocator>
+    constexpr void Vector<T, Allocator>::pop_back() {
+        if (size_ > 0) {
+            allocator_.destroy(data_ + (--size_));
+        }
+    }
+
+    template<class T, class Allocator>
+    template<class... Args>
+    constexpr typename Vector<T, Allocator>::iterator Vector<T, Allocator>::emplace(const_iterator position, Args&&... args) {
+        const auto index = position - begin();
+        if (size_ == capacity_) {
+            reserve(capacity_ == 0 ? 1 : 2 * capacity_);
+        }
+        std::move_backward(data_ + index, data_ + size_, data_ + size_ + 1);
+        allocator_.construct(data_ + index, std::forward<Args>(args)...);
+        ++size_;
+        return begin() + index;
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::iterator Vector<T, Allocator>::insert(const_iterator position, const T& x) {
+        return emplace(position, x);
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::iterator Vector<T, Allocator>::insert(const_iterator position, T&& x) {
+        return emplace(position, std::move(x));
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::iterator Vector<T, Allocator>::insert(const_iterator position, size_type n, const T& x) {
+        const auto index = position - begin();
+        if (n > 0) {
+            if (size_ + n > capacity_) {
+                reserve(size_ + n);
+            }
+            std::move_backward(data_ + index, data_ + size_, data_ + size_ + n);
+            std::fill_n(data_ + index, n, x);
+            size_ += n;
+        }
+        return begin() + index;
+    }
+
+    template<class T, class Allocator>
+    template<class InputIt>
+    constexpr typename Vector<T, Allocator>::iterator Vector<T, Allocator>::insert(const_iterator position, InputIt first, InputIt last) {
+        const auto index = position - begin();
+        const size_type n = std::distance(first, last);
+        if (n > 0) {
+            if (size_ + n > capacity_) {
+                reserve(size_ + n);
+            }
+            std::move_backward(data_ + index, data_ + size_, data_ + size_ + n);
+            std::copy(first, last, data_ + index);
+            size_ += n;
+        }
+        return begin() + index;
+    }
+
+    template<class T, class Allocator>
+    template<std::ranges::input_range R>
+    constexpr typename Vector<T, Allocator>::iterator Vector<T, Allocator>::insert_range(const_iterator position, R&& rg) {
+        return insert(position, std::ranges::begin(rg), std::ranges::end(rg));
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::iterator Vector<T, Allocator>::insert(const_iterator position, std::initializer_list<T> il) {
+        return insert(position, il.begin(), il.end());
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::iterator Vector<T, Allocator>::erase(const_iterator position) {
+        const auto index = position - begin();
+        if (position != end()) {
+            std::move(data_ + index + 1, data_ + size_, data_ + index);
+            allocator_.destroy(data_ + (--size_));
+        }
+        return begin() + index;
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::iterator Vector<T, Allocator>::erase(const_iterator first, const_iterator last) {
+        const auto index = first - begin();
+        const auto count = last - first;
+        if (count > 0) {
+            std::move(data_ + index + count, data_ + size_, data_ + index);
+            std::destroy(data_ + size_ - count, data_ + size_);
+            size_ -= count;
+        }
+        return begin() + index;
+    }
+
+    template<class T, class Allocator>
+    constexpr void Vector<T, Allocator>::swap(Vector& other) noexcept(
+        std::allocator_traits<Allocator>::propagate_on_container_swap::value ||
+        std::allocator_traits<Allocator>::is_always_equal::value) {
+        using std::swap;
+        swap(data_, other.data_);
+        swap(size_, other.size_);
+        swap(capacity_, other.capacity_);
+        swap(allocator_, other.allocator_);
+    }
+
+    template<class T, class Allocator>
+    constexpr void Vector<T, Allocator>::clear() noexcept {
+        while (!empty()) {
+            pop_back();
+        }
+    }
 }; // namespace my_std
