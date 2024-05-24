@@ -10,7 +10,7 @@ using namespace std;
 
 namespace my_std {
   template<class T, class Allocator = std::allocator<T>>
-  class vector {
+  class Vector {
       private:
         // private members
         T* array;          // Pointer to the dynamic array
@@ -25,12 +25,13 @@ namespace my_std {
         using const_pointer          = typename std::allocator_traits<Allocator>::const_pointer;
         using reference              = value_type&;
         using const_reference        = const value_type&;
-        using size_type              = /* implementation-defined */;
-        using difference_type        = /* implementation-defined */;
-        using iterator               = /* implementation-defined */;
-        using const_iterator         = /* implementation-defined */;
+        using size_type              = std::size_t;
+        using difference_type        = std::ptrdiff_t;
+        using iterator               = T*;
+        using const_iterator         = const T*;
         using reverse_iterator       = std::reverse_iterator<iterator>;
         using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
 
         // construct/copy/destroy
         constexpr vector() noexcept(noexcept(Allocator())) : vector(Allocator()) { }
@@ -60,7 +61,7 @@ namespace my_std {
         constexpr void assign_range(R&& rg);
         constexpr void assign(size_type n, const T& u);
         constexpr void assign(std::initializer_list<T>);
-        constexpr allocator_type get_allocator() const noexcept;
+        constexpr allocator_type get_allocator() noexcept;
 
         // iterators
         constexpr iterator               begin() noexcept;
@@ -128,13 +129,13 @@ namespace my_std {
         constexpr void     clear() noexcept;
   };
 
-  template<class InputIt, class Allocator = std::allocator<typename std::iterator_traits<InputIt>::value_type>>
-  vector(InputIt, InputIt, Allocator = Allocator())
-      -> vector<typename std::iterator_traits<InputIt>::value_type, Allocator>;
+//   template<class InputIt, class Allocator = std::allocator<typename std::iterator_traits<InputIt>::value_type>>
+//   Vector(InputIt, InputIt, Allocator = Allocator())
+//       -> Vector<typename std::iterator_traits<InputIt>::value_type, Allocator>;
 
-  template<std::ranges::input_range R, class Allocator = std::allocator<std::ranges::range_value_t<R>>>
-  vector(std::ranges::from_range_t, R&&, Allocator = Allocator())
-      -> vector<std::ranges::range_value_t<R>, Allocator>;
+//   template<std::ranges::input_range R, class Allocator = std::allocator<std::ranges::range_value_t<R>>>
+//   Vector(std::ranges::from_range_t, R&&, Allocator = Allocator())
+//       -> vector<std::ranges::range_value_t<R>, Allocator>;
 }
 
 #endif
