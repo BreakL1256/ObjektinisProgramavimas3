@@ -259,22 +259,22 @@ Vector<T, Allocator>& Vector<T, Allocator>::operator=(Vector&& x) noexcept {
     }
     //capacity
     template<class T, class Allocator>
-    [[nodiscard]] constexpr bool Vector<T, Allocator>::empty() const noexcept {
+    constexpr bool Vector<T, Allocator>::empty() const noexcept {
         return size_ == 0;
     }
 
     template<class T, class Allocator>
-    [[nodiscard]] constexpr typename Vector<T, Allocator>::size_type Vector<T, Allocator>::size() const noexcept {
+    constexpr typename Vector<T, Allocator>::size_type Vector<T, Allocator>::size() const noexcept {
         return size_;
     }
 
     template<class T, class Allocator>
-    [[nodiscard]] constexpr typename Vector<T, Allocator>::size_type Vector<T, Allocator>::max_size() const noexcept {
+    constexpr typename Vector<T, Allocator>::size_type Vector<T, Allocator>::max_size() const noexcept {
         return std::allocator_traits<Allocator>::max_size(allocator_);
     }
 
     template<class T, class Allocator>
-    [[nodiscard]] constexpr typename Vector<T, Allocator>::size_type Vector<T, Allocator>::capacity() const noexcept {
+    constexpr typename Vector<T, Allocator>::size_type Vector<T, Allocator>::capacity() const noexcept {
         return capacity_;
     }
 
@@ -326,5 +326,51 @@ Vector<T, Allocator>& Vector<T, Allocator>::operator=(Vector&& x) noexcept {
             data_ = new_data;
             capacity_ = size_;
         }
+    }
+    // element access
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::reference Vector<T, Allocator>::operator[](size_type n) {
+        return data_[n];
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::const_reference Vector<T, Allocator>::operator[](size_type n) const {
+        return data_[n];
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::const_reference Vector<T, Allocator>::at(size_type n) const {
+        if (n >= size_) {
+            throw std::out_of_range("Vector::at");
+        }
+        return data_[n];
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::reference Vector<T, Allocator>::at(size_type n) {
+        if (n >= size_) {
+            throw std::out_of_range("Vector::at");
+        }
+        return data_[n];
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::reference Vector<T, Allocator>::front() {
+        return data_[0];
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::const_reference Vector<T, Allocator>::front() const {
+        return data_[0];
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::reference Vector<T, Allocator>::back() {
+        return data_[size_ - 1];
+    }
+
+    template<class T, class Allocator>
+    constexpr typename Vector<T, Allocator>::const_reference Vector<T, Allocator>::back() const {
+        return data_[size_ - 1];
     }
 }; // namespace my_std
