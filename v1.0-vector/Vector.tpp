@@ -46,10 +46,10 @@ constexpr Vector<T, Allocator>::Vector(InputIt first, InputIt last, const Alloca
     }
 }
 
-// template<class T, class Allocator>
-// template<std::ranges::input_range R>
-// constexpr Vector<T, Allocator>::Vector(R&& rg, const Allocator& allocator_)
-//     : Vector(std::ranges::begin(rg), std::ranges::end(rg), allocator_) {}
+template<class T, class Allocator>
+template<std::ranges::input_range R>
+constexpr Vector<T, Allocator>::Vector(R&& rg, const Allocator& alloc)
+    : Vector(std::ranges::begin(rg), std::ranges::end(rg), alloc) {}
 
 template<class T, class Allocator>
 constexpr Vector<T, Allocator>::Vector(const Vector& x)
@@ -106,7 +106,7 @@ constexpr Vector<T, Allocator>::Vector(std::initializer_list<T> il, const Alloca
     : Vector(il.begin(), il.end(), alloc) {}
 
 template<class T, class Allocator>
-constexpr Vector<T, Allocator>::~Vector() {
+Vector<T, Allocator>::~Vector() {
     if (data_) {
         for (size_type i = 0; i < size_; ++i) {
             std::allocator_traits<Allocator>::destroy(allocator_, data_ + i);
@@ -172,7 +172,7 @@ constexpr Vector<T, Allocator>& Vector<T, Allocator>::operator=(Vector&& x)
         insert(end(), first, last);
     }
 
-    // Assign elements from the input range specified by rg
+    //Assign elements from the input range specified by rg
     template<class T, class Allocator>
     template<std::ranges::input_range R>
     constexpr void Vector<T, Allocator>::assign_range(R&& rg) {
