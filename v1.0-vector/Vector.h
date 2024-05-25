@@ -137,5 +137,5 @@ namespace my_std {
 //   Vector(std::ranges::from_range_t, R&&, Allocator = Allocator())
 //       -> Vector<std::ranges::range_value_t<R>, Allocator>;
 }
-
+#include "Vector.tpp"
 #endif

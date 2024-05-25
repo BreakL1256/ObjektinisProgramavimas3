@@ -106,7 +106,7 @@ constexpr Vector<T, Allocator>::Vector(std::initializer_list<T> il, const Alloca
     : Vector(il.begin(), il.end(), alloc) {}
 
 template<class T, class Allocator>
-constexpr Vector<T, Allocator>::~Vector() {
+Vector<T, Allocator>::~Vector() {
     if (data_) {
         for (size_type i = 0; i < size_; ++i) {
             std::allocator_traits<Allocator>::destroy(allocator_, data_ + i);
