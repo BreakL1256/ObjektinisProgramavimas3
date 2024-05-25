@@ -250,3 +250,16 @@ void EfektyvumoFunkcija(){
     diff = end-start; // Skirtumas (s)
     std::cout << "Elementų užpildymas užtruko "<<sz<<": "<< diff.count() << " s\n";
 }
+
+void PerskirstymoSkaiciavimas(){
+    unsigned int sz = 100000000, sk1 = 0, sk2 = 0;
+    std::vector<int> v1;
+    Vector<int> v2;
+    for (int i = 1; i <= sz; ++i){
+        v2.push_back(i);
+        v1.push_back(i);
+        if(v2.capacity() == v2.size()) sk2++;
+        if(v1.capacity() == v1.size()) sk1++;
+    }
+    cout<<"vector: "<<sk1<<endl<<"Vector: "<<sk2<<endl;
+}
