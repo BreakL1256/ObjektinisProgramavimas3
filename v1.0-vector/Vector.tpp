@@ -46,10 +46,10 @@ constexpr Vector<T, Allocator>::Vector(InputIt first, InputIt last, const Alloca
     }
 }
 
-template<class T, class Allocator>
-template<std::ranges::input_range R>
-constexpr Vector<T, Allocator>::Vector(std::ranges::from_range_t, R&& rg, const Allocator& alloc)
-    : Vector(std::ranges::begin(rg), std::ranges::end(rg), alloc) {}
+// template<class T, class Allocator>
+// template<std::ranges::input_range R>
+// constexpr Vector<T, Allocator>::Vector(R&& rg, const Allocator& allocator_)
+//     : Vector(std::ranges::begin(rg), std::ranges::end(rg), allocator_) {}
 
 template<class T, class Allocator>
 constexpr Vector<T, Allocator>::Vector(const Vector& x)
@@ -106,7 +106,7 @@ constexpr Vector<T, Allocator>::Vector(std::initializer_list<T> il, const Alloca
     : Vector(il.begin(), il.end(), alloc) {}
 
 template<class T, class Allocator>
-Vector<T, Allocator>::~Vector() {
+constexpr Vector<T, Allocator>::~Vector() {
     if (data_) {
         for (size_type i = 0; i < size_; ++i) {
             std::allocator_traits<Allocator>::destroy(allocator_, data_ + i);
@@ -141,7 +141,10 @@ constexpr Vector<T, Allocator>& Vector<T, Allocator>::operator=(const Vector& x)
 }
 
 template<class T, class Allocator>
-Vector<T, Allocator>& Vector<T, Allocator>::operator=(Vector&& x) noexcept {
+constexpr Vector<T, Allocator>& Vector<T, Allocator>::operator=(Vector&& x)
+    noexcept(
+        std::allocator_traits<Allocator>::propagate_on_container_move_assignment::value ||
+        std::allocator_traits<Allocator>::is_always_equal::value) {
     if (this != &x) {
         clear();
         allocator_ = std::move(x.allocator_);
@@ -172,10 +175,11 @@ Vector<T, Allocator>& Vector<T, Allocator>::operator=(Vector&& x) noexcept {
     // Assign elements from the input range specified by rg
     template<class T, class Allocator>
     template<std::ranges::input_range R>
-    void Vector<T, Allocator>::assign_range(R&& rg) {
+    constexpr void Vector<T, Allocator>::assign_range(R&& rg) {
         clear();
         insert(end(), std::ranges::begin(rg), std::ranges::end(rg));
     }
+
 
     // Assign n copies of u to the vector
     template<class T, class Allocator>
@@ -279,7 +283,7 @@ Vector<T, Allocator>& Vector<T, Allocator>::operator=(Vector&& x) noexcept {
     }
 
     template<class T, class Allocator>
-    void Vector<T, Allocator>::resize(size_type sz) {
+    constexpr void Vector<T, Allocator>::resize(size_type sz) {
         if (sz > capacity_) {
             reserve(sz);
         }

@@ -13,10 +13,10 @@ namespace my_std {
   class Vector {
       private:
         // private members
-        T* array;          // Pointer to the dynamic array
+        T* data_;          // Pointer to the dynamic array
         size_t size_;      // Current number of elements in the Vector
         size_t capacity_;  // Current capacity of the dynamic array
-        Allocator alloc;   // Allocator for memory management
+        Allocator allocator_;   // Allocator for memory management
       public:
         // types
         using value_type             = T;
@@ -41,7 +41,7 @@ namespace my_std {
         template<class InputIt>
         constexpr Vector(InputIt first, InputIt last, const Allocator& = Allocator());
         template<std::ranges::input_range R>
-        constexpr Vector(R&& rg, const Allocator& = Allocator());
+        //constexpr Vector(R&& rg, const Allocator& = Allocator());
         constexpr Vector(const Vector& x);
         constexpr Vector(Vector&&) noexcept;
         constexpr Vector(const Vector&, const std::type_identity_t<Allocator>&);
@@ -138,4 +138,5 @@ namespace my_std {
 //       -> Vector<std::ranges::range_value_t<R>, Allocator>;
 }
 #include "Vector.tpp"
+
 #endif

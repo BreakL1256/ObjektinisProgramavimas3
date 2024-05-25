@@ -1,4 +1,3 @@
-# Compiler and flags
 CXX = g++
 CXXFLAGS = -O3 -std=c++20
 RM = rm -f
@@ -8,6 +7,9 @@ SRCS = gradeVector.cpp duomenuGeneravimas.cpp duomenuSkaiciavimai.cpp
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
+
+# Additional TPP files
+TPP_FILES = Vector.tpp
 
 # Executable
 EXECUTABLE = gradeVector
@@ -19,10 +21,14 @@ all: $(EXECUTABLE)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Compile TPP files into object files
+%.o: %.tpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 # Link object files to generate the executable
-$(EXECUTABLE): $(OBJS)
+$(EXECUTABLE): $(OBJS) $(TPP_FILES:.tpp=.o)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 # Clean rule
 clean:
-	$(RM) $(OBJS) $(EXECUTABLE)
+	$(RM) $(OBJS) $(TPP_FILES:.tpp=.o) $(EXECUTABLE)
