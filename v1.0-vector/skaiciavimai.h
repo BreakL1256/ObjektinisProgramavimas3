@@ -15,7 +15,7 @@
 #include <chrono>
 #include <random>
 #include <windows.h>
-
+#include "Vector.h"
 
 using namespace std;
 

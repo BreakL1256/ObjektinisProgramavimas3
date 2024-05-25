@@ -1,5 +1,4 @@
 #include "skaiciavimai.h"
-#include "Vector.h"
 
 using namespace std;
 //using namespace my_std;

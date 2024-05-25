@@ -1,12 +1,12 @@
 #include "skaiciavimai.h"
-#include "Vector.h"
+
 // #include <string>
 // #include <vector>
 // #include <iostream>
 // #include <sstream>
 
 using namespace std;
-using namespace my_std;
+//using namespace my_std;
 
 void MokiniuIsvedimas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTipas){
     ofstream fout;
@@ -242,7 +242,7 @@ void EfektyvumoFunkcija(){
 
     // Pradėti v2 užpildymo laiko matavimą
     start = std::chrono::high_resolution_clock::now();
-    Vector<int> v2;
+    my_std::Vector<int> v2;
     for (int i = 1; i <= sz; ++i)
     v2.push_back(i);
     // Baigti v2 užpildymo laiko matavimą 
@@ -254,7 +254,7 @@ void EfektyvumoFunkcija(){
 void PerskirstymoSkaiciavimas(){
     unsigned int sz = 100000000, sk1 = 0, sk2 = 0;
     std::vector<int> v1;
-    Vector<int> v2;
+    my_std::Vector<int> v2;
     for (int i = 1; i <= sz; ++i){
         v2.push_back(i);
         v1.push_back(i);
