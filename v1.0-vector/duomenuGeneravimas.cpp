@@ -237,7 +237,7 @@ void EfektyvumoFunkcija() {
     // Baigti v1 užpildymo laiko matavimą
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end - start; // Skirtumas (s)
-    std::cout << "Elementų užpildymas užtruko (Vector)" << sz << ": " << diff.count() << " s\n";
+    std::cout << "Elementų užpildymas užtruko (vector)" << sz << ": " << diff.count() << " s\n";
 
     // Pradėti v2 užpildymo laiko matavimą
     start = std::chrono::high_resolution_clock::now();
@@ -264,5 +264,5 @@ void PerskirstymoSkaiciavimas() {
         if (v2.capacity() == v2.size()) sk2++;
     }
     v2.clear();
-    std::cout << "Vector perkelimai: " << sk1 << std::endl << "Vector perkelimai: " << sk2 << std::endl;
+    std::cout << "vector perkelimai: " << sk1 << std::endl << "Vector perkelimai: " << sk2 << std::endl;
 }
