@@ -35,9 +35,6 @@ CPU - AMD Ryzen 5 6600HS Creator Edition <br />
 RAM - 16 GB <br /> 
 SSD - 500 GB <br /> 
 
-## Unit tests:
-![Testavimas](https://github.com/BreakL1256/ObjektinisProgramavimas2/assets/96627090/daa20803-b002-4b40-b5dd-c4746aa81874)
-
 ## Perdengti metodai:
 Galimas įvedimas ir rankiniu būdu, ir automatiniu, ir nuskaitant iš failo. Duomenys gali būti išvesti kartu ir į failą, ir į ekraną. Išvedimo("<<") ir įvedimo(">>") operatoriai, gali būti kartu naudojami įvedimui/išvedimui ir į ekraną, ir į failą.
 
@@ -76,6 +73,10 @@ Funkcija skirta ištrinti arba specifines reikšmes, arba nustatyta dalį vektor
  | `100000` | 2.978266 s |
  | `1000000` | 14.8306185 s | 
  | `10000000` | 40.42896 s |
+
+ ## Programos veikimas su custom Vector klase:
+ ![image](https://github.com/BreakL1256/ObjektinisProgramavimas3/assets/96627090/a688bcd1-8b02-447a-a9b5-6de82fb85aac)
+ ![image](https://github.com/BreakL1256/ObjektinisProgramavimas3/assets/96627090/b8b694d4-5398-4d85-a7d7-f035804b5da3)
 
 ## Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojamos komandos (naudojamas Makefile):
 1. Naudojant Vektorius:
