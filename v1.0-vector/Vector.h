@@ -294,7 +294,7 @@ public:
     {
         if (size__ < capacity__)
         {
-            resize(size__);
+            capacity__ = size__;
         }
     };
 

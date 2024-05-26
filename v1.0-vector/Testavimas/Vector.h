@@ -294,7 +294,7 @@ public:
     {
         if (size__ < capacity__)
         {
-            resize(size__);
+            capacity__ = size__;
         }
     };
 
@@ -553,22 +553,16 @@ public:
     }
 
     constexpr void swap(Vector& x) noexcept(
-        allocator_traits<Allocator>::propagate_on_container_swap::value ||
-        allocator_traits<Allocator>::is_always_equal::value)
-    {
-        if (this != &x)
-        {
-            if (allocator_traits<Allocator>::propagate_on_container_swap::value || alloc__ == x.alloc__)
-            {
+    std::allocator_traits<Allocator>::propagate_on_container_swap::value ||
+    std::allocator_traits<Allocator>::is_always_equal::value
+    ) {
+        if (this != &x) {
+            if (std::allocator_traits<Allocator>::propagate_on_container_swap::value || alloc__ == x.alloc__) {
                 std::swap(data__, x.data__);
                 std::swap(size__, x.size__);
                 std::swap(capacity__, x.capacity__);
                 std::swap(alloc__, x.alloc__);
-            }
-            else
-            {
-                throw std::runtime_error("Allocator mismatch in Vector::swap");
-            }
+            } 
         }
     }
 
