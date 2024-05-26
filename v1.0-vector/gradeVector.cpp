@@ -1,8 +1,6 @@
 #include "skaiciavimai.h"
-//#include "vectoras.h"
 
 using namespace std;
-//using namespace my_std;
 
 int main()
 {
@@ -404,7 +402,7 @@ while(true){
             FailuGeneravimas(failoPavadinimas, dydzioMasyvas[zmoniuSkPasirinkimas-1]);
             continue;
         case 7:
-            EfektyvumoFunkcija();
+            PerskirstymoSkaiciavimas();
             continue;
         case 8:
             return 0;
