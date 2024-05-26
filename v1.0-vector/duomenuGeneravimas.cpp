@@ -2,14 +2,14 @@
 //#include "Vector.h"
 
 // #include <string>
-// #include <vector>
+// #include <Vector>
 // #include <iostream>
 // #include <sstream>
 
 //using namespace std;
 //using namespace my_std;
 
-void MokiniuIsvedimas(std::vector<mokinys>& M, std::vector<mokinys>& N, int vidurkioTipas) {
+void MokiniuIsvedimas(std::Vector<mokinys>& M, std::Vector<mokinys>& N, int vidurkioTipas) {
     std::ofstream fout;
     try {
         fout.open("../Pazangieji.txt", std::ios::out);
@@ -157,8 +157,8 @@ void testavimas() {
 
         // Copy constructor
         mokinys c{a};
-        std::vector<int> aVec = a.tarpRezultatai();
-        std::vector<int> cVec = c.tarpRezultatai();
+        std::Vector<int> aVec = a.tarpRezultatai();
+        std::Vector<int> cVec = c.tarpRezultatai();
 
         if (a.vard() != c.vard() || a.pavard() != c.pavard() || aVec.size() != cVec.size()) throw std::runtime_error("Copy constructor neveikia tvarkingai!");
 
@@ -174,7 +174,7 @@ void testavimas() {
 
         if (b.vard() != "" || b.pavard() != "" || !b.tarpRezultatai().empty()) throw std::runtime_error("Move constructor neveikia tvarkingai_1!");
 
-        std::vector<int> dVec = d.tarpRezultatai();
+        std::Vector<int> dVec = d.tarpRezultatai();
 
         if (d.vard() != a.vard() || d.pavard() != a.pavard() || aVec.size() != dVec.size()) throw std::runtime_error("Move constructor neveikia tvarkingai_2!");
 
@@ -188,7 +188,7 @@ void testavimas() {
         // copy assignment operator
         b = a;
 
-        std::vector<int> bVec = b.tarpRezultatai();
+        std::Vector<int> bVec = b.tarpRezultatai();
 
         if (a.vard() != b.vard() || a.pavard() != b.pavard() || aVec.size() != bVec.size()) throw std::runtime_error("Copy assignment operator neveikia tvarkingai!");
 
@@ -237,7 +237,7 @@ void EfektyvumoFunkcija() {
     // Baigti v1 užpildymo laiko matavimą
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end - start; // Skirtumas (s)
-    std::cout << "Elementų užpildymas užtruko (vector)" << sz << ": " << diff.count() << " s\n";
+    std::cout << "Elementų užpildymas užtruko (Vector)" << sz << ": " << diff.count() << " s\n";
 
     // Pradėti v2 užpildymo laiko matavimą
     start = std::chrono::high_resolution_clock::now();
@@ -264,5 +264,5 @@ void PerskirstymoSkaiciavimas() {
         if (v2.capacity() == v2.size()) sk2++;
     }
     v2.clear();
-    std::cout << "vector perkelimai: " << sk1 << std::endl << "Vector perkelimai: " << sk2 << std::endl;
+    std::cout << "Vector perkelimai: " << sk1 << std::endl << "Vector perkelimai: " << sk2 << std::endl;
 }

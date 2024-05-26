@@ -9,14 +9,13 @@ int main()
 while(true){
     ifstream fr;
     ofstream fw;
-    vector<mokinys> M, N;
+    Vector<mokinys> M, N;
     std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
     std::chrono::duration<double> diff1, diff2, diff3, diffTotal;
     string header, vardas, pavarde;
     stringstream buffer;
     int pazSuma = 0, tvarka, l=0;
     unsigned int sz = 10, sk1 = 0, sk2 = 0;
-    Vector<int> v2;
 
     
     string eilute, failoPavadinimas, pilnasFailoPav;

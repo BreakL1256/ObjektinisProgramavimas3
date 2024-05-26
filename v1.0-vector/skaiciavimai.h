@@ -5,7 +5,7 @@
 #include <limits>
 #include <iomanip>
 #include <algorithm>
-#include <vector>
+#include <Vector>
 #include <sstream>
 #include <fstream>
 #include <ctime>
@@ -35,7 +35,7 @@ public:
 
 class mokinys : public zmogus {
 private:
-    std::vector<int> tarpiniaiRezultatai;
+    std::Vector<int> tarpiniaiRezultatai;
     int egzaminoRezultatas;
     double vidurkis;
     double mediana;
@@ -54,8 +54,8 @@ public:
     void pazymiai();
     inline std::string vard() const { return vardas; }
     inline std::string pavard() const { return pavarde; }
-    inline std::vector<int>& tarpRezultatai() { return tarpiniaiRezultatai; }
-    inline std::vector<int> tarpRezultatai() const { return tarpiniaiRezultatai; }
+    inline std::Vector<int>& tarpRezultatai() { return tarpiniaiRezultatai; }
+    inline std::Vector<int> tarpRezultatai() const { return tarpiniaiRezultatai; }
     inline int egzaminoRezult() const { return egzaminoRezultatas; }
     inline double vid() const { return vidurkis; }
     inline double med() const { return vidurkis; }
@@ -74,9 +74,9 @@ public:
     ~mokinys();
 };
 
-void MokiniuSkirstymas(std::vector<mokinys>&, std::vector<mokinys>&, int, int);
-std::vector<mokinys> Rikiavimas(std::vector<mokinys>&, int, const int& sk = 0);
-void MokiniuIsvedimas(std::vector<mokinys>&, std::vector<mokinys>&, int);
+void MokiniuSkirstymas(std::Vector<mokinys>&, std::Vector<mokinys>&, int, int);
+std::Vector<mokinys> Rikiavimas(std::Vector<mokinys>&, int, const int& sk = 0);
+void MokiniuIsvedimas(std::Vector<mokinys>&, std::Vector<mokinys>&, int);
 void FailuGeneravimas(std::string, int);
 bool SudaroTikRaides(std::string&);
 bool PalygintiVardus(const std::string&, const std::string&);

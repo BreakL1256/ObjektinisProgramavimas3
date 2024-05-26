@@ -4,7 +4,7 @@ using namespace std;
 
 
 //Mokiniu skirstymas i pazangiuju ir nepazangiuju grupes
-void MokiniuSkirstymas(vector<mokinys> & M, vector<mokinys> & N, int vidurkioTipas, int rikiavimas){
+void MokiniuSkirstymas(Vector<mokinys> & M, Vector<mokinys> & N, int vidurkioTipas, int rikiavimas){
         // auto spot = lower_bound(M.begin(), M.end(), 5.0, [](const mokinys &a, const double b){ return a.vidurkis < b; });
         // N.insert(N.begin(), M.begin(), spot); 
         // M.erase(M.begin(), spot);
@@ -78,7 +78,7 @@ bool MazejimasVidurkis(const mokinys& a, const mokinys& b){return a.vid() > b.vi
 bool DidejimasMediana(const mokinys& a, const mokinys& b){return a.med() < b.med();}
 bool MazejimasMediana(const mokinys& a, const mokinys& b){return a.med() > b.med();}
 
-vector<mokinys> Rikiavimas(vector<mokinys> & M, int rikiavimoPasirinkimas, const int& sk){
+Vector<mokinys> Rikiavimas(Vector<mokinys> & M, int rikiavimoPasirinkimas, const int& sk){
     int tvarka;
     if(rikiavimoPasirinkimas != 5 && sk == 0){
         cout<<"kaip norite rikiuoti(1 - didejimo tvarka, 2 - mazejimo tvarka):\n";
