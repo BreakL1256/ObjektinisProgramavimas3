@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN  
 #include "catch2/catch.hpp"
-#include "skaiciavimai.h"
+//#include "skaiciavimai.h"
 
 TEST_CASE( "Copy constructor", "[CC]" ) {
     mokinys a{"Tom", "Tom", {3, 5, 6}};

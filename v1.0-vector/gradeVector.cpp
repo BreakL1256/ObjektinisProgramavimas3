@@ -1,4 +1,5 @@
 #include "skaiciavimai.h"
+//#include "vectoras.h"
 
 using namespace std;
 //using namespace my_std;
@@ -16,7 +17,8 @@ while(true){
     string header, vardas, pavarde;
     stringstream buffer;
     int pazSuma = 0, tvarka, l=0;
-    
+    unsigned int sz = 10, sk1 = 0, sk2 = 0;
+    Vector<int> v2;
 
     
     string eilute, failoPavadinimas, pilnasFailoPav;
