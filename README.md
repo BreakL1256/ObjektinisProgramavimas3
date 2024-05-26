@@ -63,6 +63,11 @@ Funkcija skirta ištrinti arba specifines reikšmes, arba nustatyta dalį vektor
 | vector | 0.0000791 s | 0.0005638 s | 0.0019324 s | 0.0247602 s | 0.1886815 s |
 | Vector | 0.00003825 s | 0.0003189 s | 0.0018669 s | 0.0222908 s | 0.2328435 s |
 
+## Perskirstymai:
+|Konteineriai| 100000000 |
+| --- | --- |
+| vector | 27 |
+| Vector | 27 |
 
 ## Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojamos komandos (naudojamas Makefile):
 1. Naudojant Vektorius:
