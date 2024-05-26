@@ -67,12 +67,19 @@ Funkcija skirta ištrinti arba specifines reikšmes, arba nustatyta dalį vektor
 | Vector | 27 |
 
 ## Spartos analizė (studentų įrašai):
-#### vector:
- | Failų dydžiai | Programos veikimas |
+### vector:
+ | Failų dydžiai | Programos veikimo laikas |
  | :--- | :---: | 
- | `100000` | 2.978266 s |
- | `1000000` | 14.8306185 s | 
- | `10000000` | 40.42896 s |
+ | `100000` | 0.225129 s |
+ | `1000000` | 2.22867 s | 
+ | `10000000` | 25.14615 s |
+ 
+### Vector:
+ | Failų dydžiai | Programos veikimo laikas |
+ | :--- | :---: | 
+ | `100000` | 0.207378 s |
+ | `1000000` | 2.28044 s | 
+ | `10000000` | 25.0881 s |
 
  ## Programos veikimas su custom Vector klase:
  ![image](https://github.com/BreakL1256/ObjektinisProgramavimas3/assets/96627090/a688bcd1-8b02-447a-a9b5-6de82fb85aac)
