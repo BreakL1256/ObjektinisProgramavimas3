@@ -57,7 +57,7 @@ Funkcija skirta pridėti elementams prie vektoriaus galo. Jei vektoriaus dydis y
 #### erase():
 Funkcija skirta ištrinti arba specifines reikšmes, arba nustatyta dalį vektoriaus. Pirmiausia patikrinama ar specifikuojama pozicija yra vektoriuje. Jei tokia pozicija egzistuoja norima reikšmė yra ištrinama ir visos reikšmės einančios po ištrintos reikšmės yra pastumiamos ir sumažinamas vektoriaus dydis (Gražinamas iteratorius į ištrintą vietą).
 
-Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojamos komandos (naudojamas Makefile):
+## Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojamos komandos (naudojamas Makefile):
 1. Naudojant Vektorius:
 ```
 cd v1.0-vector
