@@ -69,6 +69,14 @@ Funkcija skirta ištrinti arba specifines reikšmes, arba nustatyta dalį vektor
 | vector | 27 |
 | Vector | 27 |
 
+## Spartos analizė (studentų įrašai):
+#### vector:
+ | Failų dydžiai | Programos veikimas |
+ | :--- | :---: | 
+ | `100000` | 2.978266 s |
+ | `1000000` | 14.8306185 s | 
+ | `10000000` | 40.42896 s |
+
 ## Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojamos komandos (naudojamas Makefile):
 1. Naudojant Vektorius:
 ```
