@@ -85,6 +85,9 @@ Funkcija skirta ištrinti arba specifines reikšmes, arba nustatyta dalį vektor
  ![image](https://github.com/BreakL1256/ObjektinisProgramavimas3/assets/96627090/a688bcd1-8b02-447a-a9b5-6de82fb85aac)
  ![image](https://github.com/BreakL1256/ObjektinisProgramavimas3/assets/96627090/b8b694d4-5398-4d85-a7d7-f035804b5da3)
 
+ ## Unit testai (catch2 library):
+ ![image](https://github.com/BreakL1256/ObjektinisProgramavimas3/assets/96627090/267225f1-f6e4-41ff-b75a-2acbee445773)
+
 ## Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojamos komandos (naudojamas Makefile):
 1. Naudojant Vektorius:
 ```
