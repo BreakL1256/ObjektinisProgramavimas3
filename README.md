@@ -88,6 +88,10 @@ Funkcija skirta ištrinti arba specifines reikšmes, arba nustatyta dalį vektor
  ## Unit testai (catch2 library):
  ![image](https://github.com/BreakL1256/ObjektinisProgramavimas3/assets/96627090/267225f1-f6e4-41ff-b75a-2acbee445773)
 
+## Programos diegimas:
+1. nusiklonuokite repositorija
+2. Nueikite į atitinkamą aplankalą ir į konsolę suveskite apačioje aprašytas komandas
+
 ## Sukompiliavimui, paleidziamojo failo sukūrimui ir programos paleidimui naudojamos komandos (naudojamas Makefile):
 1. Naudojant Vektorius:
 ```
@@ -102,3 +106,6 @@ test
 ```
 > [!NOTE]
 > *UI - konsolė, kur pateikiami pasirinkimai kaip norima elgtis su duomenimis*
+
+> [!NOTE]
+> Setup - jei norite parsisiųsti jau sudaryta programą, ExtensionInstaller.exe programa yra pagrindiniame aplankale
